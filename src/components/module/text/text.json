@@ -1,0 +1,19 @@
+{
+  "config": {
+    "textType": 1,
+    "fontSize": 16,
+    "showUnderline": true,
+    "showAlign": "left"
+  },
+  "customStyle": {
+    "backgroundColor": null,
+    "textColor": null,
+    "padding": 0
+  },
+  "datas": {
+    "text": "",
+    "href": "",
+    "value": "",
+    "openType": ""
+  }
+}

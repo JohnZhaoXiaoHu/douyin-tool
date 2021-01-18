@@ -1,0 +1,27 @@
+{
+  "config": {
+    "groupType": 1,
+    "groupHeaderType": 1,
+    "groupScrollType": 1,
+    "listStyle": 1,
+    "fillType": 1,
+    "showPercent": 1,
+    "showType": 1,
+    "showContent": {
+      "name": 1,
+      "buypoint": 0,
+      "price": 1,
+      "sales": 0,
+      "badge": {
+        "visible": 0,
+        "type": 1
+      },
+      "more": 0
+    }
+  },
+  "customStyle": {
+    "padding": 0,
+    "backgroundColor": null
+  },
+  "datas": []
+}

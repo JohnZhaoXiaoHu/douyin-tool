@@ -1,0 +1,26 @@
+{
+  "config": {
+    "hasBegin": 2,
+    "willBegin": 2,
+    "listType": 1,
+    "buttonType": {
+      "type": 1,
+      "text": ""
+    },
+    "hideSellOut": true,
+    "hideEnd": {
+      "visible": true,
+      "type": 1
+    }
+  },
+  "customStyle": {
+    "dateBackgroundColorBegin": null,
+    "dateBackgroundColorEnd": null,
+    "selectedColor": null,
+    "defaultColor": null,
+    "marketingBackgroundColorBegin": null,
+    "marketingBackgroundColorEnd": null,
+    "backgroundColor": null
+  },
+  "datas": []
+}

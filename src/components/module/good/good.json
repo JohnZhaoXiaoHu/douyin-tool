@@ -1,0 +1,27 @@
+{
+  "config": {
+    "originType": 1,
+    "listType": 1,
+    "fillType": 1,
+    "showPercent": 1,
+    "showType": 1,
+    "showContent": {
+      "name": 1,
+      "buypoint": 0,
+      "price": 1,
+      "sales": 0,
+      "badge": {
+        "visible": 0,
+        "type": 1
+      },
+      "more": 0
+    }
+  },
+  "customStyle": {
+    "backgroundColor": "#ffffff",
+    "padding": 0,
+    "borderRadius": 8,
+    "borderColor": "#ffffff"
+  },
+  "datas": []
+}

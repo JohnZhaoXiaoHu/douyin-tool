@@ -1,0 +1,342 @@
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333333;
+  width: 100%;
+}
+
+div {
+  box-sizing: border-box;
+}
+.component-form {
+    padding: 20px;
+}
+.component-form .component-form-list .component-form-line {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 16px;
+}
+.component-form .component-form-list .component-form-line.flex-center {
+  align-items: center !important;
+}
+.component-form .component-form-list .component-form-line .form-label {
+    width: 80px;
+    font-size: 14px;
+    text-align: right;
+}
+.component-form .component-form-list .component-form-line .form-input {
+    margin-left: 16px;
+    flex: 1;
+}
+.component-form .component-form-list .component-form-line .form-input.flex-box {
+  display: flex;
+  align-items: center;
+}
+.component-form .component-form-list .component-form-line .form-input radio:nth-of-type(n+2) {
+    margin-left: 16px;
+}
+.component-form .component-data {
+  margin-top: 20px;
+}
+.component-form .component-data * {
+  font-size: 12px !important;
+}
+.el-cascader-node__label {
+  font-size: 12px !important;
+}
+/*  .el-form-item__label {
+  line-height: 30px !important;
+}
+.el-form-item__content {
+  line-height: 30px !important;
+}
+.el-input__inner {
+  height: 30px !important;
+  line-height: 30px !important;
+} */
+.component-form .component-data > div:nth-of-type(n+2) {
+  margin-top: 16px;
+}
+.component-form .component-data .append-data {
+  background-color: #FFFFFF;
+  box-sizing: 0 0 3px #DDDDDD;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.component-form .component-data .append-data i {
+  color: #409EFF;
+  margin-right: 8px;
+}
+.component-form .component-data .component-data-box {
+  background-color: #FFFFFF;
+  box-sizing: 0 0 3px #DDDDDD;
+  padding: 20px;
+  position: relative;
+}
+.component-form .component-data .component-data-box .remove-data {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  right: -20px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
+.component-form .component-data .component-data-box .remove-data i {
+  font-size: 16px !important;
+}
+.component-form .component-data .component-data-box .component-data-detail {
+  display: flex;
+  align-items: flex-start;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-content {
+  width: 70%;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-thumb {
+  width: 15%;
+  position: relative;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-thumb .component-data-thumb-wrapper {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-thumb .component-data-thumb-wrapper .component-data-thumb-style {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-thumb .component-data-thumb-wrapper .component-data-thumb-style .image-slot {
+  width: 100%;
+  height: 100%;
+  background-color: #DDDDDD;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.component-form .component-data .component-data-box .component-data-detail .component-data-thumb .component-data-thumb-change {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.dialog-body-flex {
+  display: flex;
+  align-items: flex-start;
+  height: 600px;
+}
+.dialog-body-flex .resource-tree-wrapper {
+  width: 20%;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  border-right: 1px #DDDDDD dotted;
+}
+.dialog-body-flex .resource-tree-wrapper .resource-tree {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 0px;
+  left: 0px;
+}
+.dialog-body-flex .resource-list {
+  width: 78%;
+  margin-left: 2%;
+}
+.dialog-body-flex .resource-list .resource-list-box {
+  display: flex;
+  height: 550px;
+  overflow-y: auto;
+  flex-wrap: wrap;
+}
+.dialog-body-flex .resource-list .resource-list-box .resource-list-image {
+  width: 20%;
+  height: 0;
+  padding-bottom: 20%;
+  position: relative;
+}
+.dialog-body-flex .resource-list .resource-list-box .resource-list-image .resource-list-image-item {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  border: 1px dotted #AAAAAA;
+  cursor: pointer;
+}
+.dialog-body-flex .resource-list .resource-list-box .resource-list-image .resource-list-image-item.active {
+  border: 4px solid #409EFF;
+}
+.dialog-body-flex .resource-list .resource-list-pagination {
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+img {
+  display: block;
+}
+/** 商品列表样式 **/
+.good-box-1 .good-item-wrapper {
+  width: 100%;
+  padding: 0 8px 8px 8px;
+}
+.good-box-2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.good-box-3 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.good-box-3 .good-item-wrapper:nth-of-type(3n-2) {
+  width: 100%;
+  padding: 0 8px 8px 8px;
+}
+.good-box-3 .good-item-wrapper:nth-of-type(3n-1) {
+  width: 50%;
+  padding: 0 8px 8px 8px;
+}
+.good-box-3 .good-item-wrapper:nth-of-type(3n) {
+  width: 50%;
+  padding: 0 8px 8px 8px;
+}
+.good-box-4 .good-item-wrapper {
+  width: 100%;
+  padding: 0 8px 8px 8px;
+}
+.good-box-4 .good-item-wrapper .good-item {
+  display: flex;
+  align-items: center;
+}
+.good-box-4 .good-item-wrapper .good-item .good-item-content {
+  flex: 1;
+}
+.good-box-4 .good-item-wrapper .good-item .good-item-image {
+  width: 30%;
+}
+.good-box-4 .good-item-wrapper .good-item .good-item-image.showPercent-2 {
+  padding-bottom: 30%;
+  height: 0;
+}
+.good-box-4 .good-item-wrapper .good-item .good-item-price {
+  padding: 8px 4%;
+}
+.good-box-2 .good-item-wrapper {
+  width: 50%;
+  padding: 0 8px 8px 8px;
+}
+.good-item-wrapper {
+  position: relative;
+}
+.good-item-wrapper .good-badge {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 40px;
+  height: 20px;
+  background-color: #F56C6C;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+  color: white;
+}
+.good-item-wrapper .good-item {
+  width: 100%;
+  background-color: white;
+  position: relative;
+}
+.good-item-wrapper .good-item .show-type {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  right: 0px;
+  bottom: 0px;
+}
+.good-item-wrapper .good-item .show-type i {
+  color: #F56C6C;
+  font-size: 24px;
+}
+.good-item-wrapper .good-item .good-item-image {
+  width: 100%;
+  height: 0;
+  position: relative;
+}
+.good-item-wrapper .good-item .good-item-image.showPercent-1 {
+  padding-bottom: 66.66%;
+}
+.good-item-wrapper .good-item .good-item-image.showPercent-2 {
+  padding-bottom: 100%;
+}
+.good-item-wrapper .good-item .good-item-image .my-image {
+  background: transparent;
+}
+.good-item-wrapper .good-item .good-item-image .my-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.good-item-wrapper .good-item .good-item-image .fillType-1 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 4%;
+}
+.good-item-wrapper .good-item .good-item-image .fillType-2 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.good-item-wrapper .good-item .good-item-name {
+  padding: 8px 4%;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.good-item-wrapper .good-item .good-item-buypoint {
+  padding: 0 4%;
+  color: #DDDDDD;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.good-item-wrapper .good-item .good-item-price {
+  padding: 16px 4%;
+  color: #DD524D;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.good-box-more {
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  color: #AAAAAA;
+}

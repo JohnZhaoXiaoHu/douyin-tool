@@ -1,0 +1,57 @@
+
+/*原：125px*/
+.sidebar{
+    width: 185px;
+    height: 100%;
+    min-height: 400px;
+    background-color: rgb(68, 68, 68);
+
+}
+.company-name{
+    color: #fff;
+    font-size: 14px;
+    width: 28px;
+}
+.g-logo{
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+}
+.sidebar li{
+    display: flex;
+    color: rgb(202, 202, 202);
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: border-color .3s,background-color .3s,color .3s;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+.sidebar li span{
+    display: inline-block;
+    /* width: 38px; */
+}
+.sidebar li:hover{
+    color: rgb(255, 208, 75);
+    background-color: rgb(54, 54, 54);
+}
+.sidebar li:first-child{
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.sidebar li span{
+    display: block;
+    margin-left: 10px;
+}
+.sidebar li i {
+    width: 24px;
+    text-align: center;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.mh-side{
+    color: rgb(255, 208, 75)!important;
+}

@@ -1,0 +1,1758 @@
+<template>
+    <div class="main">
+        <sidebar></sidebar>
+          <!--主体 start-->
+    <div class="main-right">
+        <navbar></navbar>
+        <!--二级导航栏 -->
+        <div class="main-goods">
+            <secnavbar></secnavbar>
+
+            <div class="main-goods-right">
+                <!-- 商品中心内容 -->
+                <div class="goods-card_body"  v-loading="loading">
+            <!--选项卡组件-->
+            <div class="tableViewInfo">
+                <!-- <el-tab-pane :label="'出售中(' + inggoodsone + ')'" name="first"> -->
+                <!-- <el-tab-pane :label="'出售中(' + chuSz + ')'" name="first"> -->
+                    <!--全部-->
+                   <div class="select_pageTitle">
+                       <!-- <router-link to='/goodslist/goodsissue'>
+                             <el-button type="primary" size="small">发布商品</el-button>
+                       </router-link> -->
+                       <!-- <el-button type="warning" size="small">导出</el-button> -->
+                       选品中心
+                   </div>
+
+                   <div class="shuaixuan mh-goods-shuaixuan">
+                       <div class="m-search-box el-row el-row-my-div">
+                           <div class="sx-input">
+                               <label class="el-form-item__label" style="width: 190px;min-width: 128px">商品名称或编码：</label>
+                               <el-input v-model="value0" placeholder="请输入商品的名称"></el-input>
+                           </div>
+
+                           <div>
+                               <label class="el-form-item__label" style="width: 130px;">商品分组：</label>
+                               <el-select v-model="shopgrounpvalue" placeholder="请选择商品">
+                                   <el-option
+                                           v-for="item in shopgrounpnote"
+                                           :key="item.id"
+                                           :label="item.name"
+                                           :value="item.id">
+                                   </el-option>
+                               </el-select>
+                           </div>
+
+                           <div>
+                               <label class="el-form-item__label" style="width: 130px;">商品类型：</label>
+                               <el-select v-model="value2" placeholder="请选择商品类型">
+                                   <el-option
+                                           v-for="item in shopleixing"
+                                           :key="item.value"
+                                           :label="item.label"
+                                           :value="item.value">
+                                   </el-option>
+                               </el-select>
+                           </div>
+                       </div>
+
+                       <!--  一行   -->
+                       <div class="m-search-box el-row el-row-my-div">
+                           <div>
+                               <label class="el-form-item__label" style="width: 190px;min-width: 128px">供应商：</label>
+                               <el-select v-model="value3" placeholder="请选择供应商">
+                                   <el-option
+                                           v-for="item in options"
+                                           :key="item.value"
+                                           :label="item.label"
+                                           :value="item.value">
+                                   </el-option>
+                               </el-select>
+                           </div>
+                           <div>
+                               <label class="el-form-item__label" style="width: 130px;">商品分类：</label>
+                               <el-select v-model="value4" placeholder="请选择商品分类">
+                                   <el-option
+                                        v-for="item in shopcategory"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                    </el-option>
+                               </el-select>
+                           </div>
+
+                       </div>
+                       <div class="m-search-box el-row el-row-my-div">
+                           <div class="goods-sx_xnum">
+                               <label class="el-form-item__label" style="width: 190px;min-width: 128px">总销量：</label>
+                               <div class="input el-input el-input--small">
+                                   <input type="text" autocomplete="off" v-model="value5" class="el-input__inner">
+                                   <span  class="line">-</span>
+                                   <input type="text" autocomplete="off" v-model="value6" class="el-input__inner">
+                               </div>
+                           </div>
+                           <div class="goods-sx_xnum">
+                               <label class="el-form-item__label" style="width: 130px;">价格：</label>
+                               <div class="input el-input el-input--small">
+                                   <input type="text" autocomplete="off" v-model="value7" class="el-input__inner">
+                                   <span  class="line">-</span>
+                                   <input type="text" autocomplete="off" v-model="value8" class="el-input__inner">
+                               </div>
+                           </div>
+
+                           <div>
+                               <label class="el-form-item__label" style="width: 130px;">选品分类：</label>
+                               <el-select v-model="selectType" placeholder="请选择选品分类">
+                                   <el-option
+                                        v-for="item in selectCategory"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.pid">
+                                    </el-option>
+                               </el-select>
+                           </div>
+
+                           <div>
+                               <label class="el-form-item__label" style="width: 130px;">分销：</label>
+                               <el-select v-model="distributionType" placeholder="请选择分销">
+                                   <el-option
+                                        v-for="item in distributionList"
+                                        :key="item.id"
+                                        :label="item.label"
+                                        :value="item.id">
+                                    </el-option>
+                               </el-select>
+                           </div>
+
+                       </div>
+                       <div class="goods-sx-btn">
+                           <button  type="button" class="el-button el-button--primary el-button--small" @click="shopshuaixuan(1,1)"><!----><!----><span>筛选</span></button>
+                           <button  @click="cleardata" type="button" class="el-button el-button--text"><!----><!----><span>清空筛选条件</span></button>
+                       </div>
+
+                   </div>
+
+
+                    <div class="goods_table-all">
+                        <el-table ref="multipleTable" :data="goodslist" tooltip-effect="dark"
+                                border style="width:100%" :default-sort = "{prop: 'date', order: 'descending'}"
+                                @selection-change="goodshandleSelectionChange">     
+                            <el-table-column type="selection" width="50" align="center">
+                            </el-table-column>
+                            <el-table-column  prop="id" abel="商品ID" sortable width="80" align="center">
+                                <!-- <template slot-scope="scope">{{ scope.row.date }}</template>-->
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods"
+                                    label="商品"
+                                    width="300">
+                                <template slot-scope="scope">
+                                    <div class="goods-table" style="width:100%;">
+                                        <img :src="scope.row.imageUrl" alt="" :title="scope.row.name" width="60" height="60" style="cursor: pointer;">
+                                        <ul class="good_table-ul" style="width:120px">
+                                            <li style="display: flex;align-items: center;">
+                                                <span style="width:50px;display: inline-block;">名称:</span> 
+                                                <span style="width: 82%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{scope.row.name}}</span> 
+                                                <i class="el-icon-edit" @click="updateShopPrice(scope.row.id,scope.row.name)" style="cursor: pointer;"></i>
+                                            </li>
+                                            <li>
+                                                <span style="width:40px;">零售价:</span>{{scope.row.skuList[0].priceSupplier}}
+                                                <i class="el-icon-edit" @click="goodspricetan(scope.row.id,scope.$index)"></i>
+                                            </li>
+                                            <li>
+                                                <span style="width:40px;">供货价:</span>{{scope.row.skuList[0].priceSupplierSupply}}
+                                                <!-- <i class="el-icon-edit" @click="gongHuoPrice(scope.row.id,scope.$index)"></i> -->
+                                            </li>
+                                            <li>
+                                                <span style="width:40px;">分销价:</span>{{scope.row.skuList[0].pricePlatform}}
+                                                <i class="el-icon-edit" @click="pingTaiPrice(scope.row.id,scope.$index)"></i>
+                                            </li>
+                                        </ul>
+                                    
+                                    </div>
+                                    <!-- <li><span>供应商:</span><span>{{scope.row.brandId}}</span></li> -->
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="viewnum" label="访问量"  width="90" align="center" show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column prop="inventoryTotal" width="100" label="库存" align="center">
+                                <template slot-scope="scope">
+                                    <div class="sgl_inventoryTotal">
+                                        <span>{{scope.row.inventoryTotal}}</span>
+                                        <!-- <i class="el-icon-edit" style="cursor: pointer;" @click="editkucun(scope.row.id,scope.row.skuList[0].id,scope.row.inventoryTotal,scope.$index)"></i> -->
+                                         <!-- <i class="el-icon-edit" style="cursor: pointer;" @click="editkucun(scope.row.id,scope.$index)"></i>  -->
+                                    </div>
+                                </template>
+                                    show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column prop="saleNum" width="120" label="总销量" show-overflow-tooltip>
+                                 <template slot-scope="scope">
+                                    <div class="">
+                                       <!-- {{scope.row.saleNum}} -->
+                                        <div> 供应商销量: {{scope.row.saleSupplierNum}} </div>
+                                        <div> 平台销量: {{scope.row.salePlatformNum}}  </div>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="supplierName" width="120" label="供应商" align="center" show-overflow-tooltip>
+                            </el-table-column>
+                           
+                            <el-table-column prop="createtime" min-width="135" label="创建时间" align="center" 
+                                    :formatter="dateFormat" show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column prop="createSuserName" label="创建人/审核人" align="center" 
+                                    show-overflow-tooltip>
+                                     <template slot-scope="scope">
+                                        <div class="goods-table">
+                                            <span>{{scope.row.createSuserName}} </span>
+                                            <span v-if="scope.row.checkSuserName != null"> / </span>
+                                            <span> {{scope.row.checkSuserName}}</span>
+                                        </div>
+                                    </template>
+                            </el-table-column>
+                            <el-table-column prop="sort" label="排序">
+                                <template slot-scope="scope">
+                                    <div class="goods-table">
+                                        <span>{{scope.row.sort}}</span>
+                                        <i class="el-icon-edit" style="cursor: pointer;" @click="sortgoodspricetan(scope.row.id,scope.row.sort)"></i>
+                                    </div>
+                                </template>
+                                    show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column prop="sort" label="选品分类" width="150" align="center" >
+                                <template slot-scope="scope">
+                                    <div  class="sgl_inventoryTotal">
+                                        <span>{{scope.row.xpcategoryName}}</span>
+                                        <i class="el-icon-edit" style="cursor: pointer;" @click="editSelectType(scope.$index, scope.row.id,scope.row.sort)"></i>
+                                    </div>
+                                </template>
+                                    show-overflow-tooltip>
+                            </el-table-column>
+
+                            <el-table-column prop="handle" label="操作" min-width="140">
+                                    show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <div style="display: flex;">
+                                         <div>
+                                            <el-button type="text" size="small" @click="editgoodspage(scope.row.id)">编辑商品</el-button>
+                                            <!-- <el-button type="text" size="small" @click="tuiguangMeth(scope.row.id)">推广链接</el-button> -->
+                                            <!-- <el-button @click="delectgoods(scope.row.id)" type="text" size="small">删除商品</el-button> -->
+                                            <!-- <el-button  @click="dialogFormFUgou = true" type="text" size="small">复购</el-button> -->
+                                            <!-- <el-button @click="copygoods(scope.row.id)" type="text" size="small">复制商品</el-button> -->
+                                            <el-button v-if="scope.row.distribute==null" style="margin-left: 0px;" type="text" size="small"   @click="distributeClick(scope.$index, scope.row.id,1)">分销</el-button>
+                                            <el-button v-else-if="scope.row.distribute==0" style="margin-left: 0px;" type="text" size="small" @click="distributeClick(scope.$index, scope.row.id,1)">分销</el-button>
+                                            <el-button v-else-if="scope.row.distribute==1" style="margin-left: 0px;" type="text" size="small" @click="distributeClick(scope.$index, scope.row.id,2)">取消分销</el-button>
+                                            <el-button v-else-if="scope.row.distribute==2" style="margin-left: 0px;" type="text" size="small" @click="distributeClick(scope.$index, scope.row.id,2)">取消分销</el-button>
+                                        </div>
+                                        <!-- -1下架，1上架，2审核中，0加入仓库中 -->
+                                        <div>
+                                            <div v-if="scope.row.isIssue==-1 || scope.row.isIssue==2">
+                                                <el-button style="margin-left: 10px;" type="text" size="small" @click="goodsStateClick(scope.$index, scope.row.id, 1)">立即上架</el-button>
+                                                <el-button style="margin-left: 10px;" type="text" size="small" @click="goodsStateClick(scope.$index, scope.row.id, 3)">加入仓库</el-button>
+                                            </div>
+                                            <div v-else-if="scope.row.isIssue==0 || scope.row.isIssue==1">
+                                                <el-button style="margin-left: 10px;" type="text" size="small" disabled @click="goodsStateClick(scope.$index, scope.row.id, 1)">立即上架</el-button>
+                                                <el-button style="margin-left: 10px;" type="text" size="small" disabled @click="goodsStateClick(scope.row.id)">加入仓库</el-button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </template>
+                            </el-table-column>   
+                        </el-table>
+                    </div>
+
+                    <div class="el-row goods_list_dibu" style="display:flex;justify-content: flex-end;">
+                        <div class="goods_list_dibu-onediv">
+                            <!-- <button type="button" class="el-button el-button--default el-button--small"><span>全选</span></button> -->
+                            <!-- <button type="button" class="el-button el-button--default el-button--small"><span>取消全选</span></button> -->
+                            <!-- <button type="button" @click="editgoodsGrounp" class="el-button el-button--default el-button--small"><span>改分组</span></button> -->
+                            <button type="button" @click="goodsStateClick('', '', 2)" class="el-button el-button--default el-button--small"><span>立即上架</span></button>
+                            <button type="button" @click="goodsStateClick('', '', 4)" class="el-button el-button--default el-button--small"><span>加入仓库</span></button>
+                            <button type="button" @click="editcategoryevent"  class="el-button el-button--default el-button--small"><span>设置分类</span></button>
+                            <button type="button" @click="distributeClick('', '', 1)" class="el-button el-button--default el-button--small"><span>分销</span></button>
+                            
+                            <!-- more_distributionGoods、more_upGoods、more_addWarehouse -->
+                            <!-- <button type="button"  @click="editUpissue" class="el-button el-button--default el-button--small"><span>下架</span></button> -->
+                            <!-- <button type="button" class="el-button el-button--default el-button--small"><span>删除</span></button> -->
+                            <!-- <button type="button" class="el-button el-button--default el-button--small"><span>更多</span></button> -->
+                        </div>
+                        <div class="goods_list_dibu-twodiv cssbilie1">
+                            <!-- small sizes-->
+                            <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page="currentPage4"
+                                    :page-sizes="[100, 200, 300, 400]"
+                                    :page-size="20"
+                                    layout="total, prev, pager, next, jumper"
+                                    :total="totalCountone">
+                            </el-pagination>
+                        </div>
+                    </div>
+                    <!-- table over-->
+                    <div  class="goods-footer"><p  class="copyright">Copyright 蜜獾出品</p></div>
+                    <!-- 全部over -->
+                <!-- </el-tab-pane> -->
+                </div>
+
+            
+                <!--弹窗：商品名字 -->
+                <el-dialog title="修改商品排序" :visible.sync="sortgoodseditpriceValue" width="33%">
+                    <div class="mh-goodslist-pricetan">
+                        <span class="mh-goodslist-pricetan_span">商品排序:</span>
+                        <div class="mh-goodslist-pricetan_div">
+                                <el-input v-model="sortmhgoodsname" type="number"></el-input>
+                        </div>                 
+                    </div>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="sortgoodseditpriceValue = false">取 消</el-button>
+                        <el-button type="primary" @click="okShopsort">确 定</el-button>
+                    </span>
+                </el-dialog>
+
+                <!--弹窗：商品名字 -->
+                <el-dialog title="修改商品名" :visible.sync="goodseditpriceValue">
+                        <div class="mh-goodslist-pricetan">
+                            <span class="mh-goodslist-pricetan_span">商品名:</span>
+                            <div class="mh-goodslist-pricetan_div">
+                                    <el-input v-model="mhgoodsname" placeholder="请输入商品名称"></el-input>
+                            </div>                 
+                        </div>
+                        <span slot="footer" class="dialog-footer">
+                            <el-button @click="goodseditpriceValue = false">取 消</el-button>
+                            <el-button type="primary" @click="okupdateShopPrice">确 定</el-button>
+                        </span>
+                </el-dialog>
+
+
+                <!-- over -->
+                <!--弹窗：修改价格-->
+                <el-dialog title="修改价格" :visible.sync="editpriceValue" width="40%">
+                       <div class="mh-goodslist-pricetan_div" style="width:100%!important;" v-if="goodsallpricearr[goodsindexpriceid].skuList[0].pvlist.length">
+                             <ul class="mh-guige-ul">
+                                 <li>规格</li>
+                                 <li>价格(元)</li>
+                             </ul>
+                        </div>     
+                    <div class="mh-goodslist-pricetan"   v-for="(itemprice,indexprice) of goodsallpricearr[goodsindexpriceid].skuList" :key="indexprice" style="margin-bottom:18px">
+                        <span class="mh-goodslist-pricetan_span" style="max-width:200px!important;text-align: center;border: 1px solid #eee;height:35px;line-height:35px" v-if="goodsallpricearr[goodsindexpriceid].skuList[0].pvlist.length > 0"
+                            v-for="(sonitemprice,sonitempriceindex) of itemprice.pvlist">
+                            {{sonitemprice[0]}} : {{sonitemprice[1]}}
+                            <!-- {{itemprice.pvlist[0][0]}} : {{itemprice.pvlist[0][1]}} -->
+                            </span>
+                        <span class="mh-goodslist-pricetan_span" v-if="goodsallpricearr[goodsindexpriceid].skuList[0].pvlist.length < 1">商品价格:</span>
+                        <div class="mh-goodslist-pricetan_div">
+                            <el-input v-if="editPriceType==1"      v-model="itemprice.priceSupplier"   placeholder="请输入零售价格"></el-input>
+                            <el-input v-else-if="editPriceType==2" v-model="itemprice.priceSupplierSupply"   placeholder="请输入供货价格"></el-input>
+                            <el-input v-else-if="editPriceType==3" v-model="itemprice.pricePlatform" placeholder="请输入分销价格"></el-input>
+                        </div>                  
+                    </div> 
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="editpriceValue = false">取 消</el-button>
+                        <el-button type="primary" @click="editshopprice">确 定</el-button>
+                    </span>
+                </el-dialog> 
+
+                <!--弹窗：修改库存-->
+                <el-dialog title="修改库存" :visible.sync="kugoodseditpriceValue" width="40%">
+                       <div class="mh-goodslist-pricetan_div" style="width:100%!important;" v-if="goodsallpricearr[kucunindex].skuList[0].pvlist.length">
+                             <ul class="mh-guige-ul">
+                                 <li>规格</li>
+                                 <li>库存(件)</li>
+                             </ul>
+                        </div>     
+                    <div class="mh-goodslist-pricetan"   v-for="(itemprice,indexprice) of goodsallpricearr[kucunindex].skuList" :key="indexprice" style="margin-bottom:18px">
+                        <!-- <span class="mh-goodslist-pricetan_span" style="width:200px!important" v-if="goodsallpricearr[kucunindex].skuList[0].pvlist.length > 0">{{itemprice.pvlist[0][0]}} : {{itemprice.pvlist[0][1]}}</span> -->
+                        <span class="mh-goodslist-pricetan_span" style="max-width:200px!important;text-align: center;border: 1px solid #eee;height:35px;line-height:35px" v-if="goodsallpricearr[kucunindex].skuList[0].pvlist.length > 0"
+                            v-for="(sonitemprice,sonitempriceindex) of itemprice.pvlist"
+                            >
+                            {{sonitemprice[0]}} : {{sonitemprice[1]}}
+                            <!-- {{goodsallpricearr[kucunindex].skuList}} -->
+                            <!-- {{sonitemprice}} -->
+                            <!-- {{itemprice.pvlist[0][0]}} : {{itemprice.pvlist[0][1]}} -->
+                            </span>
+                        <span class="mh-goodslist-pricetan_span" v-if="goodsallpricearr[kucunindex].skuList[0].pvlist.length < 1">商品库存:</span>
+                        <div class="mh-goodslist-pricetan_div">
+                                <el-input v-model="itemprice.inventoryTotal" type="number" placeholder="请输入库存"></el-input>
+                        </div>                  
+                    </div> 
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="kugoodseditpriceValue = false">取 消</el-button>
+                        <el-button type="primary" @click="okkucun">确 定</el-button>
+                    </span>
+                </el-dialog> 
+               
+                <!--弹窗：修改分类  v-for="item in shopcategory"-->
+                <el-dialog title="修改分类" :visible.sync="scategorygoodsValue" width="30%">
+                    <div class="mh-goodslist-pricetan">
+                        <span class="mh-goodslist-pricetan_span">修改分类:</span>
+                        <div class="mh-goodslist-pricetan_div">
+                                  <el-select v-model="catevalue" multiple collapse-tags placeholder="请选择">
+                                    <el-option
+                                        v-for="item in selectCategory"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                    </el-option>
+                                    </el-select>
+                        </div>                 
+                    </div>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="scategorygoodsValue = false">取 消</el-button>
+                        <el-button type="primary" @click="okcategorymethod">确 定</el-button>
+                    </span>
+                </el-dialog> 
+
+                <!--弹窗：设置选品分类 -->
+                <el-dialog title="设置选品分类" :visible.sync="setSelectTypeDialog" width="500px">
+                        <div class="mh-goodslist-pricetan">
+                            <span class="mh-goodslist-pricetan_span">选品分类:</span>
+                            <div class="mh-goodslist-pricetan_div">
+                                <!-- <el-input v-model="mhgoodsname" placeholder="请选择选品分类"></el-input> -->
+                                <el-select v-model="setSelectType" placeholder="请选择选品分类">
+                                    <el-option v-for="item in selectCategory"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </div>                 
+                        </div>
+                        <span slot="footer" class="dialog-footer">
+                            <el-button @click="setSelectTypeDialog = false">取 消</el-button>
+                            <el-button type="primary" @click="request_setSelectType">确 定</el-button>
+                        </span>
+                </el-dialog>
+
+                <!--弹窗：修改分组 -->
+                <el-dialog title="修改分组" :visible.sync="grounpgoodsvalue" width="30%">
+                    <div class="mh-goodslist-pricetan">
+                        <span class="mh-goodslist-pricetan_span">修改分组:</span>
+                        <div class="mh-goodslist-pricetan_div">
+                            <el-select v-model="shopgrounpvalueArr"  multiple collapse-tags placeholder="请选择商品">
+                                <el-option
+                                        v-for="item in shopgrounpnote"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </div>                 
+                    </div>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="grounpgoodsvalue = false">取 消</el-button>
+                        <el-button type="primary" @click="ordergrounpgoodsMethod">确 定</el-button>
+                    </span>
+                </el-dialog> 
+
+                <!--商品推广弹窗-->
+                <el-dialog title="推广链接" :visible.sync="dialogFormVisible1">
+                    <el-tabs type="card">
+                        <!-- <el-tab-pane label="微信公众号">
+                            <div class="shop_dialog">
+                                <span class="shop_dialog_tit">商品推广</span>
+                                <div>
+                                    <el-input placeholder="请输入内容" v-model="shop_lisk_input" :disabled="true"  ></el-input>
+                                    <button v-clipboard:copy="catelink" v-clipboard:success="onCopy"  type="button" class="el-button el-button--primary"><span>复制</span></button>
+                                </div>
+                            </div>
+                            <div class="shop_dialog_erweima">
+                                <span class="shop_dialog_tit">二维码</span>
+                                <div>
+                                    <img width="120" height="120" src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/er.png">
+                                   <a class="shop_dialog_code_a" download="商品推广">下载二维码</a> -->
+                                <!-- </div>
+                            </div>
+                            <div class="el-dialog__footer">
+                                <button  @click="dialogFormVisible1 = false" type="button" class="el-button el-button--default"><span>确 认</span></button>
+                            </div>
+                        </el-tab-pane>  -->
+
+                        <el-tab-pane label="微信小程序">
+                            <div class="shop_dialog">
+                                <span class="shop_dialog_tit">商品推广</span>
+                                <div>
+                                    <el-input placeholder="请输入内容" v-model="shop_lisk_input" :disabled="true"  ></el-input>
+                                    <button v-clipboard:copy="catelink" v-clipboard:success="onCopy"  type="button" class="el-button el-button--primary"><span>复制</span></button>
+                                </div>
+                            </div>
+                            <div class="shop_dialog_erweima">
+                                <span class="shop_dialog_tit">二维码</span>
+                                <div>
+                                    <img width="120" height="120"  :src="sharercode">
+                                    <a class="shop_dialog_code_a btn btn-default" id="down_qrcode" download="商品推广"  :href="downimg">下载二维码</a>
+                                    <!-- <a class="shop_dialog_code_a btn btn-default" download="商品推广">下载二维码</a> -->
+                                </div>
+                            </div>
+                            <div class="el-dialog__footer">
+                                <button @click="dialogFormVisible1 = false"  type="button" class="el-button el-button--default"><span>确 认</span></button>
+                            </div>
+                        </el-tab-pane>
+                    </el-tabs>
+                </el-dialog>
+            
+                <!-- <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>-->
+                <!--商品推广弹窗over-->
+
+                <!--复购弹窗start-->
+                <el-dialog title="商品复购" :visible.sync="dialogFormFUgou" width="880px" custom-class="shop_daogou_z">
+                        <form action="" class="goods_el-form">
+                            <p class="">商品复购价：</p>
+                            <div>
+                                <label class="el-form-item__label" style="width: 176px;">商品复购价：</label>
+                                <div class="shop_buy_price">
+                                    <div class="shop_buy_price_div">
+                                        <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>编辑会员等级价格</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one">
+                                        <li>
+                                            <span>省级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="">推客：</p>
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">直系上级能拿到的佣金:</label>
+                                <div class="shop_buy_tuike-parent">
+                                    <div class="shop_buy_tuike_div">
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-span">元或</span>
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-baispan">%</span>
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>省级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">二级上级能拿到的佣金:</label>
+                                <div class="shop_buy_tuike-parent">
+                                    <div class="shop_buy_tuike_div">
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-span">元或</span>
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-baispan">%</span>
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>黄金推客</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>高级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner el-input--small">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">三级上级能拿到的佣金:</label>
+                                <div class="shop_buy_tuike-parent">
+                                    <div class="shop_buy_tuike_div">
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-span">元或</span>
+                                        <input type="number" autocomplete="off" maxlength="10" class="el-input__inner">
+                                        <span class="shop_buy_tuike-baispan">%</span>
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>黄金推客</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>高级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner el-input--small">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">是否返佣:</label>
+
+                                <div   class="el-radio-group shop_buy_tuike_three">
+                                    <div class="shop_buy_tuike_three_div">
+                                        <el-radio v-model="radio" label="1">开启</el-radio>
+                                        <el-radio v-model="radio" label="2">关闭</el-radio>
+                                    </div>
+                                    <p class="go-form-p-note">关闭后，将不参与返佣</p>
+                                </div>
+                            </div>
+                            <!--渠道商设置返佣                    -->
+                            <p class="">渠道商：</p>
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">渠道商返佣类型:</label>
+                                <div class="shop_buy_tuike-parent tuike-pading">
+                                    <div class="shop_buy_tuike_div">
+                                        <el-radio v-model="radio" label="1">按渠道商差价返佣</el-radio>
+                                        <el-radio v-model="radio" label="2">按渠道商佣金金额或比列返佣</el-radio>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>省级店主：</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>县级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner el-input--small">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+                            <!--渠道商平级销售奖-->
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">渠道商平级销售奖:</label>
+                                <div class="shop_buy_tuike-parent">
+                                    <div class="shop_buy_tuike_div">
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>渠道商平级销售奖</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>省级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>县级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+                            <!--渠道商越级销售奖-->
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">渠道商越级销售奖:</label>
+                                <div class="shop_buy_tuike-parent">
+                                    <div class="shop_buy_tuike_div">
+                                        <button type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;">
+                                            <span><i data-v-102554a2="" class="el-icon-edit" style="margin-right: 5px;"></i>渠道商越级销售奖</span>
+                                        </button>
+                                        <button  type="button" class="el-button el-button--primary el-button--small" style=""><span>收起</span></button>
+                                    </div>
+                                    <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
+                                        <li>
+                                            <span>省级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>市级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span>县级店主</span>
+                                            <p>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner">
+                                                <span>元或</span>
+                                                <input type="number" autocomplete="off" min="0" class="el-input__inner go_du-input2">
+                                                <span>%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p class="go-form-p-note">金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</p>
+                                </div>
+                            </div>
+                            <!--                    渠道商越级销售奖over-->
+                            <div class="shop_buy_tuike">
+                                <label class="el-form-item__label" style="width: 176px;">销售奖是否返佣:</label>
+
+                                <div   class="el-radio-group shop_buy_tuike_three">
+                                    <div class="shop_buy_tuike_three_div">
+                                        <el-radio v-model="radio" label="1">开启</el-radio>
+                                        <el-radio v-model="radio" label="2">关闭</el-radio>
+                                    </div>
+                                    <p class="go-form-p-note">关闭后，将不参与返佣</p>
+                                </div>
+                            </div>
+
+                            <div class="el-dialog__footer">
+                                <button  type="button" class="el-button el-button--default"><span>取 消</span></button>
+                                <button type="button" class="el-button el-button--primary"><span>确 定</span></button>
+                            </div>
+                        </form>
+                </el-dialog>
+                <!--复购弹窗over-->
+
+                <div>
+            </div>
+
+            <!--选项卡组件 over-->
+            </div>
+                <!-- 商品中心over-->
+            </div>
+        </div>
+
+        <!--        -->
+
+    </div>
+    <!--主体 over-->
+    </div>
+</template>
+<script>
+import navbar from '../navbar';
+import sidebar from '../sidebar';
+import secnavbar from './secnavbar';
+import baseapi from '../../utils/api';
+import {    
+        zm_jsonToString,
+        zm_formDataToString,
+    } from "../../filters/zm_tools"
+
+export default {
+     data() {
+        return {
+            sinventoryTypevalue:1,
+            downimg:'',
+            kuitemid:'',
+            kuid:0,   
+            kugoodseditpriceValue:false,
+            kunmae:0,
+            chuSz:0,
+            yiGq:0,
+            cangKz:0,
+            jinJku:0,
+            daiSH:0,
+            sortid:0,
+            sortgoodseditpriceValue:false,
+            sortmhgoodsname:0,
+            grounpgoodsvalue:false,
+            shopgrounpnote:[],
+            catevalue:[],
+            shopgrounpvalueArr:[],
+            scategorygoodsValue:false,
+            shopcategory:[],
+            Categorystr:'',
+            sortgoodsValue:false,
+            sortvaluedata:0,
+            goodsallpricearr:[{skuList:[{itemId: 94, pvlist: [], priceSupplier: 3500, id: 129, suserId: 2}]}],
+            inggoodsone:0,
+            editgoodsname:'',
+            goodseditpriceValue:false,
+            mhgoodsname:'',
+            sharercode:'',
+            shopgrounpvalue:'',//商品分组
+            catelink:'https://mihaunshop.com',//复制链接
+            shopcategory:[],   
+            dialogFormVisible1:false,
+            mhgoodsid:0,
+            selectCategory:[],  
+            selectType: '',
+            setSelectType: '',
+            setSelectTypeDialog:false,
+            selectIndex: 0,
+            selectItem: '',
+            distributionList:[],  
+            distributionType: '',
+
+            loading:true,
+            value0:'',
+            value1:'',
+            value2:'',
+            value3:'',
+            value4:'',
+            value5:'',
+            value6:'',
+            value7:'',
+            value8:'',
+            kucunindex:0,
+        
+            shoppricevalue:'',//商品价格
+         
+            goodsid:'',//商品id\
+
+            //修改价格状态
+            editpriceValue:false,
+            editPriceType:1,
+            shopnamenumber:'',
+            goodslist:[],
+            visible: false,
+            // activeName: 'first',
+
+            goodsindexpriceid:0,
+            
+            value1:'',
+            shopgrounp: [{
+                value: '1',
+                label: '全选'
+            }, {
+                value: '2',
+                label: '家用电器'
+            }],
+            value2:'',
+            shopleixing: [{
+                value: '1',
+                label: '实物商品'
+            }, {
+                value: '2',
+                label: '虚拟商品'
+            }, {
+                value: '3',
+                label: '超级拼团'
+            },
+             {
+                value: '4',
+                label: '抢购商品'
+            }
+            ],
+            options: [{
+                value: '1',
+                label: '无'
+            }],
+            value: '',
+            tableData: [{}],
+            input:'1',
+            multipleSelection: [],
+            dialogFormVisible: false,//推广链接
+            dialogFormFUgou:false,
+            shop_lisk_input:'https://mihuanshop.com',
+            radio: '1', // 假的单选框
+            currentPage4: 1, //分页,
+            totalCountone:0,
+            FLOG:true
+        };
+    },
+        //路由前置
+    beforeRouteEnter (to, from, next) {
+		next(vm => {
+            if( vm.$cookie.get('userId') != null && vm.$cookie.get('userId')  != '' && vm.$cookie.get('userId') != undefined   ){
+               next();
+            } else {
+                next('/login');
+            }
+		})
+	},
+     mounted(){
+        this.goodShop(1,1); //商品列表
+        this.shopcategoryme();
+        this.shopgrounplist();
+        this.shopStatusNumber();
+        this.request_goodsCategoryList(); //分类列表
+        // this.selectCategory();
+        // this.distributionList();
+
+        // 选品分类
+        this.selectCategory = [];
+        this.distributionList = [{
+                id: '1',
+                value: '',
+                label: '全部'
+            }, {
+                id: '2',
+                value: '0',
+                label: '未分销'
+            }, {
+                id: '3',
+                value: '1',
+                label: '平台分销'
+            }, {
+                id: '4',
+                value: '2',
+                label: '微店分销'
+            }];
+
+     },
+     methods: {
+            //审核商品
+            auditgoods(id){
+                this.$confirm('审核通过后,该商品将直接上架, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    let data = new FormData();
+                    data.append('ids',id);
+                    this.http.post(baseapi.goodsanditApi,data).then(res=>{
+                        this.$message.success('审核成功');
+                        this.shopshuaixuan(4,1); 
+                        this.shopStatusNumber();
+                    }) 
+                })
+            },
+            //商品分组数据
+            editgoodsGrounp(){
+                if(this.Categorystr == ''){
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                this.grounpgoodsvalue = true;
+            },
+            //商品分组
+            ordergrounpgoodsMethod(){
+                let newArr = this.shopgrounpvalueArr;
+                let znewArr =  newArr.join(",");
+                //let newStr = znewArr.substring(0,znewArr.length-1);
+                if (this.Categorystr == '') {
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                let data = new FormData();
+                data.append('ids',this.Categorystr);   
+                data.append('groupId',znewArr)  
+                this.http.post(baseapi.goodsGrounpApi,data).then(res=>{
+                    if (res.data.status ==200) {
+                            this.$message.success("修改分组成功");
+                            this.grounpgoodsvalue = false;
+                            this.shopshuaixuan(1,1);
+                        } else {
+                            this.$message.error("修改分组失败");
+                    }
+                })  
+             },
+            editcategoryevent(){
+                // 商品分类
+                if(this.Categorystr == ''){
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                this.scategorygoodsValue = true;
+            },
+            more_upGoods(){
+                // 立即上架
+                if(this.Categorystr == ''){
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+            },
+            more_addWarehouse(){
+                // 加入仓库
+                if(this.Categorystr == ''){
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+            },
+            more_distributionGoods(){
+                // 分销
+                if(this.Categorystr == ''){
+                    this.$message.warning('至少选择一项商品');
+                    return false;
+                }
+            },
+            // type：1分销，2取消分销
+            distributeClick(index, ids, type){
+                let item = this.goodslist[index];
+                let self = this;
+                let urlStr = baseapi.TIP + baseapi.sp_distribute; //+"?id="+id;
+                let params = new FormData();       
+                 
+                if (type==1 || type==3) {
+                    params.append('fdis', 0);
+                    params.append('tdis', 1);
+                } else if (type==2 || type==4) {
+                    params.append('fdis', 1);
+                    params.append('tdis', 0);
+                }
+
+                if (type==1 || type==2) {
+                    params.append('itemId', ids); 
+                }
+                if (type==3 || type==4) {
+                    // 批量分销处理
+                    if(this.Categorystr == ''){
+                        this.$message.warning('至少选择一项商品');
+                        return false;
+                    }
+                    params.append('ids',this.Categorystr); 
+                }
+                
+
+                console.log('---params：' + zm_formDataToString(params), 'urlStr= ' + urlStr);
+                this.$http({method: "post",
+                    url: urlStr,
+                    data: params,
+                    headers:{
+                        'Content-Type':'application/json',
+                        'suserId': this.$cookie.get('suserId'),
+                        'userId': this.$cookie.get('userId'),
+                        'adminId': this.$cookie.get('adminId'),
+                        'roleId': this.$cookie.get('roleId'),
+                        'token': this.$cookie.get('token'),			
+                    }
+                }).then(function(res){
+                    console.log('---分销处理：response= '+zm_jsonToString(res.data));
+                    if(res.data.status ==200){
+                        if (type==1) {
+                            item.distribute = 1;
+                            self.$message.success('分销成功！');
+                        } else {
+                            item.distribute = 0;
+                            self.$message.success('取消分销成功！');
+                        }
+                    } else {
+                        self.$message.error(res.data.message);
+                    }
+                },function(res){
+                    self.$message.error(res.data.message);
+                })
+            },
+            //渲染分类数据
+            shopcategoryme(){ 
+                let data = new FormData();
+                data.append('page',1);  
+                data.append('limit',20);  
+                this.http.post( baseapi.shopcatexiang,data).then(res=>{
+                    console.log(res.data.list);
+                    that.shopcategory = res.data.list;
+                })       
+            },
+            //改分类
+            okcategorymethod(type){
+                let that = this; 
+                let newArr = this.catevalue;
+                let znewArr =  newArr.join(",");
+                let newStr = znewArr.substring(0, znewArr.length-1);      
+                if(that.Categorystr == ''){
+                    that.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                let data = new FormData();
+                data.append('ids',that.Categorystr);   
+                if (type==2) {
+                    data.append('categoryIds',this.setSelectType);
+                }else{
+                    data.append('categoryIds',znewArr);
+                }
+                console.log('------data= '+ zm_formDataToString(data));
+
+                this.http.post( baseapi.editgoodsCategory,data).then(res=>{
+                    that.$message.success("修改分类成功");
+                    that.scategorygoodsValue = false;
+                    that.catevalue = [];
+                    that.shopshuaixuan(1,1);
+                })   
+            },
+            //tab状态
+            goodshandleSelectionChange(val) {
+                let that = this;
+                let str = '';
+                val.forEach(function(item,index){
+                    str += item.id + ','
+                })
+                that.Categorystr = str.substring(0, str.length-1);
+            },
+            //修改商品上下架   -1  下架  1上架  2审核中   0 未上架
+            editUpissue(){
+                let that = this; 
+                if (that.Categorystr == '') {
+                    that.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                this.$confirm('确定下架所选商品, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        let data = new FormData();
+                        data.append('ids',that.Categorystr);   
+                        data.append('isissue',0)  
+                        this.http.post( baseapi.issueGoodsApi,data).then(res=>{
+                            that.$message.success('修改上下架成功');
+                            that.shopshuaixuan(1,1);
+                            that.shopStatusNumber();
+                        })       
+                }); 
+            },
+            editDownissue(){
+                let that = this; 
+                if (that.Categorystr == '') {
+                    that.$message.warning('至少选择一项商品');
+                    return false;
+                }
+                this.$confirm('确定上架所选商品, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        let data = new FormData();
+                        data.append('ids',that.Categorystr);   
+                        data.append('isissue',1)  
+                        this.http.post( baseapi.issueGoodsApi,data).then(res=>{
+                            that.$message.success('修改上架成功');
+                            that.shopshuaixuan(1,1);
+                            that.shopStatusNumber();
+                        })       
+                    }); 
+            },
+            //编辑商品进入页面
+            editgoodspage(papams){      
+                this.$router.push({ path: `/goodslist/select_goodsdetail/${papams}`})
+            },
+            upGoods(papams){      
+                console.log('---立即上架');
+            },
+            downGoods(papams){      
+                console.log('---下架');
+            },
+            // type: 1上架,2批量上架、3加入仓库,4批量加入仓库
+            goodsStateClick(index, ids, type){      
+                console.log('---上架/下架/加入仓库');
+                let that = this;
+                let urlStr = baseapi.issueGoodsApi;
+                let params = new FormData();
+                    params.append('ids',ids); 
+
+                if (type==2 || type==4) {
+                    // 批量商品状态处理
+                    if(this.Categorystr == ''){
+                        this.$message.warning('至少选择一项商品');
+                        return false;
+                    }
+                     params.append('ids',this.Categorystr); 
+                }
+                // data.append('ids',that.Categorystr);  
+                if (type==1 || type==2) {        params.append('isissue',1);
+                } else if (type==3 || type==4) { params.append('isissue',0);
+                }
+
+                this.http.post(urlStr, params).then(res=>{
+                    if (type==1 || type==2) {        that.$message.success('上架成功!');
+                    } else if (type==3 || type==4) { that.$message.success('加入仓库成功!');
+                    }
+                    that.shopshuaixuan(1,1);
+                    // that.shopStatusNumber();
+                })   
+            },
+            addWarehouse(papams){      
+                console.log('---加入仓库');
+            },
+            distributionGoods(papams){      
+                console.log('---分销');
+            },
+            distributionCancelGoods(papams){      
+                console.log('---取消分销');
+            },
+            //删除商品
+            delectgoods(id){
+                let that = this; 
+                this.$confirm('确定将该商品删除吗, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    let data = new FormData();
+                    data.append('id',id)
+                    this.http.post( baseapi.delectgoods,data).then(res=>{
+                        console.log(res);
+                        if(res.data.status == 200){
+                            that.$message.success('删除成功');
+                            that.shopshuaixuan(1,1);
+                            that.shopStatusNumber();   
+
+                        }
+                    })  
+                });    
+            },
+            //修改商品名字
+            updateShopPrice(goodsid,goodsname){
+                this.goodseditpriceValue = true;
+                this.mhgoodsid = goodsid;
+                this.mhgoodsname = goodsname;
+            },
+            // editSelectType(id,sort){ // 设置选品分类
+            // this.sortid = id;
+            // this.sortgoodseditpriceValue = true; 
+            // this.sortmhgoodsname = sort;    
+            // },
+            //设置选品分类
+            editSelectType(index, goodsid, goodsname){
+                this.selectIndex = index;
+                this.selectItem = this.goodslist[index];
+                // this.setSelectTypeDialog = true;
+
+                // let that = this;
+                // let str = '';
+                // val.forEach(function(item,index){
+                //     str += item.id + ','
+                // })
+                // that.Categorystr = str.substring(0, str.length-1);
+
+
+                this.scategorygoodsValue = true;
+                this.Categorystr = this.selectItem.id;
+
+                // this.mhgoodsid = goodsid;
+                // this.mhgoodsname = goodsname;
+            },
+            // 请求：修改商品名字
+            okupdateShopPrice(){
+                let that = this; 
+                let data = new FormData();
+                data.append('name',that.mhgoodsname);
+                data.append('id',that.mhgoodsid);
+
+                this.http.post( baseapi.goodsShopNameTwo,data).then(res=>{
+                    that.goodseditpriceValue = false;
+                    that.shopshuaixuan(1,1);
+                })  
+            },
+            // 请求：设置选品分类
+            request_setSelectType(){
+
+                //改分类
+                this.okcategorymethod(2);
+
+
+                // let that = this; 
+                // let data = new FormData();
+                // // let item = this.data[this.selectIndex];
+                // data.append('name',that.mhgoodsname);
+                // data.append('id',that.mhgoodsid);
+                // console.log('---设置选品分类= '+ zm_jsonToString(res.data));
+
+                // this.http.post( baseapi.goodsShopNameTwo, data).then(res=>{
+                //     console.log('---设置选品分类= '+ zm_jsonToString(res.data));
+                //     that.setSelectTypeDialog = false;
+                //     that.shopshuaixuan(1,1);
+                // });
+        },
+        tuiguangMeth(id) {
+            this.dialogFormVisible1 = true;     
+            this.getQrCode(id);
+        },
+        //获取供应商列表
+        getSupp(){
+            let data = new FormData();
+            this.http.post( baseapi.getSupp,data).then(res=>{
+                that.goodseditpriceValue = false;
+                that.shopshuaixuan(1,1);
+            })               
+        },
+        //获取二维码路径地址
+        getQrCode(id){
+            let that = this; 
+            let data = new FormData();      
+            this.shop_lisk_input = "page/index/indexdetail/indexdetail?id="+id;
+            this.catelink = "page/index/indexdetail/indexdetail?id="+id;
+            let path = encodeURIComponent("page/index/indexdetail/indexdetail?id="+id);    
+            this.$http({
+                method: "get",
+                url:'http://saas.mihuanshop.com/miniprogram/wx/mini/qrcode/page/get.do?path=' + path + '&openId='+that.$cookie.get('openId'),
+                  headers: { "Content-Type": "multipart/form-data", Authorization:`Bearer ${that.$cookie.get('token')}`}
+            })
+            .then(function(res){
+                if(res.data.status ==301){
+                    that.$message.warning('检测到你登录过期');
+                    that.$router.push({
+                        path: '/login',
+                    })
+                    return false;
+                }
+                if(res.data.status ==200){
+                    that.sharercode =  res.data.data;   
+                    that.downimg =  res.data.data;
+                }
+            }); 
+        },
+        // 复制成功时的回调函数
+        onCopy (e) {
+            this.$message.success("推广链接已复制到剪切板！")
+        },
+        //复制商品
+        copygoods(param){
+            let that = this;          
+            this.$confirm('您将复制该商品, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    let data = new FormData();  
+                        data.append('itemId',param);
+                        this.http.post( baseapi.copygoods,data).then(res=>{
+
+                            if(res.data.status == 200){
+                                that.$message.success('复制成功');
+                                that.goodShop(1,1);
+                                that.shopStatusNumber();
+                            }
+                         
+                        })                         
+                 });    
+            },
+        /**筛选商品列表  --查询商品列表接口*/
+         shopshuaixuan(param,page,cao){
+            let that = this;
+            let data = new FormData();   
+            data.append('sinventoryType',this.sinventoryTypevalue);
+            // if(param != undefined && param != null ){
+            //     data.append('sinventoryType',param);
+            // }
+            this.value0 == '' ? '' :  data.append('sname',this.value0); // 商品
+            this.value0 == '' ? '' :  data.append('scode',this.value0); //商品编码
+            this.shopgrounpvalue == '' ? '' :  data.append('sgroupId',this.shopgrounpvalue);  //商品分组
+            this.value2 == '' ? '' :  data.append('stype',this.value2);    //商品类型
+            // this.value3 == '' ? '' :  data.append('type',this.value3);    
+            this.value4 == '' ? '' :  data.append('scategoryId',this.value4);//分类id
+            this.value5 == '' ? '' :  data.append('ssalesF',this.value5);   //销量开始
+            this.value6 == '' ? '' :  data.append('ssalesT',this.value6);   //销量结束
+            // this.value7 == '' ? '' :  data.append('name',this.value7);     //价格
+            // this.value8 == '' ? '' :  data.append('name',this.value8);  
+            data.append('page',page);
+            data.append('limit',20);
+            data.append('isPlatform',2);
+            data.append('type',1);
+
+            this.http.post( baseapi.getGoodsListApi,data).then(res=>{
+                if(res.data.list.length == 0){
+                    that.goodslist = [];
+                    return false;
+                }
+                // if(cao != 999){
+                //     that.$message.success('操作成功');
+                // }      
+                that.totalCountone = res.data.totalCount;
+                let goodsallprice = res.data.list;
+                    goodsallprice.forEach(function(item,index){
+                    item.skuList.forEach(function(item,index){
+                        item.priceSupplier         = item.priceSupplier / 100;
+                        item.priceSupplierSupply   = item.priceSupplierSupply/100;
+                        item.pricePlatform         = item.pricePlatform/100;
+                    }) 
+                })
+                that.goodsallpricearr = goodsallprice;
+                let matime =  setInterval(function(){
+                that.loading =  false;
+                that.goodslist = res.data.list;
+                    clearTimeout(matime);
+                },200);
+            }) 
+
+         },
+         //渲染商品分类数据
+        shopcategoryme(){
+            let that = this; 
+            let data = new FormData();
+            data.append('page',1);  
+            data.append('limit',10);       
+            this.http.post( baseapi.shopcatexiang,data).then(res=>{
+                console.log('商品分类数据',res.data.list);
+                that.shopcategory = res.data.list;
+            })  
+          },   
+        //商品状态数量
+        shopStatusNumber(){
+            let that = this; 
+            let data = new FormData();          
+            this.http.post( baseapi.goodsNumber,data).then(res=>{
+                console.log('商品状态数量数据',data.list);
+                 let list = res.data.num;
+                that.chuSz = list["item.sell.num"];
+                // that.yiGq = list["item.sell.out.num"];
+                // that.cangKz = list["item.out.num"]; //下架
+                // that.jinJku = list["item.sell.little.num"]
+                // that.daiSH = list["item.audit.num"];
+            })    
+          },
+        //渲染商品分组数据
+        shopgrounplist(){     
+            let data = new FormData(); 
+            this.http.post( baseapi.shopgrounplist,data).then(res=>{
+                this.shopgrounpnote = res.data.list;
+             })     
+        },
+         cleardata(){
+            this.value0='';
+            this.value1='';
+            this.value2='';
+            this.value3='';
+            this.value4='';
+            this.value5='';
+            this.value6='';
+            this.value7='';
+            this.value8='';
+            this.shopgrounpvalue = '';
+            this.$message.success('清除成功');
+         },
+         //时间处理函数
+         dateFormat(row, column, cellValue, index){
+              const daterc = row[column.property];
+                if(daterc!=null){
+                 const dateMat= new Date(daterc);
+                //const dateMat= new Date(parseInt(daterc.replace("/Date(", "").replace(")/", ""), 10));
+                 const year = dateMat.getFullYear();
+                 const month = dateMat.getMonth() + 1;
+                 const day = dateMat.getDate();
+                 const hh = dateMat.getHours();
+                 const mm = dateMat.getMinutes();
+                 const ss = dateMat.getSeconds();
+                 const timeFormat= this.getzf(year) + "-" + this.getzf(month)  + "-" + this.getzf(day) + " " + this.getzf(hh)  + ":" + this.getzf(mm) + ":" + this.getzf(ss);
+                    return timeFormat;
+             }             
+          },
+       //补0操作  
+        getzf(num){  
+            if(parseInt(num) < 10){  
+                num = '0'+num;  
+            }  
+            return num;  
+        },
+        /** 查询列表数据 **/
+        goodShop(param,page){
+            let that = this;
+            let data = new FormData();    
+            if(param != undefined && param != null ){
+                data.append('sinventoryType',param);
+            }
+            data.append('page',page);
+            data.append('limit',20);
+            data.append('isPlatform',2);
+            data.append('type',1);
+
+            this.http.post( baseapi.getGoodsListApi, data).then(res=>{
+                console.log('---查询列表.length',zm_jsonToString(res.data));
+                console.log('---查询列表.length= ',res.data.list.length);
+                if(res.data.list.length == 0){
+                    that.goodslist = [];
+                    that.loading =  false;
+                    return false;
+                }
+                that.inggoodsone = res.data.list.length;
+                that.totalCountone = res.data.totalCount;
+                let goodsallprice = res.data.list;
+                    goodsallprice.forEach(function(item,index){
+                    item.skuList.forEach(function(item,index){
+                        item.priceSupplier         = item.priceSupplier / 100;
+                        item.priceSupplierSupply   = item.priceSupplierSupply/100;
+                        item.pricePlatform = item.pricePlatform/100;
+                    }) 
+                })
+
+                that.goodsallpricearr = goodsallprice;
+                //筛选空
+                // let goodsSku = res.data.list;
+                // goodsSku.forEach(function(item){
+                //     item.skuList.forEach(function(sonitem){
+                //             sonitem.pvlist.forEach(function(sunitem){
+                //                 console.log(sunitem);
+                //                 for(let ele of sunitem){
+                //                     console.log(ele)
+                //                     if(ele == null){
+                //                     //  alert(ele)  
+                //                      sunitem = []
+                //                     }
+                //                 }
+                //             })   
+                //     })
+                // })
+                
+                let matime =  setInterval(function(){
+                    that.loading =  false;
+                    that.goodslist = res.data.list;
+                    clearTimeout(matime);
+                },200); 
+            })  
+
+        },
+        /** 分类列表 **/
+        request_goodsCategoryList(){
+            let that = this;
+            let params = new FormData();
+            params.append('page',1);  
+            params.append('limit',20);  
+            params.append('type',1); 
+            let urlStr = baseapi.shopIP + baseapi.goodsCategoryList;
+                urlStr = baseapi.shopcatexiang;
+            console.log('---分类列表 params：' + zm_formDataToString(params), 'urlStr= ' + urlStr);
+
+            this.$http({
+                method: "post",
+                url: urlStr,
+                data: params,
+                headers:{
+                    'Content-Type':'application/json',
+                    'suserId': this.$cookie.get('suserId'),
+                    'userId': this.$cookie.get('userId'),		
+                }
+            }).then(function(res){
+                // console.log('---分类列表response= '+zm_jsonToString(res.data));
+                that.loading = false;
+                if(res.status ==200){
+                    if (res.data.list) {
+                        console.log('---分类列表 length= '+res.data.list.length);
+                        that.selectCategory = res.data.list;
+                    }
+                } else {
+                    that.$message.error(res.data.message);
+                }
+            },function(res){
+                console.log('----->分类列表：报错 response= '+zm_jsonToString(res));
+            })
+        },
+        goodspricetan(id,index){ //零售价
+            this.goodsindexpriceid = index;
+            this.goodsid = id;
+            this.editPriceType = 1;
+            this.editpriceValue = true;  
+        },
+        gongHuoPrice(id,index){ //供货价
+            this.goodsindexpriceid = index;
+            this.goodsid = id;
+            this.editPriceType = 2;
+            this.editpriceValue = true;  
+        },
+        pingTaiPrice(id,index){ //分销价
+            this.goodsindexpriceid = index;
+            this.goodsid = id;
+            this.editPriceType = 3;
+            this.editpriceValue = true;  
+        },
+        sortgoodspricetan(id,sort){
+            this.sortid = id;
+            this.sortgoodseditpriceValue = true; 
+            this.sortmhgoodsname = sort;    
+        },
+        editkucun(id,index){
+            this.kucunindex = index;   
+            this.kuitemid= id;
+            this.kugoodseditpriceValue = true;    
+        },
+        okkucun(){
+            let that = this;
+            let newArr = this.goodslist[this.kucunindex].skuList;
+            let upArr = []
+            newArr.forEach(function(item,index){
+                upArr.push({"id":  item.id ,"inventoryTotal": parseInt(item.inventoryTotal),"inventorySurplus":parseInt(item.inventoryTotal)})
+            });     
+            let data = new FormData();
+           
+            data.append('itemId', this.kuitemid );
+            data.append('skus',JSON.stringify(upArr));
+            this.http.post( baseapi.editshopprice,data).then(res=>{
+                this.$message.success('修改库存成功');
+                this.kugoodseditpriceValue = false;
+                this.shopshuaixuan(1,1,999);
+            }) 
+        },
+        okShopsort(){
+            let that = this;
+            let data = new FormData();
+            data.append('id',that.sortid)
+            data.append('sort', that.sortmhgoodsname ); 
+
+            this.http.post( baseapi.sortGoodsApi,data).then(res=>{
+                that.$message.success("修改排序价格成功");
+                that.sortgoodseditpriceValue = false;
+                that.shopshuaixuan(1,1);
+             })  
+        },
+        
+        //修改商城价格
+        editshopprice(id){
+            let that = this;
+            let newArr = this.goodslist[this.goodsindexpriceid].skuList;
+            let upArr = []
+            newArr.forEach(function(item,index){
+                // upArr.push({"id": item.id ,"price":parseInt(item.price*100)})
+                if (that.editPriceType==1) {
+                    upArr.push({"id": item.id ,"priceSupplier":parseInt(item.priceSupplier*100)});
+                } else if (that.editPriceType==2) {
+                    upArr.push({"id": item.id ,"priceSupplierSupply":parseInt(item.priceSupplierSupply*100)});
+                } else if (that.editPriceType==3) {
+                    upArr.push({"id": item.id ,"pricePlatform":parseInt(item.pricePlatform*100)});
+                }
+            });     
+            let data = new FormData();
+            data.append('itemId', this.goodsid );
+            data.append('skus',JSON.stringify(upArr));
+
+            this.http.post( baseapi.editshopprice, data).then(res=>{
+                that.$message.success("修改价格成功");
+                that.editpriceValue = false;
+                that.shopshuaixuan(1,1);
+            })  
+        },
+        //表格
+        toggleSelection(rows) {
+            if (rows) {
+                rows.forEach(row => {
+                    this.$refs.multipleTable.toggleRowSelection(row);
+                });
+            } else {
+                this.$refs.multipleTable.clearSelection();
+            }
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        handleSizeChange(val) {
+            // console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            this.shopshuaixuan(1,val,999);
+            // console.log(`当前页: ${val}`);
+        }
+        },
+    components:{
+        navbar,sidebar,secnavbar    
+    }
+}
+</script>
+
+<style scoped>
+
+.sgl_inventoryTotal{
+    display: flex;
+    margin-left: 20px;
+    /* background: yellow; */
+}
+.select_pageTitle{
+    font-size: 20px !important;
+    margin: 0 0 20px 0;
+
+}
+</style>

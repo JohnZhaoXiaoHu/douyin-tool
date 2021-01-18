@@ -1,0 +1,46 @@
+.type-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.type-list .type-item {
+  width: 25%;
+  padding: 0 8px 8px 0px;
+  cursor: pointer;
+}
+.type-list .type-item.active .type-item-box {
+  border: 1px solid #409EFF;
+}
+.type-list .type-item .type-item-box {
+  background: #FFFFFF;
+  box-shadow: 0 0 3px #EEEEEE;
+}
+.type-list .type-item .type-item-box .type-item-thumb {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+}
+.type-list .type-item .type-item-box .type-item-thumb .type-item-thumb-wrapper {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.type-list .type-item .type-item-box .type-item-thumb .type-item-thumb-wrapper img {
+  width: 90%;
+}
+.type-list .type-item .type-item-box .type-item-text {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  font-size: 12px;
+  height: 30%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

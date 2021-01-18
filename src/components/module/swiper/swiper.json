@@ -1,0 +1,11 @@
+{
+  "config": {
+    "swiperType": 1
+  },
+  "customStyle": {
+    "backgroundColor": null,
+    "padding": 0,
+    "height": 300
+  },
+  "datas": []
+}
