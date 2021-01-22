@@ -22,92 +22,86 @@
 
                         <div class="m-search-box el-row el-row-my-div">
                             <div class="sx-input">
-                                <label class="el-form-item__label" style="width: 190px;min-width: 128px">账号 : </label>
+                                <label class="el-form-item__label" style="width: 190px;min-width: 128px">
+                                    店铺名称/主账号: </label>
                                 <el-input v-model="value1" placeholder="" ></el-input>
                             </div>
 
                             <div class="mh-mhset-logs_select">
-                                <label class="el-form-item__label" style="width: 130px;">模块 : </label>
-                                <el-select v-model="value2" placeholder="请选择模块">
-                                    <el-option
-                                    v-for="item in optionsMoudle"
-                                    :key="item.id"
+                                <label class="el-form-item__label" style="width: 130px;">所属站点: </label>
+                                <el-select v-model="value2" placeholder="请选择站点">
+                                    <el-option v-for="item in optionsMoudle"
+                                    :key="item.id" 
                                     :label="item.property"
                                     :value="item.id">
                                     </el-option>
                                 </el-select>
                             </div>
 
-                            <div>
-                                <label class="el-form-item__label" style="width: 130px;">操作人ID : </label>
-                                <el-input v-model="value3" placeholder=""></el-input>
+                            <div class="mh-mhset-logs_select">
+                                <label class="el-form-item__label" style="width: 130px;">接口授权状态: </label>
+                                <el-select v-model="value2" placeholder="请选择状态">
+                                    <el-option v-for="item in optionsMoudle"
+                                    :key="item.id"
+                                    :label="item.property"
+                                    :value="item.id">
+                                    </el-option>
+                                </el-select>
                             </div>
                         </div>
-                    
-                        <!-- 两行 -->
-                        <div class="m-search-box el-row el-row-my-div">
-                         
-                            <div class="vip-item-list_time mh-market-timeleght" >
-                                <label class="el-form-item__label" style="width: 190px;">创建时间 : </label>
-                                <el-date-picker 
-                                        v-model="value4"
-                                        value-format="timestamp"
-                                        type="daterange"
-                                        range-separator="至"
-                                        start-placeholder="开始日期"
-                                        style="width: 100%"
-                                        end-placeholder="结束日期">
-                                </el-date-picker>
-                            </div>
 
-
-                        </div>
-
-
-
-                        <div class="goods-sx-btn">
-                            <button @click="shuaixuan"  type="button" class="el-button el-button--primary el-button--small"><span>筛选</span></button>
-                            <button @click="clearData"  type="button" class="el-button el-button--text"><span>清空筛选条件</span></button>
+                        <div class="" style="display: flex;">
+                            <el-button type="primary" size="mini" style="height: 36px;"  @click="shuaixuan">筛选</el-button>
+                            <button @click="clearData" size="mini"  type="button" class="el-button el-button--text"><span>清空筛选条件</span></button>
                         </div> 
-
                     </div>
-                
-    
+
+                    <!-- <el-tabs v-model="activeName" @tab-click="handleClick" v-loading="loading">
+                        <el-tab-pane label="已合作店铺" name="first">
+                        </el-tab-pane>
+                        <el-tab-pane label="申请合作店铺" name="second">
+                        </el-tab-pane>
+                    </el-tabs> -->
+
+
 
                      <div style="padding:0 20px 15px;border-box">
                          <!-- stripe -->
                         <template>
-                            <el-table
-                                :data="tableData"      
-                                border
-                                style="width: 100%">
-                                <el-table-column
-                                prop="phone"
-                                label="操作人"
-                                >
-                            
-                                </el-table-column>
-                                <el-table-column
-                                prop="project"
-                                label="操作模块"
-                                >
-                                </el-table-column>
-                                <el-table-column
-                                prop="createTime"
-                                label="操作时间"
-                                :formatter="dateFormat"
-                                >
-                                </el-table-column>
-                                <el-table-column
-                                prop="adminId"
-                                label="操作ID"
-                                >
+                            <el-table :data="tableData" border style="width: 100%">
+                                <el-table-column prop="phone" label="所属站点" >
+                                    <template slot-scope="scope">
+                                        <div style="display: flex;">
+                                            <img :src="scope.row.phone" class="sm_imgView" alt="" srcset="">
+                                            <div>{{scope.row.name}}</div>
+                                        </div>
+                                    </template>
                                 </el-table-column>
 
-                                <el-table-column
-                                prop="context"
-                                label="操作内容"
-                                >
+                                <el-table-column prop="project" label="店铺名称"  >
+                                </el-table-column>
+
+                                <el-table-column  prop="createTime" label="主账号" :formatter="dateFormat" >
+                                </el-table-column>
+
+                                <el-table-column prop="adminId" label="状态" align="center">
+                                    <template slot-scope="scope">
+                                        <div style="display: flex;">
+                                            <el-button type="success" size="mini" plain>启用</el-button>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+
+                                <el-table-column prop="context" label="授权接口" align="center">
+                                    <template slot-scope="scope">
+                                        <div style="">
+                                            <el-button type="danger" size="mini" plain>未授权</el-button>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="context" label="简称">
+                                </el-table-column>
+                                <el-table-column prop="context" label="上传快递单">
                                 </el-table-column>
                             </el-table>
                             <div class="mh-mhsegt-logs_pages">
@@ -125,6 +119,10 @@
 
                      </div>
                     </div>    
+
+
+
+                    
                     <!--选项卡组件 over-->
                 </div>
                 <!-- 商品中心over-->
@@ -146,6 +144,8 @@ export default {
     data() {
         return {
             loading : true,
+            activeName:'first',
+
             tableData:[],
             totalCount:0,
             value1:'',
@@ -180,6 +180,11 @@ export default {
         this.syebol();
     },
     methods:{
+        //tab点击事件
+        handleClick(tab, event) {
+          console.log('---tab.index= '+tab.index);
+
+        },
         getData(parme,status){
             let that = this;
             let data = new FormData();       
@@ -289,7 +294,12 @@ export default {
     }
 }
 </script>
+
 <style>
+.sm_imgView{
+    width: 20px;
+    height: 20px;
+}
 .mh-mhset-logs_select .el-input__icon{
     line-height: 28px;
 }

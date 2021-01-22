@@ -17,8 +17,8 @@
                     <!--<el-button slot="reference">hover 激活</el-button>-->
                     <dl class="hd-dl" slot="reference">
                         <dt>
-                            <!-- <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/vip/mihuan.png" alt="蜜獾分销系统" class="g-logo" width="35" height="35"> -->
-                            <img :src="mhLogo" alt="蜜獾分销系统" class="g-logo navMhLogo" width="35" height="35">
+                            <!-- <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/vip/mihuan.png" alt="抖音工具" class="g-logo" width="35" height="35"> -->
+                            <img :src="mhLogo" alt="抖音工具" class="g-logo navMhLogo" width="35" height="35">
                         </dt>
                         <dd>
                             <span>平台版+小程序</span>
@@ -57,6 +57,9 @@ export default {
             console.log('---Logo 有');
             this.mhLogo = this.$cookie.get('miHuanLogo');
         }
+        this.mhLogo = "../../static/images/icon/douYinImg.png"
+
+        
 
     },
     methods:{

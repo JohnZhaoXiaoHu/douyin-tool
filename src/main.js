@@ -106,52 +106,16 @@ router.beforeEach((to, from, next) => {
 
   if (toDepth < fromDepth) {
     console.log('<--返回 back')
-    if( from.path == "/marketing/miaoSha/ms_create"){
-        // console.log('<--返回 back 秒杀列表1= '+ from.meta.keepAlive);
-        if (to.path  == "/marketing/miaoSha/ms_goodsManage") {
-          from.meta.keepAlive =  true;
-        }else {
-          from.meta.keepAlive = false;
-          // console.log('<--返回 back 秒杀列表2= '+ from.meta.keepAlive);
-        }
-    }
 
   } else if (toDepth > fromDepth)  {
     // console.log('-->进入 enter...')
-    if( to.path == "/marketing/miaoSha/ms_create"){
-        // to.meta.keepAlive = true;
-        console.log('-->进入 enter 创建秒杀= '+to.meta.keepAlive)
-    }
 
   }else if (toDepth == fromDepth) {
-    if( to.path == "/marketing/miaoSha/ms_create"){
-        // console.log('---平行页 返回 back 创建秒杀1= '+ to.meta.keepAlive);
-        to.meta.keepAlive =  false;
-        // console.log('---平行页 返回 back 创建秒杀2= '+ to.meta.keepAlive);
-    }
-    else if( to.path == "/marketing/miaoSha/ms_goodsManage"){
-        // console.log('---平行页 进入enter： 管理商品页1= '+ from.meta.keepAlive);
-        from.meta.keepAlive = true;
-        // console.log('---平行页 进入enter： 管理商品页2= '+ from.meta.keepAlive);
-    }else {
-        // console.log('---平行页...')
-    }
+    // console.log('---平行页...')
+
   }
 
 
-
-
-  // console.log(from);
-  // console.log(to);
-  // console.log(VueCookie.get('userId'));
-  //
-  // if( VueCookie.get('userId') != null && VueCookie.get('userId')  != '' && VueCookie.get('userId') != undefined   ){
-  //   next();
-  //   console.log(11);
-  // } else {
-  //   // next({
-  //   //   name: '/home'
-  //   // });
     next();
   // }
   // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })

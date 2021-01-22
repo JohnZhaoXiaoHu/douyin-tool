@@ -162,12 +162,13 @@ export default {
 						
 						sessionStorage.setItem('loginInfo',JSON.stringify(res.data));			
 						if(that.$cookie.get('suserId')){
-							that.request_infoFindBySuserId(); //获取login_logo
-							// if(that.thisUrl == '/'){			
-							// 	that.$router.push('/home');				
-							// }else{
-							// 	that.$router.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
-							// }					
+							// that.request_infoFindBySuserId(); //获取login_logo
+							if(that.thisUrl == '/'){			
+								// that.$router.push('/home');	
+								that.$router.push('/goodslist');				
+							}else{
+								that.$router.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
+							}					
 						}	
                     }				
 				})

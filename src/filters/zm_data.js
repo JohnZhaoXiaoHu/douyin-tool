@@ -5,6 +5,7 @@ export {
 	//正式数据
 	zm_getOrderStatus,
 	zm_getOrderType,
+	zm_getOrderTypeList,
 	zm_getPayType,
 	zm_getMoneyTable_array3,
 	zm_cityList,
@@ -55,7 +56,7 @@ function zm_getOrderType(status){
 }
 
 //--------------订单状态--------------
-function zm_getOrderStatus(status){
+function zm_getOrderType(){
 	if (status==-4) { 		 return '系统关闭';
 	} else if (status==-3) { return '用户拒收';
 	} else if (status==-2) { return '用户取消';
@@ -72,6 +73,49 @@ function zm_getOrderStatus(status){
 	} else {
 		return '未知';
 	}
+}
+// 订单状态 
+function zm_getOrderTypeList(){
+	return [{
+			value: '-4',
+			label: '系统关闭'
+		},{
+			value: '-3',
+			label: '用户拒收'
+		},{
+			value: '-2',
+			label: '用户取消'
+		},{
+			value: '-1',
+			label: '未付款'
+		},{
+			value: '0',
+			label: '待发货'
+		},{
+			value: '1',
+			label: '配送中'
+		}, {
+			value: '2',
+			label: '退款完成'
+		}, {
+			value: '3',
+			label: '已收货'
+		}, {
+			value: '4',
+			label: '正在付款'
+		}, {
+			value: '5',
+			label: '正在取消'
+		}, {
+			value: '6',
+			label: '取消审核'
+		}, {
+			value: '7',
+			label: '已完成'
+		}, {
+			value: '8',
+			label: '发起售后'
+		}]
 }
 //正式：数据列表（抢购-小奖池资金设置）
 function zm_fundsSetup(){
