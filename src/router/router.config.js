@@ -1,8 +1,7 @@
 
 let routes=[
   {path:'/goods/test',component:resolve => require(['@/components/goods/test'],resolve)},
-  {path:'/',redirect: '/login'},
-  {path:'*',component:resolve => require(['@/components/error'],resolve)},
+
   {path:'/login',component:resolve => require(['@/components/login'],resolve)},
 
   // 首页
@@ -26,40 +25,32 @@ let routes=[
   {path:'/goodslist/goods_evaluateManagerEdit',component:resolve => require(['@/components/goods/goods_evaluateManagerEdit'],resolve)},
   {path:'/goodslist/goods_freightTemplate',component:resolve => require(['@/components/goods/goods_freightTemplate'],resolve)},
   {path:'/goodslist/goods_freightTemplateCreate',component:resolve => require(['@/components/goods/goods_freightTemplateCreate'],resolve)},
-  // {path:'/goodslist/select_goodslist',component:resolve => require(['@/components/goods/select_goodslist'],resolve)},
-  // {path:'/goodslist/select_goodsissue',component:resolve => require(['@/components/goods/select_goodsissue'],resolve)},
-  // {path:'/goodslist/select_goodscategory',component:resolve => require(['@/components/goods/select_goodscategory'],resolve)},
-  // {path:'/goodslist/select_goodscategoryDetail/:id',component:resolve => require(['@/components/goods/select_goodscategoryDetail'],resolve)},
 
-  {path:'/order/orderdetail/:id',component:resolve => require(['@/components/mhorder/orderdetail'],resolve)},
+  // {path:'/zmTest/bbTest',   component:resolve => require(['@/components/zmTest/bbTest'],resolve)},
+  {path:'/order/orderdetail',component:resolve => require(['@/components/mhorder/orderdetail'],resolve)},
+  // {path:'/order/orderdetail/:id',component:resolve => require(['@/components/mhorder/orderdetail'],resolve)},
   {path:'/order',component:resolve => require(['@/components/mhorder/shoporder'],resolve)},
   {path:'/orderset',component:resolve => require(['@/components/mhorder/orderset'],resolve)},
   {path:'/ordersafe',component:resolve => require(['@/components/mhorder/ordersafe'],resolve)},
   {path:'/orderbatch',component:resolve => require(['@/components/mhorder/orderbatch'],resolve)},
   {path:'/orderevaluate',component:resolve => require(['@/components/mhorder/orderevaluate'],resolve)},//评价
   {path:'/ordersafeDetail/:id',component:resolve => require(['@/components/mhorder/ordersafeDetail'],resolve)},
-  {path:'/supplierOrder',component:resolve => require(['@/components/mhorder/supplierOrder'],resolve)},
+  // {path:'/supplierOrder',component:resolve => require(['@/components/mhorder/supplierOrder'],resolve)},
 
   {path:'/memberlist/createOrder/:id',component:resolve => require(['@/components/member/createOrder'],resolve)},
   {path:'/wxset',component:resolve => require(['@/components/miniprogram/wxset'],resolve)},
   {path:'/wxpath',component:resolve => require(['@/components/miniprogram/wxpath'],resolve)},
   
   // 设置
-  {path:'/mhset/',component:resolve => require(['@/components/mhset/set_platformInfo'],resolve)},
-  {path:'/mhset/set_common',component:resolve => require(['@/components/mhset/set_common'],resolve)},
-  {path:'/mhset/set_cooperativeManagement',component: resolve => require(['@/components/mhset/set_cooperativeManagement'],resolve)},
+  // {path:'/mhset/',component:resolve => require(['@/components/mhset/set_platformInfo'],resolve)},
+  // {path:'/mhset/set_common',component:resolve => require(['@/components/mhset/set_common'],resolve)},
+  {path:'/mhset',component: resolve => require(['@/components/mhset/set_cooperativeManagement'],resolve)},
   {path:'/mhset/set_shippingAddress',component:resolve => require(['@/components/mhset/set_shippingAddress'],resolve)},
   {path:'/mhset/set_shopManage',component:resolve => require(['@/components/mhset/set_shopManage'],resolve)},
   {path:'/mhset/set_goodslist',component:resolve => require(['@/components/mhset/set_goodslist'],resolve)},
-  // {path:'/mhset/permission/:id',component:resolve => require(['@/components/mhset/permission'],resolve)},
-  // {path:'/mhset/payment/roleadd',component:resolve => require(['@/components/mhset/role/roleadd'],resolve)},
-  // {path:'/mhset/role/roleedit/:id',component:resolve => require(['@/components/mhset/role/roleedit'],resolve)},
-  // {path:'/mhset/set_notify',component:resolve => require(['@/components/mhset/set_notify'],resolve)},
-  // {path:'/mhset/set_domain',component:resolve => require(['@/components/mhset/set_domain'],resolve)},
-  // {path:'/mhset/set_gathering',component:resolve => require(['@/components/mhset/set_gathering'],resolve)},
 
+  
   {path:'/goodslist/goodsdetail/:id',component: resolve => require(['@/components/goods/goodsdetail'],resolve)},
-  {path:'/goodslist/select_goodsdetail/:id',component: resolve => require(['@/components/goods/select_goodsdetail'],resolve)},
   {path:'/goodsedit/:id',component:resolve => require(['@/components/goods/goodsedit'],resolve)},
   {path:'/menberDetail/:id',component:resolve => require(['@/components/member/menberDetail'],resolve)},
   {path:'/txmannge',component:resolve => require(['@/components/money/txmannge'],resolve)},
@@ -98,6 +89,10 @@ let routes=[
   {path:'/supplier',component:resolve => require(['@/components/supplier/supplierList'],resolve)},
   {path:'/supplier/supplierCreate',component:resolve => require(['@/components/supplier/supplierCreate'],resolve)},
 
+
+  {path:'/',redirect: '/login'},
+  {path:'*',component:resolve => require(['@/components/error'],resolve)},
+  
 ];
 
 export default {routes}

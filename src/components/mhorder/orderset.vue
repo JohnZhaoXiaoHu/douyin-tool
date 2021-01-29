@@ -68,13 +68,13 @@ export default {
             ordertwo:0,
             orderthere:0,
             options: [] ,
-            loading:true
+            loading:false
         };
     },
     beforeRouteEnter (to, from, next) {
 		next(vm => {
             if( vm.$cookie.get('userId') != null && vm.$cookie.get('userId')  != '' && vm.$cookie.get('userId') != undefined   ){
-                vm.adminOrder();
+                // vm.request_adminOrder();
             } else {
                 next('/login');
             }
@@ -93,7 +93,7 @@ export default {
             }
         },
         //回显示
-        adminOrder(){
+        request_adminOrder(){
             let that = this; 
             let data = new FormData();
             this.http.post( baseapi.adminorderSetall,data).then(res=>{

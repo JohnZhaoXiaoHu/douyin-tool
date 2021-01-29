@@ -143,7 +143,7 @@ import api from '../../utils/api';
 export default {
     data() {
         return {
-            loading : true,
+            loading : false,
             activeName:'first',
 
             tableData:[],
@@ -195,24 +195,26 @@ export default {
             if(this.value1 != ''){
                  data.append('saccount',this.value1);//账号手机号
             }
-
             if(this.value2 != ''){
                  data.append('smodule',this.value2)
             }
 
-            if(this.value3 != ''){
-                console.log(this.value3);
-                 data.append('sadminId',this.value3)
-            }
-            if(this.value4.length != 0){
-                data.append('stimeStart',this.value4[0]);
-                data.append('stimeEnd',this.value4[1]); 
-            }
+            // dydShopList
+            // url:  api.logList,
+            var urlStr = api.dydShopList;
 
             this.$http({
                 method: "post",
-                url:api.logList,
-                data: data
+                url:  api.logList,
+                data: data,
+                headers:{
+                    'Content-Type':'application/json',
+                    'suserId': this.$cookie.get('suserId'),
+                    'userId': this.$cookie.get('userId'),
+                    'adminId': this.$cookie.get('adminId'),
+                    'roleId': this.$cookie.get('roleId'),
+                    'token': this.$cookie.get('token'),			
+                }
             })
             .then(function(res){
                 console.log(res);

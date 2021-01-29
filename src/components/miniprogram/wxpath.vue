@@ -141,7 +141,6 @@ export default {
                     console.log(res.data.list);
                     that.pathData = res.data.list;
                 })   
-
         },
       
 

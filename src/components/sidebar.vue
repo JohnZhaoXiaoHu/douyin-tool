@@ -37,8 +37,7 @@ export default {
                 // { path: '/marketing', text: '营销', normal:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E8%90%A5%E9%94%80.png' , selected:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E8%90%A5%E9%94%80-.png' },
                 // { path: '/orderbatch', text: '批量发货', normal:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F.png', selected:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F-.png' },                       
                 { path: '/mhset', text: '设置', normal:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E8%AE%BE%E7%BD%AE-.png', selected:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E8%AE%BE%E7%BD%AE.png'},
-                // { path: '/wxset', text: '小程序', normal:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F.png', selected:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F-.png' }                       
-        //    /Users/zhangmeng/Downloads/githubFile/douyin-tool/src/components/mhorder/orderbatch.vue
+                // { path: '/zmTest', text: '测试', normal:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F.png', selected:'https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/bar/%E5%B0%8F%E7%A8%8B%E5%BA%8F-.png' }                       
            
            ],
             mhLogo: "https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/vip/mihuan.png",
@@ -47,27 +46,8 @@ export default {
         };
     },
     mounted(){
-        // if (this.$cookie.get('miHuanLogo')) {
-        //     this.mhLogo = this.$cookie.get('miHuanLogo');
-        // }
-        // if (this.$cookie.get('miHuanName')) {
-        //     this.miHuanName = this.$cookie.get('miHuanName');
-        // }
-
-        let miHuanLogo = this.$cookie.get('miHuanLogo');
-        let miHuanName = this.$cookie.get('miHuanName');
-
-        
-
         this.mhLogo = "../../static/images/icon/douYinImg.png"
-        // if ( miHuanLogo != undefined &&  miHuanLogo != null && miHuanLogo != 'undefined') {
-        //     console.log('---Logo 有');
-        //     this.mhLogo = this.$cookie.get('miHuanLogo');
-        // }
-        // if ( miHuanName != undefined &&  miHuanName != null && miHuanName != 'undefined') {
-        //     console.log('---Name 有');
-        //     this.miHuanName = this.$cookie.get('miHuanName');
-        // }
+
     },
     methods:{
       

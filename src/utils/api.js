@@ -2,18 +2,25 @@
 const MIP = window.g.baseURL;
 const PIP = window.g.PIP;
 const NOROUTER = window.g.noRouter;
+// const TIP = window.g.tfURL;
+// const TFIP = window.g.tfURL;
 
 
 //-------------------推客、渠道商、活动、优惠券-------------------
 // 是否是线上正式环境
 function isOnline(){
-  if (window.g.baseURL=='https://saas.mihuanshop.com') {
+  if (window.g.baseURL=='https://saas.mihuanshop.com' || window.g.baseURL=='https://api.mihuanshop.com') {
     return true;
   } else {
     return false;
   }
 }
-const TIP         =  isOnline() ?  (window.g.PIP +'/shop') : (window.g.testApiURL);
+const TIP         =  isOnline() ?  (window.g.PIP +'/live') : (window.g.testApiURL);
+const TFIP        =  isOnline() ?  (window.g.PIP +'/live') : (window.g.tfURL);
+const MSIP        =  isOnline() ?  (window.g.baseURL +'/live') : (window.g.msURL);
+const PTIP        =  isOnline() ?  (window.g.PIP +'/live') : (window.g.tfURL);
+
+
 const marketingIP =  isOnline() ?  (window.g.PIP +'/marketing') : (window.g.testApiURL);
 const shopIP      =  isOnline() ?  (window.g.PIP +'/shop')      : (window.g.testApiURL);
 const userIP      =  isOnline() ?  (window.g.PIP +'/user')      : (window.g.testApiURL);
@@ -26,18 +33,61 @@ const orderApiIP    =  isOnline() ?  (window.g.noRouter +'/order')  : (window.g.
 const financeApiIP  =  isOnline() ?  (window.g.noRouter +'/finance'): (window.g.testApiURL+'/finance');
 const marketingApiIP=  isOnline() ?  (window.g.noRouter +'/marketing') : (window.g.testApiURL);
 
-
 const logIP         =  isOnline() ?  (window.g.PIP +'/log')         : (window.g.testApiURL);
 const integralIP    =  isOnline() ?  (window.g.baseURL +'/integral'): (window.g.testApiURL);
 const integralApiIP =  isOnline() ?  (window.g.noRouter): (window.g.testApiURL);
 
-// const TIP = window.g.PIP +'/shop';
-// const TIP = window.g.testApiURL;
-// const TIP = window.g.noRouter; //api
-// const MSIP = window.g.noRouter;//api
-// tfURL:'http://172.16.1.181:8080'   //滕飞：测试环境域名
-const TFIP = window.g.tfURL;
+// https://api.mihuanshop.com/live/region/list
 
+// 抖店端
+const dydRegister       = PIP + '/dyd/register';        // 1.抖店注册
+const dydLogin          = PIP + '/dyd/login';           // 2.抖店登录
+const baseAuthorize     = PIP + '/base/authorize';      // 3.抖店授权
+const dydShopPut        = PIP + '/dyd/shop/put';        // 4.抖店添加店铺
+const dydShopCancel     = PIP + '/dyd/shop/auth/cancel';// 5.取消授权
+const dydShopList       = PIP + '/dyd/shop/list/get';   // 6.获取店铺列表
+const dydSuppliersList  = PIP + '/dyd/suppliers/get';   // 7.获取供应商列表
+const dydSuppliersDetail = PIP + 'dyd/suppliers/detail/get'; // 8.获取供应商详情
+// 供应商端（抖音）
+const supplierRegister  = PTIP + '/supplier/register'; // 1.供应商注册
+const supplierLogin     = PTIP + '/supplier/login';    // 2.供应商登录
+const supplierBasegGet  = PTIP + '/supplier/base/get'; // 3.查询供应商认证信息
+const supplierBasegPost = PTIP + '/supplier/base/post';// 4.提交供应商认证
+// （滕飞）
+const supplierProductAdd    = TFIP + '/supplier/t/product/add';    // 供应商添加商品
+const supplierProductCopy   = TFIP + '/supplier/t/product/copy';   // 把供应商的商品复制到抖店
+const supplierProductDetail = TFIP + '/supplier/t/product/detail'; // 商品详情
+const supplierProductList   = TFIP + '/supplier/t/admin/list';     // 商品列表
+const supplierGetShopCategory     = TFIP + '/supplier/t/dy/shop/getShopCategory';     // 类目列表接口
+const supplierFreightTemplateList = TFIP + '/supplier/t/dy/freightTemplate/list';     // 运费模板查询
+
+// 合作管理
+const supplierCooperationPartnerShop= TFIP + '/supplier/t/cooperation/partnerShop'; //已合作店铺
+const supplierCooperationApplyShop  = TFIP + '/supplier/t/cooperation/applyShop';   //申请合作店铺
+const supplierCooperationAgree      = TFIP + '/supplier/t/cooperation/agree';       //同意合作
+const supplierCooperationCancel     = TFIP + '/supplier/t/cooperation/cancel';      //终止合作
+// 订单
+const orderList       = MSIP + '/order/admin/list';                 //查询订单列表
+const orderDetail     = MSIP + '/order/admin/detail';               //查询订单明细（订单详情）
+const logisticsList   = MSIP + '/logistics/info/lgslist';           //查看物流
+const orderStatusNum  = MSIP + '/order/admin/statusNum';            //查询订单各状态数量 
+const orderExport     = MSIP + '/order/admin/export';               //订单导出 
+const orderUploadfile = MSIP + '/logistics/order/admin/uploadfile'; //订单-批量发货 
+const orderSend       = MSIP + '/order/admin/send';                 //订单-发货 
+const orderAftersaleList = MSIP + '/order/aftersale/admin/list';    //售后订单列表
+const orderReceive       = MSIP + '/order/aftersale/admin/receive'; //售后订单-商家已收货
+const orderNote          = MSIP + '/order/admin/note';              //订单-修改卖家备注
+
+// 收货地址
+const addressAdd      = MSIP + '/logistics/address/admin/add';      //设置-收货地址-添加 
+const addressUpdate   = MSIP + '/logistics/address/admin/update';   //设置-收货地址-修改 
+const addressDetail   = MSIP + '/logistics/address/admin/detail';   //设置-收货地址-查看明细
+const addressList     = MSIP + '/logistics/address/admin/list';     //设置-收货地址-查看列表
+// 资源管理
+const resourceAdd     = TFIP + '/resource/admin/add';     // 添加资源
+const resourceDelete  = TFIP + '/resource/admin/delete';  // 删除资源 
+const resourceList    = TFIP + '/resource/admin/list';    // 资源列表   
+const resourceUpdate  = TFIP + '/resource/admin/update';  // 我的资源-修改
 
 
 
@@ -84,15 +134,17 @@ const goodsAllcategory = MIP + '/shop/shop/category/admin/all';//全部分类
 const goodsanditApi = MIP + '/shop/shop/item/admin/audit';
 const resGrounpTee = MIP + '/shop/shop/resource/group/admin/all';
 const addgoodsGunp = MIP +'/shop/shop/resource/group/admin/add';
-const  shachuResGrounp = MIP +  '/shop/shop/resource/group/admin/delete';
+const shachuResGrounp = MIP +  '/shop/shop/resource/group/admin/delete'; //删除资源图片
 const addgoodsResSon = MIP + '/shop/shop/resource/group/admin/add';
-const imgresRught = MIP +'/shop/shop/resource/admin/list';
+const imgresRught = MIP +'/shop/shop/resource/admin/list';  //资源图片列表
 const editWangDescription = MIP + '/shop/shop/item/admin/description';
 const addGoodsCategory = MIP + '/shop/shop/category/admin/add';;
 const chaGoodsCategoryDetail = MIP + '/shop/shop/category/admin/detail'
 const goodsNumber = MIP + '/shop/shop/item/admin/totalnum';
 const goodsshopseeting = MIP + "/shop/shop/setting/admin/update"; 
 const goodsseetingquery = MIP + "/shop/shop/setting/query";
+
+
 
 /**查询订单列表接口
  * post 方法 , 对应post请求
@@ -110,7 +162,7 @@ const fhuomoenyAddress  = MIP + '/order/order/logistics/admin/shipments';//发�
 const express           = NOROUTER + '/order/express/list';  //快递公司接口
 const editorderDress    = MIP + '/order/order/order/admin/update';
 const adminorderSetall  = MIP + '/order/order/setting/query';  //定单设置详情
-const orderDetailMehod  = MIP + '/order/order/order/admin/detail';
+const orderDetailMehod  = MIP + '/order/order/order/admin/detail'; //订单详情
 const reqOrderNumber    = NOROUTER + '/order/order/admin/statusNum'; //订单统计数（状态码）
 const orderxiugaiFa     = MIP + '/order/order/logistics/admin/updateNo';//修改发货
 const weiquanorderAgree = MIP + '/order/order/aftersale/admin/agree'; //维权定单同意
@@ -158,7 +210,7 @@ const vipsetingquery  = MIP + "/user/user/setting/detail";
 const reqaddress      = MIP + '/user/user/region/list';
 const seeVipdengjiDetail = MIP + '/user/user/grade/admin/detail';
 const  vipexport      = MIP + '/user/user/user/admin/export';//会员导出
-const anziduanExport  = MIP + '/user/user/setting/mngUserDetail';
+const anziduanExport  = MIP + '/user/user/setting/mngUserDetail'; //导出
 const settingTx = MIP + '/user/user/setting/detail';
 const settingSz = MIP + '/user/user/setting/admin/update';
 const allZhi    = MIP + '/user/user/user/admin/descendantData';
@@ -176,7 +228,7 @@ const homeDatavip   = MIP + '/finance/finance/data/admin/index';
 const CommissionApi = MIP + '/finance/finance/cmsrebate/admin/list';    //佣金明细
 const balanceApi    = MIP + '/finance/finance/balance/log/admin/list';  //余额记录
 const financeNum    = MIP + '/finance/finance/data/admin/visitDay';     //访问量
-const orderfinance  = MIP + '/finance/finance/cmsrebate/admin/order';
+const orderfinance  = MIP + '/finance/finance/cmsrebate/admin/order'; //佣金信息
 
 const financeList   = MIP + '/finance/finance/withdraw/admin/list';     //提现列表
 const financeListTy = MIP + '/finance/finance/withdraw/admin/audit';    //提现同意
@@ -190,9 +242,9 @@ const yongjinYeListTy = MIP + '/finance/finance/cmstobalance/admin/audit';
 const mh_regionAllList= 'http://api.chainfos.com/order/region/list23';  //区域列表（省/市）
 const mh_regionList= 'https://api.mihuanshop.com/user/region/list';     //区域列表（省）
 //NOROUTER
-const sysbelNum = NOROUTER +'/order/dict/type?t=28';//操作日志字典量
+const sysbelNum   = NOROUTER +'/order/dict/type?t=28';//操作日志字典量
 const sysbelNum14 = NOROUTER +'/order/dict/type?t=14'; //地址详情
-const logList = NOROUTER+'/log/operation/admin/list';
+const logList     = NOROUTER+'/log/operation/admin/list';
 const sysbelNum12 =  NOROUTER + '/order/dict/type?t=12';
 
 
@@ -215,21 +267,21 @@ const qg_TYsetUpdate = '/shop' +'/panicbuy/uniformSetting/update'; //统一设�
 const qg_TYsetDelete = '/shop' +'/panicbuy/uniformSetting/delete'; //统一设置删除（新）
 const qg_TYsetInsert = '/shop' +'/panicbuy/uniformSetting/insert'; //统一设置添加（新）
 const qg_TYsetFindall= '/shop' +'/panicbuy/uniformSetting/findall';//统一设置回显（新）
-//优惠券（cp：coupon）
-const cp_list = '/order' +'/coupon/admin/list';        //列表
-const cp_add = '/shop' +'/tPanicbuyConpon/add';        //添加优惠券
-const cp_update = '/shop' +'/tPanicbuyConpon/update';  //修改优惠券
-const cp_delete = '/shop' +'/tPanicbuyConpon/delete';  //删除优惠券
-const cp_findall = '/shop' +'/tPanicbuyConpon/findall';//查询优惠券
-const cp_open = '/shop' +'/tPanicbuyConpon/open';      //启用
-const cp_close = '/shop' +'/tPanicbuyConpon/close';    //关闭
-const cp_selectByTpcid= '/shop' +'/tPanicbuyConpon/selectByTpcid';  //根据优惠券id查询优惠券详情
-//礼包 
-const cp_addPackage = '/shop' +'/tPanicbuyConpon/addPackage';       //添加优惠券 礼包
-const cp_deletePackage = '/shop' +'/tPanicbuyConpon/deletePackage'; //删除优惠券 礼包
-const cp_updatePackage = '/shop' +'/tPanicbuyConpon/updatePackage'; //修改优惠券 礼包
-const cp_findallPackage= '/shop' +'/tPanicbuyConpon/findallPackage';//查询优惠券 礼包
-const cp_findpackagebyId= '/shop' +'/tPanicbuyConpon/findpackagebyId';//根据礼包id查询礼包详情
+// //优惠券（cp：coupon）
+// const cp_list = '/order' +'/coupon/admin/list';        //列表
+// const cp_add = '/shop' +'/tPanicbuyConpon/add';        //添加优惠券
+// const cp_update = '/shop' +'/tPanicbuyConpon/update';  //修改优惠券
+// const cp_delete = '/shop' +'/tPanicbuyConpon/delete';  //删除优惠券
+// const cp_findall = '/shop' +'/tPanicbuyConpon/findall';//查询优惠券
+// const cp_open = '/shop' +'/tPanicbuyConpon/open';      //启用
+// const cp_close = '/shop' +'/tPanicbuyConpon/close';    //关闭
+// const cp_selectByTpcid= '/shop' +'/tPanicbuyConpon/selectByTpcid';  //根据优惠券id查询优惠券详情
+// //礼包 
+// const cp_addPackage = '/shop' +'/tPanicbuyConpon/addPackage';       //添加优惠券 礼包
+// const cp_deletePackage = '/shop' +'/tPanicbuyConpon/deletePackage'; //删除优惠券 礼包
+// const cp_updatePackage = '/shop' +'/tPanicbuyConpon/updatePackage'; //修改优惠券 礼包
+// const cp_findallPackage= '/shop' +'/tPanicbuyConpon/findallPackage';//查询优惠券 礼包
+// const cp_findpackagebyId= '/shop' +'/tPanicbuyConpon/findpackagebyId';//根据礼包id查询礼包详情
 
 //商品 （ cm：commodity ）
 const cm_skuInfos = '/shop' + "/sku/infos";                       //获取商品信息（商品列表）
@@ -258,26 +310,7 @@ const ft_insert  =  '/shop'+'/panicbuy/freight/insert';  //创建
 const ft_findById=  '/shop'+'/panicbuy/freight/findById';//查询详情
 const ft_deletecontent =  '/shop'+'/panicbuy/freight/deletecontent'; //删除：指定区域运费设置
 const ft_deletefree    =  '/shop'+'/panicbuy/freight/deletefree';    //删除：指定条件包邮
-//整点秒杀
-const ms_seckillList    =  '/marketing'+'/seckill/admin/seckillList';    //整点秒杀列表
-const ms_deleteKind     =  '/marketing'+'/seckill/admin/deleteKind';     //整点秒杀页面 -删除
-const ms_addKind        =  '/marketing'+'/seckill/admin/addKind';        //秒杀 -创建（假）
-const ms_addActivity    =  '/marketing'+'/seckill/admin/addActivity';    //秒杀 -创建场次（假）
-const ms_updateseckill  =  '/marketing'+'/seckill/admin/updateseckill';  //秒杀 -编辑
-const ms_deleteActivity =  '/marketing'+'/seckill/admin/deleteActivity'; //秒杀-删除场次
-const ms_skulist        =  '/marketing'+'/seckill/admin/skulist';  //秒杀-商品管理
-const ms_addsku         =  '/marketing'+'/seckill/admin/addsku';   //秒杀-添加商品
-const ms_deletesku      =  '/marketing'+'/seckill/admin/deletesku';//秒杀-删除商品 
-const ms_updatesku      =  '/marketing'+'/seckill/admin/updatesku';//秒杀-修改商品（秒杀价和秒杀销量）
-const ms_findById       =  '/marketing'+'/seckill/admin/findById'; // 秒杀-回显
-const ms_updateUseStatus=  '/marketing'+'/seckill/admin/updateUseStatus'; // 秒杀-启用按钮
-//整点砍价
-const kj_list   =  '/marketing'+'/bargain/kind/admin/list';   //后台-砍价-列表
-const kj_status =  '/marketing'+'/bargain/kind/admin/status'; //后台-砍价-下架/上架
-const kj_detail =  '/marketing'+'/bargain/kind/admin/detail'; //后台-砍价-详情
-const kj_delete =  '/marketing'+'/bargain/kind/admin/delete'; //后台-砍价-删除
-const kj_update =  '/marketing'+'/bargain/kind/admin/update'; //后台-砍价-更新
-const kj_add    =  '/marketing'+'/bargain/kind/admin/add';    //后台-砍价-新增
+
 // 设置（通用、财务、通知）
 const set_findById     = '/shop'+ "/panicbuy/w/findById";
 const set_update       = '/shop'+ "/panicbuy/w/update";
@@ -294,44 +327,16 @@ const set_settingUpdate   = '/user'+ "/setting/admin/update"; //后台-设置-�
 const set_settingDetail   = '/user'+ "/setting/detail";       //后台-会员设置-查询接口 
 const set_infoAddOrUpdate   = '/user'+ "/info/admin/addOrUpdate";         //设置-平台信息
 const set_infoFindBySuserId = '/user'+ "/info/admin/findBySuserId";       //查询saas平台信息
-// const set_findServiceMoney  = '/user'+ "/info/admin/findServiceMoney";    //抽佣设置- 后台回显
-// const set_updateServiceMoney= '/user'+ "/info/admin/updateServiceMoney";  //抽佣设置- 后台管理设置
-// const set_findServiceMoney  = '/user'+ "/setting/admin/findServiceMoney";    //抽佣设置- 后台回显
-// const set_updateServiceMoney= '/user'+ "/setting/admin/updateServiceMoney";  //抽佣设置- 后台管理设置
 const set_findServiceMoney  = '/user'+ "/setting/detail";         //抽佣设置- 后台回显
 const set_updateServiceMoney= '/user'+ "/setting/admin/update/";  //抽佣设置- 后台管理设置
 
 
-
-
 //首页（埋点：bury points）
 /*  二、后端接口：/track/admin/data
-	1.	页面数据分析-选择付款方式动作采集
-	2.	页面数据分析-首页动作采集
-	3.	页面数据分析-订单确认页动作采集
-	4.	页面数据分析-普通商品详情页动作采集
-	5.	页面数据分析-个人中心页动作采集
-	6.	页面数据分析-抢购活动页动作采集
-	7.	页面数据分析-7人拼团活动页动作采集
-	8.	页面数据分析-各品类数据概况
-	9.	页面数据分析-各页面基础数据情况
-	10.	页面数据分析-基础数据PV折线图
-  11.	页面数据分析-数据漏斗
-  12. 页面数据分析-区域曝光数-首页
-  13. 页面数据分析-区域曝光数-抢购活动页
-  14. 页面数据分析-区域曝光数-个人中心
 */
 const bp_trackAdd   =  '/log'+'/track/add';   
 const bp_adminBasic  =  '/log'+'/track/admin/basic';   
 const bp_adminData  =  '/log'+'/track/admin/data';   
-// 邀请插件
-const it_updateInviteTask =  '/marketing'+'/invite/admin/updateInviteTask';   //编辑任务
-const it_addInviteTask    =  '/marketing'+'/invite/admin/addInviteTask';      //创建任务 
-const it_selectRecordById =  '/marketing'+'/invite/admin/selectRecordById';   //查看（领取流水） 
-const it_selectById       =  '/marketing'+'/invite/admin/selectById';     //回显 
-const it_updateStatus     =  '/marketing'+'/invite/admin/updateStatus';   //启用（上架/下架）
-const it_delete           =  '/marketing'+'/invite/admin/delete';         //删除任务 
-const it_inviteList       =  '/marketing'+'/invite/admin/inviteList';     //后台列表 
 // 微店（shopMin）
 const sm_vshopList =  '/user'+'/vshop/admin/list';          //微店列表  
 const sm_findApply =  '/user'+'/vshop/admin/findApply';     //查看申请
@@ -343,77 +348,62 @@ const sp_detail     =  '/user'+'/supplier/admin/detail';  //明细
 const sp_list       =  '/user'+'/supplier/admin/list';    //供应商列表
 const sp_simplist   =  '/user'+'/supplier/admin/simplist';//列表（全平台可用）
 const sp_distribute =  '/shop'+'/item/admin/distribute';  //分销
-// 推客
-const tk_list             =  '/user' + "/rcm/admin/list";   //推客列表
-const tk_spList           =  "/rcm/supplier/list";             //推客列表（根据 供应商Id 查询）
-const tk_update           =  "/rcm/admin/update"; //设置等级
-const tk_cancel           =  '/user' + "/rcm/admin/cancel"; //取消推客
-const tk_regionList       =  '/user' + "/region/list";            //请求地区	
-const tk_applyList        =  '/user' + "/rcm/apply/admin/list";   //推客申请列表（status：-1：不通过，1：通过，0：未处理）
-const tk_despose          =  '/user' + "/rcm/apply/admin/despose";//推客申请审核
-const tk_saasuserDetail   =  '/user' + "/saasuser/admin/detail";  //获取saas个人信息
-const tk_saasuserChcard   =  '/user' + "/saasuser/admin/chcard";  //上传名片
-const tk_detail           =  '/user' + "/rcm/admin/detail";       //推客详情
-const tk_expenseCapacity  =  '/order' + "/order/admin/expenseCapacity"; //消费能力
-const tk_orderList        =  '/order' + "/order/admin/list";      //查询订单列表（消费能力）
-const tk_couponList       =  '/order' + "/coupon/admin/list";//用户优惠券列表
-const tk_balanceList      =  '/finance' + "/balance/log/admin/list"; //余额记录-列表
-const tk_cmsrebateList    =  '/finance' + "/cmsrebate/admin/list";    //佣金明细
-const tk_settingDetail    =  '/user' + "/rcm/setting/detail";         //推客设置查询接口（推客升级条件：1：交易成功订单。2：已付款订单）
-const tk_settingUpdate    =  '/user' + "/rcm/setting/admin/update";   //推客设置
-const tk_memberGradeList  =  '/user' + "/grade/admin/list";       //会员等级列表（指定会员等级）
-const tk_gradeList        =  '/user' + "/rcm/grade/admin/list";   //推客等级列表
-const tk_gradeDelete      =  '/user' + "/rcm/grade/admin/delete"; //推客等级删除
-const tk_gradeStatus      =  '/user' + "/rcm/grade/admin/status"; //推客等级变更状态
-const tk_gradeDetail      =  '/user' + "/rcm/grade/admin/detail"; //推客等级详情
-const tk_gradeAdd         =  '/user' + "/rcm/grade/admin/add";    //推客等级 新增
-const tk_gradeUpdate      =  '/user' + "/rcm/grade/admin/update"; //推客等级 修改
-const tk_financeTable     =  '/user' + "/user/admin/finance";     //财务报表-获取基本信息
-const tk_orderDetail      =  '/order' + "/order/admin/detail";    //后台管理-订单-分佣订单
-const tk_junior           =  '/user' + "/rcm/admin/junior";       //查看下级
-const tk_applyItemDetail  =  '/user' + "/rcm/apply/item/admin/detail";  //推客申请项详情
-const tk_applyItemDelete  =  '/user' + "/rcm/apply/item/admin/delete";  //推客申请项删除
-const tk_applyItemAdd     =  '/user' + "/rcm/apply/item/admin/add";     //推客申请项 1新增
-const tk_applyItemUpdate  =  '/user' + "/rcm/apply/item/admin/update";  //推客申请项 2修改
-const tk_goodsList        = '/shop' + "/item/admin/list";               //商品列表
-const tk_qrcode           =  "/miniprogram/wx/mini/qrcode/page/get.do"; //后台-获取二维码 
-const tk_balanceAdd       =  '/finance' + "/balance/log/admin/add";     //调整佣金（finance）
-//渠道商
-const cb_chList       =  '/user' + "/ch/admin/list";      //渠道商列表
-const cb_detail       =  '/user' + "/ch/admin/detail";    //渠道商详情
-const cb_update       =  '/user' + "/ch/admin/update";    //渠道商更新
-const cb_gradeList    =  '/user' + "/ch/nickName";        //渠道商等级列表
-const cb_upgradeCh    =  '/user' + "/ch/admin/upgradeCh"; //修改渠道商等级
-const cb_cancel       =  '/user' + "/ch/admin/cancel";    //取消渠道商
-const cb_expenseCapacity =  '/order' + "/admin/expenseCapacity";    //消费能力
-// const cb_couponList=  '/order' + "/coupon/admin/list";    //优惠券列表
-const cb_juniorList   =  '/user' + "/rcm/juniorList";    //下级推客
-const cb_crllist      =  '/order' + "/admin/crllist";    //分佣订单
-const cb_performance  =  '/order' + "/admin/performance";     //业绩统计-获取基本信息
-const cb_performanceList ='/user' + "/admin/performanceList"; //业绩统计列表
-
-const ch_settingtDetail           ='/user' + "/ch/setting/detail";                  //设置详情
-const ch_settingtSales            ='/user' + "/ch/setting/admin/sales";             //设置销售奖
-const ch_settingtReferral         ='/user' + "/ch/setting/admin/referral";          //设置推荐奖
-const ch_settingtGroupPerformance ='/user' + "/ch/setting/admin/groupPerformance";  //团队业绩
-
-
-// 积分
-const int_settingQuery   =  '/integral' + "/setting/query";        //管理端/用户端-积分-查询设置
-const int_settingUpdate  =  '/integral' + "/setting/admin/update"; //管理端-积分-设置
-const int_skuUpdate      =  '/integral' + "/sku/admin/update";     //管理端-积分商城-批量更新/批量添加
-const int_skulist        =  '/integral' + "/sku/admin/list";       //管理端-积分商品列表
-const int_list           =  '/integral' + "/detail/admin/list";    //管理端-积分列表
-const int_delete         =  '/integral' + "/sku/admin/delete";     //管理端-积分商品删除 Id
-const int_totalSet       =  '/integral' + "/total/admin/set";      //设置积分
-
 
 export default {
+  // 资源管理
+  resourceAdd: resourceAdd,
+  resourceDelete: resourceDelete,
+  resourceList: resourceList,
+  resourceUpdate: resourceUpdate,
+  //用户
+  supplierRegister: supplierRegister,
+  supplierLogin: supplierLogin,
+  supplierBasegGet: supplierBasegGet,
+  supplierBasegPost: supplierBasegPost,
+  // 抖店端
+  dydRegister: dydRegister,
+  dydLogin: dydLogin,
+  dydShopPut: dydShopPut,
+  baseAuthorize: baseAuthorize,
+  dydShopCancel: dydShopCancel,
+  dydShopList: dydShopList,
+  dydSuppliersList: dydSuppliersList,
+  dydSuppliersDetail: dydSuppliersDetail,
+  supplierProductAdd: supplierProductAdd,
+  supplierProductCopy: supplierProductCopy,
+  supplierProductDetail: supplierProductDetail,
+  supplierProductList: supplierProductList,
+  supplierGetShopCategory: supplierGetShopCategory,
+  supplierFreightTemplateList: supplierFreightTemplateList,
+  //合作管理
+  supplierCooperationPartnerShop: supplierCooperationPartnerShop,
+  supplierCooperationApplyShop: supplierCooperationApplyShop,
+  supplierCooperationAgree: supplierCooperationAgree,
+  supplierCooperationCancel: supplierCooperationCancel,
+  //订单
+  orderList: orderList,
+  orderDetail: orderDetail,
+  logisticsList: logisticsList,
+  orderStatusNum: orderStatusNum,
+  orderExport: orderExport,
+  orderUploadfile: orderUploadfile,
+  orderSend: orderSend,
+  orderAftersaleList: orderAftersaleList,
+  orderReceive: orderReceive,
+  orderNote: orderNote,
+  //收货地址
+  addressAdd: addressAdd,
+  addressUpdate: addressUpdate,
+  addressDetail: addressDetail,
+  addressList: addressList,
+  // IP
   isOnline:isOnline,
   MIP:MIP,
   PIP:PIP,
   TIP:TIP,
   TFIP:TFIP,
+  MSIP:MSIP,
+  PTIP: PTIP,
   // MSIP:MSIP, 模块IP
   marketingIP:marketingIP,
   shopIP:shopIP,
@@ -428,65 +418,7 @@ export default {
   logIP: logIP,
   integralIP: integralIP,
   integralApiIP: integralApiIP,
-  // 推客
-  tk_list: tk_list,
-  tk_spList: tk_spList,
-  tk_update: tk_update,
-  tk_cancel: tk_cancel,
-  tk_regionList: tk_regionList,
-  tk_applyList: tk_applyList,
-  tk_despose: tk_despose,
-  tk_saasuserDetail: tk_saasuserDetail,
-  tk_saasuserChcard: tk_saasuserChcard,
-  tk_detail: tk_detail,
-  tk_expenseCapacity: tk_expenseCapacity,
-  tk_orderList: tk_orderList,
-  tk_couponList: tk_couponList,
-  tk_balanceList: tk_balanceList,
-  tk_cmsrebateList: tk_cmsrebateList,
-  tk_settingDetail: tk_settingDetail,
-  tk_settingUpdate: tk_settingUpdate,
-  tk_memberGradeList: tk_memberGradeList,
-  tk_gradeList: tk_gradeList,
-  tk_gradeDelete: tk_gradeDelete,
-  tk_gradeStatus: tk_gradeStatus,
-  tk_gradeDetail: tk_gradeDetail,
-  tk_gradeAdd: tk_gradeAdd,
-  tk_gradeUpdate: tk_gradeUpdate,
-  tk_financeTable: tk_financeTable,
-  tk_orderDetail: tk_orderDetail,
-  tk_junior: tk_junior,
-  tk_applyItemDetail: tk_applyItemDetail,
-  tk_applyItemDelete: tk_applyItemDelete,
-  tk_applyItemAdd: tk_applyItemAdd,
-  tk_applyItemUpdate: tk_applyItemUpdate,
-  tk_goodsList: tk_goodsList,
-  tk_qrcode: tk_qrcode,
-  tk_balanceAdd: tk_balanceAdd,
-  // 渠道商
-  cb_chList: cb_chList,
-  cb_detail: cb_detail,
-  cb_update: cb_update,
-  cb_gradeList: cb_gradeList,
-  cb_upgradeCh: cb_upgradeCh,
-  cb_cancel: cb_cancel,
-  cb_expenseCapacity: cb_expenseCapacity,
-  cb_juniorList: cb_juniorList,
-  cb_crllist: cb_crllist,
-  cb_performance: cb_performance,
-  cb_performanceList: cb_performanceList,
-  ch_settingtDetail: ch_settingtDetail,
-  ch_settingtSales: ch_settingtSales,
-  ch_settingtReferral: ch_settingtReferral,
-  ch_settingtGroupPerformance: ch_settingtGroupPerformance,
-  // 积分
-  int_settingQuery: int_settingQuery,
-  int_settingUpdate:int_settingUpdate,
-  int_skuUpdate: int_skuUpdate,
-  int_skulist: int_skulist,
-  int_list: int_list,
-  int_delete: int_delete,
-  int_totalSet: int_totalSet,
+
   // 供应商
   sp_add: sp_add,
   sp_update: sp_update,
@@ -498,34 +430,6 @@ export default {
   sm_vshopList: sm_vshopList,
   sm_findApply: sm_findApply,
   sm_closeOropen: sm_closeOropen,
-  // 邀请插件
-  it_updateInviteTask:it_updateInviteTask,
-  it_addInviteTask:it_addInviteTask,
-  it_selectRecordById:it_selectRecordById,
-  it_selectById:it_selectById,
-  it_updateStatus:it_updateStatus,
-  it_delete:it_delete,
-  it_inviteList:it_inviteList,
-  //整点砍价
-  kj_list:kj_list,
-  kj_status:kj_status,
-  kj_detail:kj_detail,
-  kj_delete:kj_delete,
-  kj_update:kj_update,
-  kj_add:kj_add,
-  // 秒杀
-  ms_seckillList:ms_seckillList,
-  ms_deleteKind:ms_deleteKind,
-  ms_addKind:ms_addKind,
-  ms_addActivity:ms_addActivity,
-  ms_updateseckill:ms_updateseckill,
-  ms_deleteActivity:ms_deleteActivity,
-  ms_skulist:ms_skulist,
-  ms_addsku:ms_addsku,
-  ms_deletesku:ms_deletesku,
-  ms_updatesku:ms_updatesku,
-  ms_findById:ms_findById,
-  ms_updateUseStatus:ms_updateUseStatus,
   // 运费模板
   ft_findAll:ft_findAll,
   ft_copy:ft_copy,
@@ -578,19 +482,7 @@ export default {
   qg_TYsetHX:qg_TYsetHX,
   cm_skuInfos:cm_skuInfos,
   cm_selectBySpus:cm_selectBySpus,
-  cp_list:cp_list,
-  cp_add:cp_add,
-  cp_close:cp_close,
-  cp_update:cp_update,
-  cp_delete:cp_delete,
-  cp_findall:cp_findall,
-  cp_open:cp_open,
-  cp_addPackage:cp_addPackage,
-  cp_deletePackage:cp_deletePackage,
-  cp_updatePackage:cp_updatePackage,
-  cp_findallPackage:cp_findallPackage,
-  cp_selectByTpcid:cp_selectByTpcid,
-  cp_findpackagebyId: cp_findpackagebyId,
+
   // 抢购
   qg_TYsetUpdate:qg_TYsetUpdate,
   qg_TYsetDelete:qg_TYsetDelete,

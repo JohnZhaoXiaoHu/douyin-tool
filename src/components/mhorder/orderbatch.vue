@@ -64,7 +64,8 @@
                       
                     </div>
 
-                    <button type="button" class="el-button el-button--primary el-button--small" style="margin-left:112px " size="mini" @click="upFile"><span>确定</span></button>
+                    <button type="button" class="el-button el-button--primary el-button--small" style="margin-left:112px " size="mini" 
+                    @click="request_upFile"><span>确定</span></button>
                     <!--会员设置over-->
                 </div>
                 <!-- 商品中心over-->
@@ -112,29 +113,27 @@ export default {
                 this.$message.warning('选择不分单');
             }   
         },
-      upFile(){
-        let that = this;
-        let data = new FormData();
+        // 请求发货：baseapi.moenyAddress
+        request_upFile(){
+            let that = this;
+            let params = new FormData();
+        		  if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '2');
+            }
     
-        data.append('type', this.radio);
-                for(let a=0;a< this.fileList.length;a++){
-                data.append('files',this.fileList[a].raw);
-            }       
+            params.append('type', this.radio);
+            for(let a=0;a< this.fileList.length;a++){
+                params.append('files',this.fileList[a].raw);
+            }        
             this.$http({
                 method: "post",
-                url: baseapi.moenyAddress,
-                data: data,
+                url: baseapi.orderUploadfile,
+                data: params,
                 headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId') }
             })
             .then(function(res){
-                if(res.data.status == 500){
-                    that.$message.error(res.data.message);
-                    return false;
-                }
-                if(res.data.status == 505){
-                    that.$message.error(res.data.message);
-                    return false;
-                }
                 if(res.data.status == 200){
                     that.$message.success('提交模板文件成功');
                     that.files = [];
@@ -142,7 +141,6 @@ export default {
                 }else{
                     that.$message.error(res.data.message);
                 }
-            
             })
             .catch(function(error){
                 console.log(error);         

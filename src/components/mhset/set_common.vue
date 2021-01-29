@@ -87,7 +87,8 @@ export default {
             that.status ?  params.append('status',1) :  params.append('status',0);
             let urlStr = api.shopIP + api.set_updateStatus;
             console.log('---直播设置 params=' + zm_formDataToString(params) +'\n urlStr= ', urlStr);
-            this.$http({ method: "post",
+           
+           this.$http({ method: "post",
                 url: urlStr,
                 data: params
             })
@@ -100,14 +101,14 @@ export default {
         },
         request_getData(){
             let self = this;    
-            let data = new FormData(); 
+            let params = new FormData(); 
             let urlStr = api.shopIP + api.set_findButtonStatus;
-            data.append('id',1);
-            console.log('---直播设置回显 urlStr= ', urlStr);
+            params.append('id',1);
+            console.log('---直播设置回显 params=' + zm_formDataToString(params) +'\n urlStr= ', urlStr);
 
             this.$http({ method: "post",
                 url: urlStr,
-                data: data
+                data: params
             })
             .then(function(res){
                 console.log('---直播设置回显 res= ' +zm_jsonToString(res.data));

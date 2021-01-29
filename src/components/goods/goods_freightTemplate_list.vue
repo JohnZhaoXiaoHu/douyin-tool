@@ -123,10 +123,7 @@ import {
           ft_tableContentView: true,
           ft_tableContentView1: 'ft_tableContentView1',
           ft_tableContentView2: 'ft_tableContentView2',
-          // 添加礼包
-          // dialogGiftpackVisible: false,
-          // giftPackList:[],
-          // selectIndex: 0,
+
           multipleSelection:[],
           selectFTemplate: '',
           selectFTemplateList:[],

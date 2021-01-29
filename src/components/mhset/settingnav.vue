@@ -1,7 +1,7 @@
 <template>
     <ul class="main-goods-left" id="main-goods-left_disabled">
 
-        <router-link tag="a" to="/mhset">   
+        <!-- <router-link tag="a" to="/mhset">   
             <li class="goods-left_list"><span>用户信息</span></li> 
         </router-link> 
             
@@ -9,13 +9,18 @@
             <li class="goods-left_list"><span>店铺管理</span></li> 
         </router-link> 
         
+        set_cooperativeManagement
+         -->
+
+        <router-link tag="a" to="/mhset">   
+            <li class="goods-left_list"><span>合作管理</span></li>  
+        </router-link>  
+        
         <router-link tag="a" to="/mhset/set_shippingAddress">   
             <li class="goods-left_list"><span>收货地址</span></li> 
         </router-link> 
 
-        <router-link tag="a" to="/mhset/set_cooperativeManagement">   
-            <li class="goods-left_list"><span>合作管理</span></li>  
-        </router-link>  
+        
 <!-- src/components/mhset/set_shopManage.vue -->
 
         <!-- <router-link tag="a" to="/mhset/set_common">   

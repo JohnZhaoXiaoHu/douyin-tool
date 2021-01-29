@@ -22,9 +22,53 @@
 					<li class="login-sub">
 						<input type="button" value="登　录" @click="dologin"/>
 					</li> 
+
+					<li class="">
+						<el-button type="text"  @click="registerDialog=true" >注册</el-button>
+					</li> 
 			    </ul>	
            </form>
 		</div>
+
+
+		 <!-- 注册 -->
+                    <el-dialog title="注册" :visible.sync="registerDialog" width="60%">
+                        <div class="add-shop-cate">
+                            <div class="df-basic_row_new el-form-item" style="display:flex">
+                                <label for="item_title" class="el-form-item__label" style="width: 100px;">手机号:</label>
+                                <div class="el-form-item__content" style="display:flex; margin-left: 10px; width:71%;">                
+                                    <el-input type="text" v-model="register_phone" maxlength="11" show-word-limit></el-input>   
+									<el-button type="text"  style="display:flex; margin-left: 10px;" @click="getCode" >获取验证码</el-button>                                
+                                </div>
+                            </div>
+                            <div class="df-basic_row_new el-form-item"  style="display:flex">
+                                <label for="item_title" class="el-form-item__label" style="width: 100px;">密码: </label>
+                                <div class="el-form-item__content" style="margin-left: 10px;width:60%; ">                     
+                                     <el-input type="text" v-model="register_pwd" ></el-input>                            
+                                </div>
+                            </div>
+                             <div class="df-basic_row_new el-form-item"  style="display:flex">
+                                <label for="item_title" class="el-form-item__label" style="width: 100px;">昵称: </label>
+                                <div class="el-form-item__content" style="margin-left: 10px;width:60%;" >
+                                    <el-input type="text" v-model="register_name" placeholder=""></el-input>                      
+                                </div>
+                            </div>
+                            <div class="df-basic_row_new el-form-item"  style="display:flex">
+                                <label for="item_title" class="el-form-item__label" style="width: 100px;">验证码: </label>
+                                <div class="el-form-item__content" style="margin-left: 10px;width:60%;" >
+                                    <el-input type="text" v-model="register_code"></el-input>                      
+                                </div>
+                            </div>
+                           
+                            <div slot="footer" class="dialog-footer add-shop-cate-footer" style="display: flex;justify-content: center;">
+                                <el-button @click="registerDialog = false">取 消</el-button>
+                                <el-button type="primary" @click="registerClick">确 定</el-button>
+                            </div>
+                        </div>
+                    </el-dialog>
+                    <!-- 修改地址over -->
+
+
 	</div>
 	<div class="login_footer"><p>Powered By © 2020 蜜獾</p></div>
   </div>
@@ -48,6 +92,11 @@ export default {
 		   thisUrl:'',
 		   thisnote:{},
 		   platformInfoData: '',
+		   registerDialog: false,
+		   register_phone: '',
+		   register_pwd: '',
+		   register_name: '',
+		   register_code: '',
 		};
 		
 	},
@@ -72,14 +121,38 @@ export default {
   	},
 	mounted(){
 		if(sessionStorage.getItem("loginInfo") != ""){
-			//   this.$router.push('/home');
+			//this.$router.push('/home');
 		}
 		this.$nextTick(() => {
 			this.thisUrl  = this.beforeUrl;
 		})
     },
-	  methods: {
-		  //清除所有cookie函数
+	methods: {
+		getCode(){
+
+		},
+		registerClick(){
+			let that = this;
+			let params = new FormData();       
+			params.append('phone', that.register_phone); 
+			params.append('password', that.register_pwd); 
+			params.append('name', that.register_name);
+			params.append('code', that.register_code);
+			let urlStr = network.supplierRegister;
+
+			this.$http.post(urlStr, params)
+			.then(function(res){
+				console.log('---注册res= '+ zm_jsonToString(res.data));
+					 if(res.data.status!= 200){
+						 that.$message.error(res.data.message);              
+                    }else{
+						that.$message.error('注册成功！');
+						that.registerDialog = false;
+                    }				
+				})
+
+		},
+		//清除所有cookie函数
         clearAllCookie() {
             var keys = document.cookie.match(/[^ =;]+(?==)/g)
 			if (keys) {
@@ -90,84 +163,57 @@ export default {
 				}
 			}
 		},
-		// 请求：查询saas平台信息
-        request_infoFindBySuserId(){
-            let self = this;    
-            let params = new FormData();
-                params.append('suserId', this.$cookie.get('userId'));
-			let urlStr = network.userIP + network.set_infoFindBySuserId;
-			// console.log('---查询saas平台信息 urlStr= ', urlStr +'\n:params= '+zm_formDataToString(params));
+		dologin(){
+			// this.$router.push('/goodslist');
+			// return;
 
-            this.$http({
-                method: "post",
-                url: urlStr,
-                data: params
-            }).then(function(response){
-                console.log('---查询saas平台信息 urlStr= ', urlStr +'\n:response= '+zm_jsonToString(response.data));
-                if(response.data.status == 200){
-                    self.platformInfoData = response.data;
-                    self.headportraitPicture = self.platformInfoData.headportraitPicture;
-                    self.name   = self.platformInfoData.name;
-                    self.address= self.platformInfoData.address;
-                    self.phone  = self.platformInfoData.phone;
-                    // login_logo
-					self.$cookie.set('miHuanLogo', self.platformInfoData.headportrait, 7);
-					self.$cookie.set('miHuanName', self.platformInfoData.name, 7);
-                    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                    link.type = 'image/x-icon';
-                    link.rel = 'shortcut icon';
-                    // link.href = 'http://www.stackoverflow.com/favicon.ico';
-                    link.href = self.platformInfoData.headportrait;
-					document.getElementsByTagName('head')[0].appendChild(link);
-					// 页面跳转
-					if(self.thisUrl == '/'){			
-						self.$router.push('/home');				
-					}else{
-						self.$router.push(`${self.thisUrl}`);  // 登陆成功后默认跳转的路由					
-					}	
-                    
-				}//当前信息未设置过
-				else if(response.data.status == 500 && response.data.message == "当前suserId未被注册") {
-					// 页面跳转
-					var mhLogo = "https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/vip/mihuan.png";
-					self.$cookie.set('miHuanLogo', mhLogo, 7);
-					if(self.thisUrl == '/'){			
-						self.$router.push('/home');				
-					}else{
-						self.$router.push(`${self.thisUrl}`);  // 登陆成功后默认跳转的路由					
-					}	
-                }
-            })
-        },
-		 dologin(){
 		  	let that = this; 
-			let data = {"account":that.account,"password":that.password};
-			this.$http.post(network.PIP+"/sso/user/access.do",data)
+			// let params = {
+			// 	"account":that.account,
+			// 	"phone":that.account,
+			// 	"password":that.password
+			// 	};
+
+			let params = new FormData();       
+            params.append('phone', that.account);  
+            params.append('password', that.password);
+
+			let urlStr =  network.supplierLogin;
+
+			this.$http.post(urlStr, params)
 			.then(function(res){
-				console.log('---登录res= '+ zm_jsonToString(res.data));
+				// console.log('---登录res= '+ zm_jsonToString(res.data));
 					 if(res.data.status!= 200){
 						 that.$message.error(res.data.message);              
                     }else{
-						//登录保存cookie
+						//登录保存cookie	
 						that.thisnote = res.data.data;
-						that.$cookie.set('suserId', res.data.data.userId, 7);
-						that.$cookie.set('openId',  res.data.data.openId, 7);
-						that.$cookie.set('token',  res.data.data.accessToken, 7);
-						that.$cookie.set('_token',  res.data.data.accessToken, 7);
-						that.$cookie.set('userId', res.data.data.userId, 7);
-						that.$cookie.set('roleId',  res.data.data.roleId, 7);
-						that.$cookie.set('adminId ', res.data.data.id, 7);	
-						that.$cookie.set('nickName ', res.data.data.adminAlias, 7);	
-						// console.log('--------登录保存: suserId= '+  that.$cookie.get('suserId'));
+						that.$cookie.set('ssupplierId', res.data.data.user.id, 7);
+						that.$cookie.set('supplierId', res.data.data.user.id, 7);
+						that.$cookie.set('isBelongDy', res.data.data.user.isBelongDy, 7);
+						that.$cookie.set('nickName',  res.data.data.user.openId, 7);
+						that.$cookie.set('updateTime',  res.data.data.user.updateTime, 7);
+						that.$cookie.set('dyShopId',  res.data.data.user.dyShopId, 7);
+						that.$cookie.set('password', res.data.data.user.password, 7);
+						that.$cookie.set('createTime',  res.data.data.user.createTime, 7);
+						that.$cookie.set('phone ', res.data.data.user.phone, 7);	
+						that.$cookie.set('headportrait ', res.data.data.user.headportrait, 7);
+						that.$cookie.set('dyShopName ', res.data.data.user.dyShopName, 7);	
+						that.$cookie.set('account ', res.data.data.user.account, 7);	
+						that.$cookie.set('status ', res.data.data.user.status, 7);	
+						that.$cookie.set('token ', res.data.data.token, 7);	
+						// console.log('--------登录保存: supplierId= '+  that.$cookie.get('supplierId'));
+						// console.log('--------登录保存: token= '+  that.$cookie.get('token'));
+						// sessionStorage.setItem('loginInfo',JSON.stringify(res.data));
 						
-						sessionStorage.setItem('loginInfo',JSON.stringify(res.data));			
-						if(that.$cookie.get('suserId')){
-							// that.request_infoFindBySuserId(); //获取login_logo
-							if(that.thisUrl == '/'){			
-								// that.$router.push('/home');	
-								that.$router.push('/goodslist');				
+						// that.$route.push('/goodslist');	///home
+						
+
+						if(that.$cookie.get('supplierId')){
+							if(that.thisUrl == '/'){	
+								that.$route.push('/goodslist');	///home			
 							}else{
-								that.$router.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
+								that.$route.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
 							}					
 						}	
                     }				

@@ -279,7 +279,7 @@ header{
    height: 13px;
 }
 .sidebar{
-    width: 155px; /* 原：125px; */
+    width: 125px; /* 原：125px; */
     height: 100%;
     min-height: 400px;
     background-color: rgb(68, 68, 68);
@@ -2655,10 +2655,6 @@ display: flex;
     width:20%;
     border-right: 1px dashed #eee;
     height: 91px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    /* align-items: center; */
 }
 .shoporder-table-bottom-div>dl span{
     font-size: 12px
@@ -2672,7 +2668,7 @@ display: flex;
     line-height: 91px; */
     display: flex;
     flex-direction: column;
-    
+    background: yellow;
 }
 
 .shoporder-num{
@@ -2738,9 +2734,6 @@ display: flex;
     align-items: center;
     padding: 4px 0;
 }
-/* .shoporder-edit >button{
-    width: 60%
-} */
 .shoporder-edit-btn{
     /* margin-bottom:6px !important; */
     margin: 5px 10px 5px 10px !important;

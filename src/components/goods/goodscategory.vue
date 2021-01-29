@@ -244,7 +244,7 @@ import imgsrc from "../resource/imgsrc";
 export default {
      data() {
         return {
-            loading:true,
+            loading: false,
             totalCount:0,
             editsortid:'',
             goodscategoryimgOne:'',
@@ -269,7 +269,7 @@ export default {
             tableData: [],
   
             arrlength:0,
-            accuseVisible:false,            //上传图片
+            accuseVisible:false, //上传图片
             sonurl:'',
             sharercode:'',
             downimg:'',
@@ -305,7 +305,6 @@ export default {
             data.append('imgs',param.img);
             data.append('redirect',param.redirect || '');
 
-              
             this.http.post( baseapi.editcategory,data).then(res=>{
                 this.$message.success('修改成功');
                 this.getdata();                

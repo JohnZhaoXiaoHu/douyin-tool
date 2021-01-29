@@ -29,9 +29,6 @@
                         </el-select>
 
 
-
-
-
                         <!-- <el-select v-model="specName" placeholder="请选择规格名" @change="createdSpecifi">
                             <el-option
                             v-for="item in guigezhilist"
@@ -107,50 +104,50 @@
                         </template>
                     </el-table-column>
                  
-                    <el-table-column prop="code" label="规格编码" align="center">
+                    <!-- <el-table-column prop="code" label="规格编码" align="center">
                         <template slot-scope="scope">
                             <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" v-model="scope.row.code"></el-input>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
-                     <el-table-column prop="gprice" label="供货价" align="center">
+                     <!-- <el-table-column prop="gprice" label="供货价" align="center">
                         <template slot-scope="scope">
                             <el-input v-if="isSupplierGoods" disabled onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" v-model="scope.row.gprice"></el-input>
                             <el-input v-else onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" v-model="scope.row.gprice"></el-input>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
-                    <el-table-column prop="qprice" label="成本价" align="center">
+                    <!-- <el-table-column prop="qprice" label="成本价" align="center">
                         <template slot-scope="scope">
                             <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" v-model="scope.row.qprice"></el-input>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
-                    <el-table-column prop="pPrice" label="分销价" align="center">
+                    <!-- <el-table-column prop="pPrice" label="分销价" align="center">
                         <template slot-scope="scope">
                             <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" v-model="scope.row.pPrice"></el-input>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
-                      <el-table-column prop="code" label="销量" align="center">
+                      <!-- <el-table-column prop="code" label="销量" align="center">
                         <template>
                          <el-input  placeholder="" v-model="xNum" :disabled="true"></el-input>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
-                    <el-table-column prop="code" label="会员价格" align="center">
+                    <!-- <el-table-column prop="code" label="会员价格" align="center">
                  
                         <template slot-scope="scope">
                              <el-button type="mini" round @click="skuspriceMethod(scope.$index)">添加价格</el-button>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
 
-                    <el-table-column v-if="mhqdaoflag" prop="code" label="渠道商价格" align="center" >
+                    <!-- <el-table-column v-if="mhqdaoflag" prop="code" label="渠道商价格" align="center" >
                         <template slot-scope="scope" >
                              <el-button type="mini" round @click="skuqudaopriceMehod(scope.$index)">添加价格</el-button>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
 
                     <!-- <el-table-column prop="spu" label="spu" align="center">
                         <template slot-scope="scope">
@@ -185,12 +182,12 @@
                     <el-button slot="append" @click="clicksSet(1)">设置</el-button>
                 </el-input>
            
-                <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入编码" v-model="setCode" style="width: 210px;margin-right: 6px"
+                <!-- <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入编码" v-model="setCode" style="width: 210px;margin-right: 6px"
                           @keyup.native="proving(3)">
                     <template slot="prepend">编码</template>
                     <el-button slot="append" @click="clicksSet(3)">设置</el-button>
-                </el-input>
-                <el-input v-if="isSupplierGoods==false" onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入供货价" v-model="setGprice" style="width: 210px;margin-right: 6px"
+                </el-input> -->
+                <!-- <el-input v-if="isSupplierGoods==false" onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入供货价" v-model="setGprice" style="width: 210px;margin-right: 6px"
                           @keyup.native="proving(4)">
                     <template slot="prepend">供货价</template>
                     <el-button slot="append" @click="clicksSet(4)">设置</el-button>
@@ -200,12 +197,12 @@
                           @keyup.native="proving(5)">
                     <template slot="prepend">成本价</template>
                     <el-button slot="append" @click="clicksSet(5)">设置</el-button>
-                </el-input>
-                <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入成本价" v-model="setpPrice" style="width: 210px;"
+                </el-input> -->
+                <!-- <el-input onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" size="medium" placeholder="请输入成本价" v-model="setpPrice" style="width: 210px;"
                           @keyup.native="proving(6)">
                     <template slot="prepend">分销价</template>
                     <el-button slot="append" @click="clicksSet(6)">设置</el-button>
-                </el-input>
+                </el-input> -->
 
             </el-form-item>
 
@@ -214,10 +211,6 @@
                 <i class="el-icon-error"></i>
             </div>
           
-
-              <!-- <p>{{allData}}</p> 
-             <p>{{specArr}}</p>
-             <p>{{tableData}}</p>    -->
         </el-form>
 
         <el-dialog :visible.sync="dialogVisible" @close="closeguan" custom-class="mh-testdiay_loging">
@@ -346,21 +339,21 @@ import {
       
     },
     mounted(){
-        let service = this.$http.create({
-            baseURL: 'http://api.mihuanshop.com', 
-            timeout: 20000,                      
-                headers: {
-                "Content-Type": "multipart/form-data",
-                "suserId": 	this.$cookie.get('userId'),
-                "roleId" : 	this.$cookie.get('roleId'),     
-                "adminId" : this.$cookie.get('adminId')	
-            }
-         });
-        this.service = service;
-        this.selectspeclifi();
-        this.reqvipdengjilist();
-        this.selectqudo();
-        console.log('---isSupplierGoods= '+this.isSupplierGoods);
+        // let service = this.$http.create({
+        //     baseURL: 'http://api.mihuanshop.com', 
+        //     timeout: 20000,                      
+        //         headers: {
+        //         "Content-Type": "multipart/form-data",
+        //         "suserId": 	this.$cookie.get('userId'),
+        //         "roleId" : 	this.$cookie.get('roleId'),     
+        //         "adminId" : this.$cookie.get('adminId')	
+        //     }
+        //  });
+        // this.service = service;
+        // this.selectspeclifi();
+        // this.reqvipdengjilist();
+        // this.selectqudo();
+        console.log('---商品规格：isSupplierGoods= '+this.isSupplierGoods);
         
     },
      watch:{
@@ -441,14 +434,14 @@ import {
                 this.$parent.$parent.$parent.$refs.imgsrc.pid = 2;
             },
          
-            //属性值列表
-            selectspeclifi(id){
-                let data = new FormData();    
-                data.append('propertyId',id);   
-                this.http.post( baseapi.goodsshuixng,data,this.service).then(res=>{
-                    this.guigezhilist  = res.data.list;
-                })     
-            },
+            // //属性值列表
+            // selectspeclifi(id){
+            //     let data = new FormData();    
+            //     data.append('propertyId',id);   
+            //     this.http.post( baseapi.goodsshuixng,data,this.service).then(res=>{
+            //         this.guigezhilist  = res.data.list;
+            //     })     
+            // },
             //属性值列表
             shuXingZhi(id){
                 let that = this; 
@@ -648,7 +641,6 @@ import {
                     else if (name === 6 && this.setpPrice != ''){
                         item.pPrice = this.setpPrice;
                     }
-                    
                     // else if (name === 6 && this.setImg != ''){
                     //     item.img = this.setImg;
                     // }
@@ -677,14 +669,15 @@ import {
                     // this.setImg = this.setImg.replace(".", "");
                 }
             },
-            reqvipdengjilist(){  //会员价确定事件
-                let data = new FormData();
-                data.append('page',1);
-                data.append('limit',10);    
-                this.http.post( baseapi.vipdengji,data,this.service).then(res=>{
-                    this.skusvipdengjiid = res.data.list;
-                })            
-            },
+            // //请求: 会员列表
+            // reqvipdengjilist(){  //会员价确定事件
+            //     let data = new FormData();
+            //     data.append('page',1);
+            //     data.append('limit',10);    
+            //     this.http.post( baseapi.vipdengji,data,this.service).then(res=>{
+            //         this.skusvipdengjiid = res.data.list;
+            //     })            
+            // },
           
             okskuprice(){
                 let newArr = [];

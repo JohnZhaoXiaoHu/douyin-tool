@@ -27,22 +27,22 @@
 
                     <!-- table1 -->
                     <el-table :data="tableData" border style="width: 100%" v-bind:class="[isItemView1==0 ? itemView11 : itemView12]">
-                        <el-table-column prop="name" label="店铺名称" align="center">
-                                    <template slot-scope="scope">
+                        <el-table-column prop="shopName" label="店铺名称" align="center">
+                                    <!-- <template slot-scope="scope">
                                         <div style="display: flex;">
                                             <img :src="scope.row.phone" class="sm_imgView" alt="" srcset="">
-                                            <div>{{scope.row.name}}</div>
+                                            <div>{{scope.row.shopName}}</div>
                                         </div>
-                                    </template>
+                                    </template> -->
                          </el-table-column>
 
-                        <el-table-column prop="project" label="用户名称" align="center"> </el-table-column>
-                        <el-table-column prop="project" label="地区" align="center"> </el-table-column>
-                        <el-table-column prop="name" label="联系人" align="center"> </el-table-column>
-                        <el-table-column prop="phone" label="联系电话" align="center"> </el-table-column>
-                        <el-table-column prop="project" label="微信号" align="center"> </el-table-column>
-                        <el-table-column prop="project" label="QQ号" align="center"> </el-table-column>
-                        <el-table-column prop="project" label="状态" align="center">  合作中  </el-table-column>
+                        <el-table-column prop="nickName" label="用户名称" align="center"> </el-table-column>
+                        <el-table-column prop="area" label="地区" align="center"> </el-table-column>
+                        <el-table-column prop="people" label="联系人" align="center"> </el-table-column>
+                        <el-table-column prop="userPhone" label="联系电话" align="center"> </el-table-column>
+                        <el-table-column prop="wxNumber" label="微信号" align="center"> </el-table-column>
+                        <el-table-column prop="qqNumber" label="QQ号" align="center"> </el-table-column>
+                        <el-table-column prop="status" label="状态" align="center">  合作中  </el-table-column>
                         <el-table-column label="操作" align="center" width="130">
                              <template slot-scope="scope">
                                 <div >
@@ -57,34 +57,28 @@
 
                     <!-- table2 -->
                      <el-table :data="tableData" border style="width: 100%" v-bind:class="[isItemView2==1 ? itemView21 : itemView22]">
-                        <el-table-column prop="name" label="店铺名称" align="center">
-                                    <template slot-scope="scope">
-                                        <div style="display: flex;">
-                                            <img :src="scope.row.phone" class="sm_imgView" alt="" srcset="">
-                                            <div>{{scope.row.name}}</div>
-                                        </div>
-                                    </template>
+                        <el-table-column prop="shopName" label="店铺名称" align="center">
                          </el-table-column>
 
-                        <el-table-column prop="project" label="用户名称" align="center"> </el-table-column>
-                        <el-table-column  prop="project" label="地区" align="center"> </el-table-column>
-                        <el-table-column prop="name" label="联系人" align="center"> </el-table-column>
-                        <el-table-column prop="phone" label="联系电话" align="center"> </el-table-column>
-                        <el-table-column prop="project" label="留言" align="center"> </el-table-column>
+                        <el-table-column prop="nickName" label="用户名称" align="center"> </el-table-column>
+                        <el-table-column prop="area" label="地区" align="center"> </el-table-column>
+                        <el-table-column prop="people" label="联系人" align="center"> </el-table-column>
+                        <el-table-column prop="userPhone" label="联系电话" align="center"> </el-table-column>
+                        <el-table-column prop="remark" label="留言" align="center"> </el-table-column>
     
                         <el-table-column label="意向商品" min-width="170">
                             <template slot-scope="scope">
                                 <div style="display: flex;">
-                                    <img :src="scope.row.phone" class="set_cmImgView" alt="" srcset="">
+                                    <img :src="scope.row.itemPicture" class="set_cmImgView" alt="" srcset="">
                                     <div>
-                                        <div style="display: flex;"><div class="set_cmGoods">商品名称：</div> {{scope.row.project}}</div>
-                                        <div style="display: flex;"><div class="set_cmGoods">商品ID： </div> {{scope.row.project}}</div>
+                                        <div style="display: flex;"><div class="set_cmGoods">商品名称：</div> {{scope.row.itemName}}</div>
+                                        <div style="display: flex;"><div class="set_cmGoods">商品ID： </div> {{scope.row.itemId}}</div>
                                     </div>
                                 </div>
                             </template>
                         </el-table-column>
 
-                        <el-table-column prop="project" label="状态" align="center"> 申请合作  </el-table-column>
+                        <el-table-column prop="status" label="状态" align="center"> 申请合作  </el-table-column>
                         <el-table-column label="操作" align="center" width="130">
                              <template slot-scope="scope">
                                 <div >
@@ -127,6 +121,12 @@ import navbar from '../navbar';
 import sidebar from '../sidebar';
 import settingnav from './settingnav';
 import api from '../../utils/api';
+import {
+        zm_jsonToString,
+        zm_formDataToString
+} from "../../filters/zm_tools.js"
+
+
 export default {
     data() {
         return {
@@ -150,7 +150,7 @@ export default {
     beforeRouteEnter (to, from, next) {
 		next(vm => {
             if( vm.$cookie.get('userId') != null && vm.$cookie.get('userId')  != '' && vm.$cookie.get('userId') != undefined   ){
-                vm.getData(1);
+                vm.request_partnerShop(1);
             } else {
                 next('/login');
             }
@@ -166,10 +166,37 @@ export default {
             this.itemIndex = tab.index;
             this.isItemView1= this.itemIndex;
             this.isItemView2= this.itemIndex;
+            if (this.itemIndex==0) {
+                this.request_partnerShop(1);
+            }else if (this.itemIndex==1) {
+                this.request_applyShop(1);
+            }
 
         },
         endOperate(index){
-            console.log('---终止合作 index= '+index);
+            let item = this.tableData[index];
+            let that = this;
+            let urlStr = api.supplierCooperationCancel;
+            let params = new FormData();       
+            params.append('id', item.id);  
+            console.log('---终止合作 params=' + zm_formDataToString(params) +'\n urlStr= ', urlStr);
+            this.$http({
+                method: "post",
+                url: urlStr,
+                data: params
+            })
+            .then(function(res){
+                console.log('---终止合作 response= '+zm_jsonToString(res.data));
+                if(res.data.status ==200){
+                    that.$message.success("终止成功！");
+                    that.request_partnerShop(1);
+                }else{
+                    that.$message.error(res.data.message);
+                }
+            }).catch(function(error){
+                // console.error('---终止合作= ', error);
+            }); 
+
         },
         setGoods(index){
             console.log('---设置商品 index= '+index);
@@ -186,51 +213,98 @@ export default {
             console.log('---查看合作订单 index= '+index);
         },
         agreeOperate(index){
-            console.log('---同意合作 index= '+index);
-        },
-        getData(parme,status){
+            let item = this.tableData[index];
             let that = this;
-            let data = new FormData();       
-            data.append('page', parme);  
-            data.append('limit',20);
-
-
+            let urlStr = api.supplierCooperationAgree;
+            let params = new FormData();       
+            params.append('id', item.id);  
             this.$http({
                 method: "post",
-                url:api.logList,
-                data: data
+                url: urlStr,
+                data: params
             })
             .then(function(res){
-                console.log(res);
+                if(res.data.status ==200){
+                    that.$message.success("同意成功！");
+                    that.request_applyShop(1);
+                }else{
+                    that.$message.error(res.data.message);
+                }
+            }).catch(function(error){
+                console.error('---申请合作店铺= ', error);
+            }); 
+
+        },
+        request_partnerShop(page, status){
+            let that = this;
+            let params = new FormData();       
+            params.append('page', page);  
+            params.append('limit',20);
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '2');
+            }
+            let urlStr = api.supplierCooperationPartnerShop;           
+            this.$http({
+                method: "post",
+                url: urlStr,
+                data: params
+            })
+            .then(function(res){
+                console.log('---合作店铺列表 urlStr= ', urlStr+ '\n params'+ zm_formDataToString(params)
+                +'\n:response= '+zm_jsonToString(res.data));
+
                 if(res.data.status ==200){
                     let data =   res.data.list;
-                   
                     that.tableData = data;
                     that.totalCount = res.data.totalCount;
-                    that.loading = false
-                    if (status == 9) {
-                        that.$message.success({
-                            showClose: true,
-                            message: '筛选成功',
-                            type:'success',
-                            duration:600
-                         });
-                    }     
+                    that.loading = false;  
                 }else{
                     that.$message.error(res.data.message);
                 }
             }).catch(function(error){
                 console.error(error);
             }); 
+        },
+        request_applyShop(page, status){
+            let that = this;
+            let params = new FormData();       
+            params.append('page', page);  
+            params.append('limit',20);
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '2');
+            }
+            let urlStr = api.supplierCooperationApplyShop;
+            this.$http({
+                method: "post",
+                url: urlStr,
+                data: params
+            })
+            .then(function(res){
+                console.log('---申请合作店铺 urlStr= ', urlStr+ '\n params'+ zm_formDataToString(params)
+                +'\n:response= '+zm_jsonToString(res.data));
 
+                if(res.data.status ==200){
+                    let data =   res.data.list;
+                    that.tableData = data;
+                    that.totalCount = res.data.totalCount;
+                    that.loading = false; 
+                }else{
+                    that.$message.error(res.data.message);
+                }
+            }).catch(function(error){
+                console.error('---申请合作店铺= ', error);
+            }); 
         },
         shuaixuan(){
-            this.getData(1,9)
+            this.request_partnerShop(1,9)
         },
         handleCurrentChange(val){
-            this.getData(val)
+            this.request_partnerShop(val)
         },
-       
        
     },
     components:{
@@ -250,7 +324,7 @@ export default {
 .set_cmImgView{
     width: 20px;
     height: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 10px;
 }
 .set_cmItemView{

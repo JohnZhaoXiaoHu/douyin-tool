@@ -173,6 +173,10 @@
 import navbar from '../navbar';
 import sidebar from '../sidebar';
 import baseapi from '../../utils/api';
+import {
+        zm_jsonToString,
+        zm_formDataToString
+} from "../../filters/zm_tools.js"
 let id = 1000;
 
 import axios from "axios";
@@ -266,7 +270,7 @@ export default {
 	  	})
 	  },
     mounted() {
-        this.selectResGrounp();
+        // this.selectResGrounp();
         this.imgdialogFormVisible  = this.$parent.showsonvdeio;
     },
     methods: {  
@@ -491,7 +495,13 @@ export default {
           let that = this;
             let data = new FormData();
             data.append('type',2);
-            this.http.post( baseapi.resGrounpTee,data).then(res=>{
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("supplierId", '2');
+            }
+
+            this.http.post( baseapi.resourceList, data).then(res=>{
                 if(res.data.list.length != 0){
                     that.startid = res.data.list[0].id;
                     that.selectvideoList(res.data.list[0].id);

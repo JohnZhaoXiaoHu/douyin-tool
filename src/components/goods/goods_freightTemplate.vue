@@ -18,182 +18,36 @@
                     <br>
                     <div>
                         <br>
-                        <!-- <div class="rank_zmSerachView">
-                             <el-input class="rank_searchInput" v-model="zm_searchInput" placeholder="商品名称" size="medium">
-                                <el-button slot="append" icon="el-icon-search" @click="zmSearchClick()"></el-button>
-                            </el-input>
-                            <el-date-picker class="em_dateView" v-model="dateValue"
-                                value-format="timestamp" type="daterange" style="width: 260px"
-                                start-placeholder="开始日期" range-separator="至"
-                                end-placeholder="结束日期">
-                            </el-date-picker>
-                            <el-button style="margin: 0px 0 0 10px; height:32px" @click="zmSearchClick"  type="primary" size="mini">搜索</el-button>
-                            <el-button style="margin: -3px 0 0 10px;" @click="zm_clearSearchDataClick"  type="text" >清空筛选条件</el-button>
-                        </div> -->
-
-                        <!--src/components/goods/goods_freightTemplate.vue
-                            ft: freightTemplate
-                         -->
+                       
                         <div class="ft_title">
                             运费模板
                         </div>
 
                         <div class="ft_BtnView">
-                            <el-button class="good_createEvaluate" type="primary" plain size="medium"  @click="ft_addReightTemplateClick(1)"> 
+                            <!-- <el-button class="good_createEvaluate" type="primary" plain size="medium"  @click="ft_addReightTemplateClick(1)"> 
                             +添加模板
-                            </el-button>
+                            </el-button> -->
                             <el-button class="good_createEvaluate" type="text" size="medium"  @click="freightCalculationRules()"> 
                             运费计算规则
                             </el-button>
-                            <!-- <el-button class="good_createEvaluate" type="primary" plain size="medium"  
-                             @click="ft_tableDialogVisible = true"> 
-                                +弹出模板列表
-                            </el-button> -->
                         </div>
 
                         <!-- 列表 border-->
-                        <el-table :data="ftListData"  class="ft_TableView" :show-header="false">
-                            <!-- 模式0：默认 -->
-                            <!-- 模式1：按件数 -->
-                            <!-- 模式2：按重量 -->
-                            <el-table-column>
-                                <template slot-scope="scope"> 
-                                    
-                                    <div class="ft_tableHeaderView">
-                                        <div class="ft_tableTitle1">{{scope.row.tShopFreightTemplate.sftTemplateName}}</div>
-                                        <div class="ft_opreateView1">
-                                            <el-button class="" size="medium" type="text" @click="ft_copyClick(scope.$index)"> 复制模板 </el-button>
-                                            <el-button class="" size="medium" type="text" @click="ft_editClick(scope.$index)"> 编辑 </el-button>
-                                            <el-button class="" size="medium" type="text" @click="ft_deleteClick(scope.$index)"> 删除 </el-button>
-                                        </div>
-                                    </div>
-                                    <div class="ft_tableContentView1">
-                                        <div class="ft_tableTitle">配送区域</div>
-                                        <div class="ft_opreateView" v-if="scope.row.tShopFreightTemplate.sftTemplateType==1">
-                                            <div class="ft_subTitle">首件（个）</div>
-                                            <div class="ft_subTitle">运费</div>
-                                            <div class="ft_subTitle">续件（个）</div>
-                                            <div class="ft_subTitle">续费</div>
-                                        </div>
-                                         <div class="ft_opreateView" v-else-if="scope.row.tShopFreightTemplate.sftTemplateType==2">
-                                            <div class="ft_subTitle">首重（kg）</div>
-                                            <div class="ft_subTitle">运费</div>
-                                            <div class="ft_subTitle">续重（kg）</div>
-                                            <div class="ft_subTitle">续费</div>
-                                        </div>
-                                    </div>
-                                    <!-- class="ft_tableContentView2" -->
-                                    <div v-bind:class="[ (scope.row.tShopFreightTemplateContents.length>0 || scope.row.tShopFreightTemplateFrees.length>0) ? ft_tableContentView2 : ft_tableContentView1]">
-                                        <div class="ft_tableTitle">全国默认地址</div>
-                                        <div class="ft_opreateView">
-                                            <div class="ft_subContent">&nbsp;{{scope.row.tShopFreightTemplate.sftTemplateFirst}}</div>
-                                            <div class="ft_subContent">&nbsp;{{scope.row.tShopFreightTemplate.sftTemplateFirstprice/100}}</div>
-                                            <div class="ft_subContent">&nbsp;{{scope.row.tShopFreightTemplate.sftTemplateNext}}</div>
-                                            <div class="ft_subContent">&nbsp;{{scope.row.tShopFreightTemplate.sftTemplateNextprice/100}}</div>
-                                        </div>
-                                    </div>
-
-                                    <el-table :data="scope.row.tShopFreightTemplateContents" border class="ft_TableView1" 
-                                    v-if="scope.row.tShopFreightTemplateContents.length>0" :show-header="false" >
-                                        <el-table-column label="配送区域" width="320"> 
-                                            <template slot-scope="scope1">
-                                                <!-- <div>{{scope1.row.sftcTemplateArea}}</div> -->
-                                                <div v-if="scope1.row.sftcTemplateArea">
-                                                    <div v-if="scope1.row.sftcTemplateArea=='选择区域'">
-                                                        无指定区域
-                                                    </div>
-                                                    <div v-else> {{scope1.row.sftcTemplateArea}}</div>
-                                                </div>
-                                                <div v-else>
-                                                    无指定区域
-                                                </div>
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column v-if="scope.row.tShopFreightTemplate.sftTemplateType==1" label="首件（个）" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateFirst}}</div>
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column v-else-if="scope.row.tShopFreightTemplate.sftTemplateType==2" label="首重（kg）" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateFirst}}</div>
-                                            </template>
-                                        </el-table-column>
-
-                                        <el-table-column label="运费" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateFirstprice/100}}</div>
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column label="续件（个）" v-if="scope.row.tShopFreightTemplate.sftTemplateType==1" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateNext}}</div>
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column label="续重（kg）" v-if="scope.row.tShopFreightTemplate.sftTemplateType==2" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateNext}}</div>
-                                            </template>
-                                        </el-table-column>
-                                        
-                                         <el-table-column label="续费" width="100" align="center"> 
-                                            <template slot-scope="scope1">
-                                                <div>{{scope1.row.sftcTemplateNextprice/100}}</div>
-                                            </template>
-                                        </el-table-column>
-                                    </el-table>
-
-                                    <!-- 2、包邮 -->
-                                    <el-table :data="scope.row.tShopFreightTemplateFrees" v-if="scope.row.tShopFreightTemplateFrees.length>0" 
-                                        border class="ft_TableView2" :show-header="false">
-                                        <el-table-column width="350"> 
-                                            <template slot-scope="scope2">
-                                                <!-- <div>{{scope2.row.sftfTemplateArea}}</div> -->
-                                                <!-- <div style="background: yellow;"> -->
-                                                <div v-if="scope2.row.sftfTemplateArea">
-                                                    <div v-if="scope2.row.sftfTemplateArea=='选择区域'">
-                                                        无指定区域
-                                                    </div>
-                                                    <div v-else> {{scope2.row.sftfTemplateArea}}</div>
-                                                </div>
-                                                <div v-else>
-                                                    无指定区域
-                                                </div>
-                                                <!-- </div> -->
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column > 
-                                            <template slot-scope="scope2">
-                                                <div v-if="scope2.row.sftfTemplateType==1">
-                                                    满{{scope2.row.sftfTemplateMoneyorcount/100}}元 包邮
-                                                </div>
-                                                <div v-else>
-                                                    满{{scope2.row.sftfTemplateMoneyorcount}}件 包邮
-                                                </div>
-                                            </template>
-                                        </el-table-column>
-                                    </el-table>
-
-                                    <!-- 3、不发货 -->
-                                    <div class="noSendAreaView">
-                                        <div class="noSend_Area" v-if="scope.row.tShopFreightTemplate.sftTemplateDontsend">
-                                            <div v-if="scope.row.tShopFreightTemplate.sftTemplateDontsend=='选择区域'">
-                                                无指定区域
-                                            </div>
-                                            <div v-else>
-                                                {{scope.row.tShopFreightTemplate.sftTemplateDontsend}}
-                                            </div>
-                                        </div>
-                                        <div class="noSend_Area" v-else>
-                                           无指定区域
-                                        </div>
-                                        <div class="noSend_status"> 不发货 </div>
-                                    </div>
-
+                        <el-table :data="ftListData" style="width: 100%" border="">
+                            
+                            <el-table-column prop="name" label="模板ID"  width="200" align="center">
+                                <template slot-scope="scope" >
+                                    <div>{{scope.row.template.id}}</div>
                                 </template>
                             </el-table-column>
-
+                            <el-table-column prop="name" label="模板名称" >
+                                <template slot-scope="scope" >
+                                    <div>{{scope.row.template.template_name}}</div>
+                                </template>
+                            </el-table-column>
+                            
                         </el-table>
+                        
                         <!-- small sizes 分页-->
                         <!-- <div class="goods_list_dibu-seven em_evaluatePage">
                             <el-pagination @current-change="handleCurrentChange" 
@@ -315,11 +169,11 @@ export default {
         };
     },
     created(){
-       //console.log('--------created 模板渲染前= '+ zm_timestampToDate(1533293827000));
+       //console.log('--------created 模板渲染前= ');
        this.request_freightTemplateList();
     },
     mounted(){
-       console.log('--------mounted 安装初始化成功：模板渲染后= '+ zm_getCurrenDate());
+       console.log('--------mounted 安装初始化成功：模板渲染后 ');
     },
     methods:{
         ft_closeclick(){
@@ -355,10 +209,11 @@ export default {
         request_freightTemplateList(){
             let self = this;
             let params = new FormData();   
-            // params.append('pagenum',this.currentPage);
-            // params.append('pagesize',this.rankPageSize);
-            // params.append('username',this.zm_searchInput);
+            params.append('page', 0);
+            params.append('size', 100);
+
             let urlStr = baseapi.TIP + baseapi.ft_findAll;
+                urlStr = baseapi.supplierFreightTemplateList;
             // urlStr = "http://172.16.1.84:8083/panicbuy/freight/findAll";
 
             console.log('---运费模板列表: urlStr= '+urlStr + '\n params= '+ zm_formDataToString(params));
@@ -367,14 +222,14 @@ export default {
                 url: urlStr,
                 data: params,
             }).then(function(res){
-                console.log('---运费模板列表：response= '+zm_jsonToString(res));
+                console.log('---运费模板列表：response= '+zm_jsonToString(res.data));
                 if(res.status ==200){
-                    if (res.data && res.data.list) {
-                        if (res.data.list.length>0) {
-                            self.ftListData = res.data.list;
-                            self.ft_tableData = res.data.list;
+                    if (res.data.data && res.data.data.List) {
+                        if (res.data.data.List.length>0) {
+                            self.ftListData   = res.data.data.List;
+                            self.ft_tableData = res.data.data.List;
+                            self.totalCount   = res.data.data.Count;
                             console.log('---运费模板列表: length= '+self.ftListData.length);
-                            // self.totalCount = res.data.total;
                         }
                     }
                 } else {
@@ -532,33 +387,32 @@ export default {
     margin-top: 10px;
 }
 
-.ft_TableView{
+/* .ft_TableView{
     color: #333;
-}
+} */
 /* .ft_TableView1{
     background: #ffffff;
 } */
-.ft_TableView2{
     /* margin-bottom: 30px; */
+/* 
+.ft_TableView2{
     border-bottom:solid 1px #EBEEF5;
-}
+} */
 
 
-.ft_TableView >>> tr:hover>td{
+/* .ft_TableView >>> tr:hover>td{
     background-color: #ffffff !important;
-}
-.ft_TableView >>> .el-table__row>td{
-    /* 去除中间分割线 */
+} */
+  /* 去除中间分割线 */
+/* .ft_TableView >>> .el-table__row>td{
+  
 	border: none;
-}
-.ft_TableView >>> th.is-leaf {
-    /* 去除最上边分割线 */
-    /* border: none; */
-}
-.el-table::before {
-     /* 去除最下边分割线 */
+} */
+/* 去除最下边分割线 */
+/* .el-table::before {
+     
 	height: 0px !important;
-}
+} */
 
 .ft_tableHeaderView{
     /* background: yellow;  */

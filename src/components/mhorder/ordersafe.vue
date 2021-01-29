@@ -76,8 +76,8 @@
                             <ul class="mhsafe-order_ul">
                                 <li class="mh-order_ul-one">商品</li>
                                 <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem;">单价/数量</li>
-                                <li class="mh-order_ul-four">买家信息</li>
+                                <li class="mh-order_ul-there" style="text-indent: 4.5rem; min-width:90px; ">单价/数量</li>
+                                <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                 <li class="mh-order_ul-five">退款金额</li>
                                 <li class="mh-order_ul-sex">售后类型</li>
                                 <li class="mh-order_ul-seven">售后状态</li>
@@ -104,8 +104,8 @@
                                         </dl>
                                     </div>
                                     <dl class="lastdl">
-                                        <dt @click="Seedetails(item.no,item.type)">查看详情</dt>
-                                        <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd>
+                                        <!-- <dt @click="Seedetails(item.no,item.type)">查看详情</dt> -->
+                                        <!-- <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd> -->
                                         <!-- <dd style="margin-left:10px;cursor: pointer;">打印发货单</dd> -->
                                     </dl>
                                     
@@ -114,7 +114,7 @@
                                     <div class="mhorder-table-bottomfu">
                                         <div  class="mhorder-table-bottom"  v-for="(skuitem,skuindex) of item.detailList" :key="skuindex"> 
                                             <div class="mhorder-table-bottom-div" style="width:80%">
-                                                <img :src="skuitem.imageurl" alt="" width="50" height="50" class="ordersafe-tab-img">
+                                                <img :src="skuitem.imageUrl" alt="" width="50" height="50" class="ordersafe-tab-img">
                                                 <dl class="mhorder-table-bottom-div_dl">
                                                     <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
                                                     <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
@@ -130,28 +130,10 @@
                                             </div>
                                         </div>
                                      </div>
-                                    <div class="orderdafe-note">
-                                        <div>
-                                            <img :src="item.userHeadportrait" alt="" width="40" height="40" class="ordersafe-tab-img">
-                                            <dl>
-                                                <dt><span>会员ID: </span><span>{{item.userId}} </span></dt>
-                                                <dd style="text-align: left;"><span>昵称:</span><span>{{item.userNickName}}</span></dd>                                        
-                                            </dl> 
-                                        </div>
-                                        <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
-                                                <div style="display:flex;padding:20px">
-                                                    <img :src="upnote.headportrait" alt="" width="40" height="40" style="margin-right:10px">
-                                                    <ul class="mh-seewuliu-ulaa">
-                                                        <li><span class="mh-order-note-span">上级昵称 : </span><span>{{upnote.nickName}}</span></li>
-                                                        <li><span class="mh-order-note-span">上级ID : </span><span>{{upnote.id}}</span></li>                                      
-                                                    </ul>
-                                                </div>     
-                                                <div  slot="reference" style="color: #409eff;cursor: pointer;"  @click="selectUp(item.userId)">查看上级</div>       
-                                        </el-popover>
-                                    </div>
+                                 
 
                                     <div class="orderdafe-tuiprice">
-                                        <span class="orderdafe-price-fhao">¥</span>{{ item.money == undefined || item.money == null ? '0' : parseFloat(item.money/100)}}
+                                        <span class="orderdafe-price-fhao">¥</span>{{ item.moneyRefund == undefined || item.moneyRefund == null ? '0' : parseFloat(item.moneyRefund/100)}}
                                     </div>
 
                                     <div class="orderdafe-tuikaun">
@@ -278,825 +260,7 @@
                             </div>
                             <!--全部over-->
                         </el-tab-pane>
-                        <el-tab-pane label="维权处理中" name="2">
-                            <!--全部-->
-                              <!--全部-->
-                            <ul class="mhsafe-order_ul">
-                                <li class="mh-order_ul-one">商品</li>
-                                <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem;">单价/数量</li>
-                                <li class="mh-order_ul-four">买家信息</li>
-                                <li class="mh-order_ul-five">退款金额</li>
-                                <li class="mh-order_ul-sex">售后类型</li>
-                                <li class="mh-order_ul-seven">售后状态</li>
-                                <li class="mh-order_ul-night">操作</li>
-                            </ul>
-                            <div class="mhorder-table" v-show="listdata.length != 0 " v-for="(item,index) of listdata" :key="index" >
-                                <div class="mhorder-table-top">
-                                    <div class="mhorder-table-top-div">
-                                        <dl>
-                                            <dt>退款编号 :&nbsp; </dt>
-                                            <dd>{{item.no == undefined || item.no == null || item.no == '' ? '----' : item.no}}</dd>
-                                        </dl>
-                                    <dl>
-                                        <dt>订单号 :&nbsp;</dt>
-                                        <dd>{{item.orderNo}}</dd>
-                                    </dl>
-                                     <dl>
-                                        <dt>申请时间 :&nbsp; </dt>
-                                        <dd>{{item.createTime.time|formatDate}}</dd>
-                                    </dl>
-                                    </div>
-                                    <dl class="lastdl">
-                                        <dt @click="Seedetails(item.no,item.type)">查看详情</dt>
-                                        <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd>
-                                        <!-- <dd style="margin-left:10px;cursor: pointer;">打印发货单</dd> -->
-                                    </dl>
-                                    
-                                </div>
-                                <div class="mhorder-table-bottomfusafe">
-                                    <div class="mhorder-table-bottomfu">
-                                        <div  class="mhorder-table-bottom"  v-for="(skuitem,skuindex) of item.detailList" :key="skuindex"> 
-                                            <div class="mhorder-table-bottom-div" style="width:80%">
-                                                <img :src="skuitem.imageurl" alt="" width="50" height="50" class="ordersafe-tab-img">
-                                                <dl class="mhorder-table-bottom-div_dl">
-                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
-                                                    <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
-                                                    <!-- <dd><span>规格: </span><span>红/M</span></dd> -->
-                                                    <!-- <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">退款数量 : </span><span>{{skuitem.quantity}}</span></dd> -->
-                                                </dl>
-                                            </div>   
-                                            <div class="orderdafe-price" style="width:10%">
-                                                <span class="orderdafe-price-fhao">¥</span>{{parseFloat(skuitem.moneyTotal/100)}}
-                                            </div>
-                                            <div class="orderdafe-num" style="width:10%">
-                                            1
-                                            </div>
-                                        </div>
-                                     </div>
-                                    <div class="orderdafe-note">
-                                        <div>
-                                            <img :src="item.userHeadportrait" alt="" width="40" height="40" class="ordersafe-tab-img">
-                                            <dl>
-                                                <dt><span>会员ID: </span><span>{{item.userId}} </span></dt>
-                                                <dd style="text-align: left;"><span>昵称:</span><span>{{item.userNickName}}</span></dd>                                        
-                                            </dl> 
-                                        </div>
-                                        <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
-                                                <div style="display:flex;padding:20px">
-                                                    <img :src="upnote.headportrait" alt="" width="40" height="40" style="margin-right:10px">
-                                                    <ul class="mh-seewuliu-ulaa">
-                                                        <li><span class="mh-order-note-span">上级昵称 : </span><span>{{upnote.nickName}}</span></li>
-                                                        <li><span class="mh-order-note-span">上级ID : </span><span>{{upnote.id}}</span></li>                                      
-                                                    </ul>
-                                                </div>     
-                                                <div  slot="reference" style="color: #409eff;cursor: pointer;"  @click="selectUp(item.userId)">查看上级</div>       
-                                        </el-popover>
-                                    </div>
-
-                                    <div class="orderdafe-tuiprice">
-                                        <span class="orderdafe-price-fhao">¥</span>{{ item.money == undefined || item.money == null ? '0' : parseFloat(item.money/100)}}
-                                    </div>
-
-                                    <div class="orderdafe-tuikaun">
-                                         {{item.type == 1 ? '仅退款': item.type == 2 ? '退货退款' : item.type == 3 ? '换货' : ''}}
-                                        <el-popover
-                                            placement="left"
-                                            width="100"
-                                            trigger="click"
-                                            popper-class="mh-triclass"
-                                        >                       
-                                        <div class="mh-seewuliu">
-                                            <div class="mh-seewuliu-div">{{courierServicesCompany}}</div>
-                                            <div class="mh-seewuliu-divtwo">订单号 : {{courierparseFloat}} </div>
-                                            <ul>
-                                                <li v-for="(listitem,listindex) of courierparseFloatlist" :key="listindex">
-                                                   <div>{{listitem.context}}</div>
-                                                   <div>{{listitem.logisticsTime |formatDate}}</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div @click="orderGoodswuliu(item.no,item.userId)">查看物流</div>                           
-                                        </el-popover> 
-                                    </div>
-
-                                    <div class="orderdafe-status" v-if="item.status == 0">处理中 </div> 
-
-                                 
-                                    <div class="orderdafe-status" v-if="item.status == 1 && item.course !=2   && item.course !=0 && item.course !=3">审核通过</div>                               
-                                    <div class="orderdafe-status" v-if="item.status == -1">退款关闭</div>
-                                    <div class="orderdafe-status" v-if="item.status == 2">正在退款  </div>
-                                    <div class="orderdafe-status" v-if="item.status == -2">用户取消   </div>
-                                    <div class="orderdafe-status" v-if="item.status == 3">退款完成   </div>
-                                    <div class="orderdafe-status" v-if="item.status == null">暂无状态</div>
-
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 0">  售后待收货 </div>
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 3">  售后待退款 </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 0 && item.course == 0"> 
-                                        <el-button @click="tHtKok(item.no,item.orderMoneyTotalreal)" type="primary" size="mini" class="orderdafe-edit-btn">同意</el-button>    
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" class="orderdafe-edit-btn" size="mini">拒绝</el-button>                          
-                                    </div>
-
-                                     <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 0"> 
-                                        <el-button @click="querenSHO(item.no,item.userId)" type="primary" size="mini" class="orderdafe-edit-btn">确认收货</el-button>                                      
-                                    </div>
-                 
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 1"> 
-                                       <span>配送中</span>     
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 2"> 
-                                       <span>退款完成</span>     
-                                    </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 3"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                                   
-                                    </div>
-
-                                     <div class="orderdafe-edit" v-if="item.type == 2  && item.status ==1 && item.course ==4"> 
-                                        <span>确认退款</span>
-                                     </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 2  && item.status == -1"> 
-                                        <span style="color:#f56c6c">拒绝</span>
-                                    </div>    -->
-  
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 3  && item.status == -1 "> 
-                                           <span style="color:#f56c6c">拒绝</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status==1 &&  item.course != 2"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                              
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 1 && item.status==1 && item.course ==2"> 
-                                       <span>退款完成</span>
-                                    </div>
-                              
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status== 0"> 
-                                        <el-button type="primary" size="mini" class="orderdafe-edit-btn" @click="oktuiK(item.no,item.orderMoneyTotalreal,item.type)">同意</el-button>
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" size="mini"  class="orderdafe-edit-btn">拒绝</el-button>
-                                    </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 1 && item.status == -1 ">
-                                        <span style="color:#f56c6c">退款关闭</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
-                                        <span>换货配送中</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 2"> 
-                                        <span>换货完成</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.status == 3">
-                                        退款完成
-                                    </div>
-
-
-                               </div>
-
-                                    
-                             
-                            </div>
-
-                            <div v-if="listdata.length ==0" class="mhsafe-orderxxx">
-                                <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/order.png" alt="" srcset="">  
-                            </div>    
-
-                            <div>
-                                <div class="goods_list_dibu-twodiv cssbilie1" style="width:100%;margin-top:20px">
-                                <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
-                                        :current-page="currentPage4"
-                                        :page-sizes="[100, 200, 300, 400]"
-                                        :page-size="20"
-                                        layout="total, prev, pager, next, jumper"
-                                        :total="totalCount">
-                                </el-pagination>
-                            </div>       
-                            </div>
-                            <!--全部over-->
-                            <!--全部over-->
-                        </el-tab-pane>
-                        <el-tab-pane label="维权成功" name="3">
-                            <!--全部-->
-                             <!--全部-->
-                            <ul class="mhsafe-order_ul">
-                                <li class="mh-order_ul-one">商品</li>
-                                <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem;">单价/数量</li>
-                                <li class="mh-order_ul-four">买家信息</li>
-                                <li class="mh-order_ul-five">退款金额</li>
-                                <li class="mh-order_ul-sex">售后类型</li>
-                                <li class="mh-order_ul-seven">售后状态</li>
-                                <li class="mh-order_ul-night">操作</li>
-                            </ul>
-                            <div class="mhorder-table" v-show="listdata.length != 0 " v-for="(item,index) of listdata" :key="index" >
-                                <div class="mhorder-table-top">
-                                    <div class="mhorder-table-top-div">
-                                        <dl>
-                                            <dt>退款编号 :&nbsp; </dt>
-                                            <dd>{{item.no == undefined || item.no == null || item.no == '' ? '----' : item.no}}</dd>
-                                        </dl>
-                                    <dl>
-                                        <dt>订单号 :&nbsp;</dt>
-                                        <dd>{{item.orderNo}}</dd>
-                                    </dl>
-                                     <dl>
-                                        <dt>申请时间 :&nbsp; </dt>
-                                        <dd>{{item.createTime.time|formatDate}}</dd>
-                                    </dl>
-                                     <dl v-if="item.cancelTime">
-                                        <dt>成功时间 :&nbsp; </dt>
-                                        <dd>{{item.cancelTime.time|formatDate}}</dd>
-                                    </dl>
-                                    </div>
-                                    <dl class="lastdl">
-                                        <dt @click="Seedetails(item.no,item.type)">查看详情</dt>
-                                        <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd>
-                                        <!-- <dd style="margin-left:10px;cursor: pointer;">打印发货单</dd> -->
-                                    </dl>
-                                    
-                                </div>
-                                <div class="mhorder-table-bottomfusafe">
-                                    <div class="mhorder-table-bottomfu">
-                                        <div  class="mhorder-table-bottom"  v-for="(skuitem,skuindex) of item.detailList" :key="skuindex"> 
-                                            <div class="mhorder-table-bottom-div" style="width:80%">
-                                                <img :src="skuitem.imageurl" alt="" width="50" height="50" class="ordersafe-tab-img">
-                                                <dl class="mhorder-table-bottom-div_dl">
-                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
-                                                    <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
-                                                    <!-- <dd><span>规格: </span><span>红/M</span></dd> -->
-                                                    <!-- <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">退款数量 : </span><span>{{skuitem.quantity}}</span></dd> -->
-                                                </dl>
-                                            </div>   
-                                            <div class="orderdafe-price" style="width:10%">
-                                                <span class="orderdafe-price-fhao">¥</span>{{parseFloat(skuitem.moneyTotal/100)}}
-                                            </div>
-                                            <div class="orderdafe-num" style="width:10%">
-                                            1
-                                            </div>
-                                        </div>
-                                     </div>
-                                    <div class="orderdafe-note">
-                                        <div>
-                                            <img :src="item.userHeadportrait" alt="" width="40" height="40" class="ordersafe-tab-img">
-                                            <dl>
-                                                <dt><span>会员ID: </span><span>{{item.userId}} </span></dt>
-                                                <dd style="text-align: left;"><span>昵称:</span><span>{{item.userNickName}}</span></dd>                                        
-                                            </dl> 
-                                        </div>
-                                        <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
-                                                <div style="display:flex;padding:20px">
-                                                    <img :src="upnote.headportrait" alt="" width="40" height="40" style="margin-right:10px">
-                                                    <ul class="mh-seewuliu-ulaa">
-                                                        <li><span class="mh-order-note-span">上级昵称 : </span><span>{{upnote.nickName}}</span></li>
-                                                        <li><span class="mh-order-note-span">上级ID : </span><span>{{upnote.id}}</span></li>                                      
-                                                    </ul>
-                                                </div>     
-                                                <div  slot="reference" style="color: #409eff;cursor: pointer;"  @click="selectUp(item.userId)">查看上级</div>       
-                                        </el-popover> 
-                                    </div>
-
-                                    <div class="orderdafe-tuiprice">
-                                        <span class="orderdafe-price-fhao">¥</span>{{ item.money == undefined || item.money == null ? '0' : parseFloat(item.money/100)}}
-                                    </div>
-
-                                    <div class="orderdafe-tuikaun">
-                                         {{item.type == 1 ? '仅退款': item.type == 2 ? '退货退款' : item.type == 3 ? '换货' : ''}}
-                                        <el-popover
-                                            placement="left"
-                                            width="100"
-                                            trigger="click"
-                                            popper-class="mh-triclass"
-                                        >                       
-                                        <div class="mh-seewuliu">
-                                            <div class="mh-seewuliu-div">{{courierServicesCompany}}</div>
-                                            <div class="mh-seewuliu-divtwo">订单号 : {{courierparseFloat}} </div>
-                                            <ul>
-                                                <li v-for="(listitem,listindex) of courierparseFloatlist" :key="listindex">
-                                                   <div>{{listitem.context}}</div>
-                                                   <div>{{listitem.logisticsTime |formatDate}}</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div @click="orderGoodswuliu(item.no,item.userId)">查看物流</div>                           
-                                        </el-popover> 
-                                    </div>
-
-                                    <div class="orderdafe-status" v-if="item.status == 0">处理中 </div> 
-
-                                 
-                                    <div class="orderdafe-status" v-if="item.status == 1 && item.course !=2   && item.course !=0 && item.course !=3">审核通过</div>                               
-                                    <div class="orderdafe-status" v-if="item.status == -1">退款关闭</div>
-                                    <div class="orderdafe-status" v-if="item.status == 2">正在退款  </div>
-                                    <div class="orderdafe-status" v-if="item.status == -2">用户取消   </div>
-                                    <div class="orderdafe-status" v-if="item.status == 3">退款完成   </div>
-                                    <div class="orderdafe-status" v-if="item.status == null">暂无状态</div>
-
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 0">  售后待收货 </div>
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 3">  售后待退款 </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 0 && item.course == 0"> 
-                                        <el-button @click="tHtKok(item.no,item.orderMoneyTotalreal)" type="primary" size="mini" class="orderdafe-edit-btn">同意</el-button>    
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" class="orderdafe-edit-btn" size="mini">拒绝</el-button>                          
-                                    </div>
-
-                                     <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 0"> 
-                                        <el-button @click="querenSHO(item.no,item.userId)" type="primary" size="mini" class="orderdafe-edit-btn">确认收货</el-button>                                      
-                                    </div>
-                 
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 1"> 
-                                       <span>配送中</span>     
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 2"> 
-                                       <span>退款完成</span>     
-                                    </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 3"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                                   
-                                    </div>
-
-                                     <div class="orderdafe-edit" v-if="item.type == 2  && item.status ==1 && item.course ==4"> 
-                                        <span>确认退款</span>
-                                     </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 2  && item.status == -1"> 
-                                        <span style="color:#f56c6c">拒绝</span>
-                                    </div>    -->
-  
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 3  && item.status == -1 "> 
-                                           <span style="color:#f56c6c">拒绝</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status==1 &&  item.course != 2"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                              
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 1 && item.status==1 && item.course ==2"> 
-                                       <span>退款完成</span>
-                                    </div>
-                              
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status== 0"> 
-                                        <el-button type="primary" size="mini" class="orderdafe-edit-btn" @click="oktuiK(item.no,item.orderMoneyTotalreal,item.type)">同意</el-button>
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" size="mini"  class="orderdafe-edit-btn">拒绝</el-button>
-                                    </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 1 && item.status == -1 ">
-                                        <span style="color:#f56c6c">退款关闭</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
-                                        <span>换货配送中</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 2"> 
-                                        <span>换货完成</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.status == 3">
-                                        退款完成
-                                    </div>
-
-
-                               </div>
-
-                                    
-                             
-                            </div>
-
-                            <div v-if="listdata.length ==0" class="mhsafe-orderxxx">
-                                <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/order.png" alt="" srcset="">  
-                            </div>    
-
-                            <div>
-                                <div class="goods_list_dibu-twodiv cssbilie1" style="width:100%;margin-top:20px">
-                                <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
-                                        :current-page="currentPage4"
-                                        :page-sizes="[100, 200, 300, 400]"
-                                        :page-size="20"
-                                        layout="total, prev, pager, next, jumper"
-                                        :total="totalCount">
-                                </el-pagination>
-                            </div>       
-                            </div>
-                            <!--全部over-->
-                            <!--全部over-->
-                        </el-tab-pane>
-                        <el-tab-pane label="维权关闭" name="4">
-                            <!--全部-->
-                            <!--全部-->
-                            <ul class="mhsafe-order_ul">
-                                <li class="mh-order_ul-one">商品</li>
-                                <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem;">单价/数量</li>
-                                <li class="mh-order_ul-four">买家信息</li>
-                                <li class="mh-order_ul-five">退款金额</li>
-                                <li class="mh-order_ul-sex">售后类型</li>
-                                <li class="mh-order_ul-seven">售后状态</li>
-                                <li class="mh-order_ul-night">操作</li>
-                            </ul>
-                            <div class="mhorder-table" v-show="listdata.length != 0 " v-for="(item,index) of listdata" :key="index" >
-                                <div class="mhorder-table-top">
-                                    <div class="mhorder-table-top-div">
-                                        <dl>
-                                            <dt>退款编号 :&nbsp; </dt>
-                                            <dd>{{item.no == undefined || item.no == null || item.no == '' ? '----' : item.no}}</dd>
-                                        </dl>
-                                    <dl>
-                                        <dt>订单号 :&nbsp;</dt>
-                                        <dd>{{item.orderNo}}</dd>
-                                    </dl>
-                                     <dl>
-                                        <dt>申请时间 :&nbsp; </dt>
-                                        <dd>{{item.createTime.time|formatDate}}</dd>
-                                    </dl>
-
-                                     <dl v-if="item.cancelTime">
-                                        <dt>关闭时间 :&nbsp; </dt>
-                                        <dd>{{item.cancelTime.time|formatDate}}</dd>
-                                    </dl>
-                                    </div>
-                                    <dl class="lastdl">
-                                        <dt @click="Seedetails(item.no,item.type)">查看详情</dt>
-                                        <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd>
-                                        <!-- <dd style="margin-left:10px;cursor: pointer;">打印发货单</dd> -->
-                                    </dl>
-                                    
-                                </div>
-                                <div class="mhorder-table-bottomfusafe">
-                                    <div class="mhorder-table-bottomfu">
-                                        <div  class="mhorder-table-bottom"  v-for="(skuitem,skuindex) of item.detailList" :key="skuindex"> 
-                                            <div class="mhorder-table-bottom-div" style="width:80%">
-                                                <img :src="skuitem.imageurl" alt="" width="50" height="50" class="ordersafe-tab-img">
-                                                <dl class="mhorder-table-bottom-div_dl">
-                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
-                                                    <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
-                                                    <!-- <dd><span>规格: </span><span>红/M</span></dd> -->
-                                                    <!-- <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">退款数量 : </span><span>{{skuitem.quantity}}</span></dd> -->
-                                                </dl>
-                                            </div>   
-                                            <div class="orderdafe-price" style="width:10%">
-                                                <span class="orderdafe-price-fhao">¥</span>{{parseFloat(skuitem.moneyTotal/100)}}
-                                            </div>
-                                            <div class="orderdafe-num" style="width:10%">
-                                            1
-                                            </div>
-                                        </div>
-                                     </div>
-                                    <div class="orderdafe-note">
-                                       <div>
-                                            <img :src="item.userHeadportrait" alt="" width="40" height="40" class="ordersafe-tab-img">
-                                            <dl>
-                                                <dt><span>会员ID: </span><span>{{item.userId}} </span></dt>
-                                                <dd style="text-align: left;"><span>昵称:</span><span>{{item.userNickName}}</span></dd>                                        
-                                            </dl> 
-                                        </div>
-                                        <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
-                                                <div style="display:flex;padding:20px">
-                                                    <img :src="upnote.headportrait" alt="" width="40" height="40" style="margin-right:10px">
-                                                    <ul class="mh-seewuliu-ulaa">
-                                                        <li><span class="mh-order-note-span">上级昵称 : </span><span>{{upnote.nickName}}</span></li>
-                                                        <li><span class="mh-order-note-span">上级ID : </span><span>{{upnote.id}}</span></li>                                      
-                                                    </ul>
-                                                </div>     
-                                                <div  slot="reference" style="color: #409eff;cursor: pointer;"  @click="selectUp(item.userId)">查看上级</div>       
-                                        </el-popover>
-                                    </div>
-
-                                    <div class="orderdafe-tuiprice">
-                                        <span class="orderdafe-price-fhao">¥</span>{{ item.money == undefined || item.money == null ? '0' : parseFloat(item.money/100)}}
-                                    </div>
-
-                                    <div class="orderdafe-tuikaun">
-                                         {{item.type == 1 ? '仅退款': item.type == 2 ? '退货退款' : item.type == 3 ? '换货' : ''}}
-                                        <el-popover
-                                            placement="left"
-                                            width="100"
-                                            trigger="click"
-                                            popper-class="mh-triclass"
-                                        >                       
-                                        <div class="mh-seewuliu">
-                                            <div class="mh-seewuliu-div">{{courierServicesCompany}}</div>
-                                            <div class="mh-seewuliu-divtwo">订单号 : {{courierparseFloat}} </div>
-                                            <ul>
-                                                <li v-for="(listitem,listindex) of courierparseFloatlist" :key="listindex">
-                                                   <div>{{listitem.context}}</div>
-                                                   <div>{{listitem.logisticsTime |formatDate}}</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div @click="orderGoodswuliu(item.no,item.userId)">查看物流</div>                           
-                                        </el-popover> 
-                                    </div>
-
-                                    <div class="orderdafe-status" v-if="item.status == 0">处理中 </div> 
-
-                                 
-                                    <div class="orderdafe-status" v-if="item.status == 1 && item.course !=2   && item.course !=0 && item.course !=3">审核通过</div>                               
-                                    <div class="orderdafe-status" v-if="item.status == -1">退款关闭</div>
-                                    <div class="orderdafe-status" v-if="item.status == 2">正在退款  </div>
-                                    <div class="orderdafe-status" v-if="item.status == -2">用户取消   </div>
-                                    <div class="orderdafe-status" v-if="item.status == 3">退款完成   </div>
-                                    <div class="orderdafe-status" v-if="item.status == null">暂无状态</div>
-
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 0">  售后待收货 </div>
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 3">  售后待退款 </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 0 && item.course == 0"> 
-                                        <el-button @click="tHtKok(item.no,item.orderMoneyTotalreal)" type="primary" size="mini" class="orderdafe-edit-btn">同意</el-button>    
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" class="orderdafe-edit-btn" size="mini">拒绝</el-button>                          
-                                    </div>
-
-                                     <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 0"> 
-                                        <el-button @click="querenSHO(item.no,item.userId)" type="primary" size="mini" class="orderdafe-edit-btn">确认收货</el-button>                                      
-                                    </div>
-                 
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 1"> 
-                                       <span>配送中</span>     
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 2"> 
-                                       <span>退款完成</span>     
-                                    </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 3"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                                   
-                                    </div>
-
-                                     <div class="orderdafe-edit" v-if="item.type == 2  && item.status ==1 && item.course ==4"> 
-                                        <span>确认退款</span>
-                                     </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 2  && item.status == -1"> 
-                                        <span style="color:#f56c6c">拒绝</span>
-                                    </div>    -->
-  
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 3  && item.status == -1 "> 
-                                           <span style="color:#f56c6c">拒绝</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status==1 &&  item.course != 2"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                              
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 1 && item.status==1 && item.course ==2"> 
-                                       <span>退款完成</span>
-                                    </div>
-                              
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status== 0"> 
-                                        <el-button type="primary" size="mini" class="orderdafe-edit-btn" @click="oktuiK(item.no,item.orderMoneyTotalreal,item.type)">同意</el-button>
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" size="mini"  class="orderdafe-edit-btn">拒绝</el-button>
-                                    </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 1 && item.status == -1 ">
-                                        <span style="color:#f56c6c">退款关闭</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
-                                        <span>换货配送中</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 2"> 
-                                        <span>换货完成</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.status == 3">
-                                        退款完成
-                                    </div>
-
-
-                               </div>
-
-                                    
-                             
-                            </div>
-
-                            <div v-if="listdata.length == 0" class="mhsafe-orderxxx">
-                                <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/order.png" alt="" srcset="">  
-                            </div>    
-
-                            <div>
-                                <div class="goods_list_dibu-twodiv cssbilie1" style="width:100%;margin-top:20px">
-                                <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
-                                        :current-page="currentPage4"
-                                        :page-sizes="[100, 200, 300, 400]"
-                                        :page-size="20"
-                                        layout="total, prev, pager, next, jumper"
-                                        :total="totalCount">
-                                </el-pagination>
-                            </div>       
-                            </div>
-                            <!--全部over-->
-                            <!--全部over-->
-                        </el-tab-pane>
-                        <el-tab-pane label="维权取消" name="5">
-                            <!--全部-->
-                            <ul class="mhsafe-order_ul">
-                                <li class="mh-order_ul-one">商品</li>
-                                <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem;">单价/数量</li>
-                                <li class="mh-order_ul-four">买家信息</li>
-                                <li class="mh-order_ul-five">退款金额</li>
-                                <li class="mh-order_ul-sex">售后类型</li>
-                                <li class="mh-order_ul-seven">售后状态</li>
-                                <li class="mh-order_ul-night">操作</li>
-                            </ul>
-                            <div class="mhorder-table" v-show="listdata.length != 0 " v-for="(item,index) of listdata" :key="index" >
-                                <div class="mhorder-table-top">
-                                    <div class="mhorder-table-top-div">
-                                        <dl>
-                                            <dt>退款编号 :&nbsp; </dt>
-                                            <dd>{{item.no == undefined || item.no == null || item.no == '' ? '----' : item.no}}</dd>
-                                        </dl>
-                                    <dl>
-                                        <dt>订单号 :&nbsp;</dt>
-                                        <dd>{{item.orderNo}}</dd>
-                                    </dl>
-                                     <dl>
-                                        <dt>申请时间 :&nbsp; </dt>
-                                        <dd>{{item.createTime.time|formatDate}}</dd>
-                                    </dl>
-
-                                    <dl v-if="item.cancelTime">
-                                        <dt>取消时间 :&nbsp; </dt>
-                                        <dd>{{item.cancelTime.time|formatDate}}</dd>
-                                    </dl>
-                                    </div>
-                                    <dl class="lastdl">
-                                        <dt @click="Seedetails(item.no,item.type)">查看详情</dt>
-                                        <dd @click="Beizhu(item.no)" style="cursor: pointer;">备注</dd>
-                                        <!-- <dd style="margin-left:10px;cursor: pointer;">打印发货单</dd> -->
-                                    </dl>
-                                    
-                                </div>
-                                <div class="mhorder-table-bottomfusafe">
-                                    <div class="mhorder-table-bottomfu">
-                                        <div  class="mhorder-table-bottom"  v-for="(skuitem,skuindex) of item.detailList" :key="skuindex"> 
-                                            <div class="mhorder-table-bottom-div" style="width:80%">
-                                                <img :src="skuitem.imageurl" alt="" width="50" height="50" class="ordersafe-tab-img">
-                                                <dl class="mhorder-table-bottom-div_dl">
-                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
-                                                    <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
-                                                    <!-- <dd><span>规格: </span><span>红/M</span></dd> -->
-                                                    <!-- <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">退款数量 : </span><span>{{skuitem.quantity}}</span></dd> -->
-                                                </dl>
-                                            </div>   
-                                            <div class="orderdafe-price" style="width:10%">
-                                                <span class="orderdafe-price-fhao">¥</span>{{parseFloat(skuitem.moneyTotal/100)}}
-                                            </div>
-                                            <div class="orderdafe-num" style="width:10%">
-                                            1
-                                            </div>
-                                        </div>
-                                     </div>
-                                    <div class="orderdafe-note">
-                                        <div>
-                                            <img :src="item.userHeadportrait" alt="" width="40" height="40" class="ordersafe-tab-img">
-                                            <dl>
-                                                <dt><span>会员ID: </span><span>{{item.userId}} </span></dt>
-                                                <dd style="text-align: left;"><span>昵称:</span><span>{{item.userNickName}}</span></dd>                                        
-                                            </dl> 
-                                        </div>
-                                        <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
-                                                <div style="display:flex;padding:20px">
-                                                    <img :src="upnote.headportrait" alt="" width="40" height="40" style="margin-right:10px">
-                                                    <ul class="mh-seewuliu-ulaa">
-                                                        <li><span class="mh-order-note-span">上级昵称 : </span><span>{{upnote.nickName}}</span></li>
-                                                        <li><span class="mh-order-note-span">上级ID : </span><span>{{upnote.id}}</span></li>                                      
-                                                    </ul>
-                                                </div>     
-                                                <div  slot="reference" style="color: #409eff;cursor: pointer;"  @click="selectUp(item.userId)">查看上级</div>       
-                                        </el-popover>
-                                    </div>
-
-                                    <div class="orderdafe-tuiprice">
-                                        <span class="orderdafe-price-fhao">¥</span>{{ item.money == undefined || item.money == null ? '0' : parseFloat(item.money/100)}}
-                                    </div>
-
-                                    <div class="orderdafe-tuikaun">
-                                         {{item.type == 1 ? '仅退款': item.type == 2 ? '退货退款' : item.type == 3 ? '换货' : ''}}
-                                        <el-popover
-                                            placement="left"
-                                            width="100"
-                                            trigger="click"
-                                            popper-class="mh-triclass"
-                                        >                       
-                                        <div class="mh-seewuliu">
-                                            <div class="mh-seewuliu-div">{{courierServicesCompany}}</div>
-                                            <div class="mh-seewuliu-divtwo">订单号 : {{courierparseFloat}} </div>
-                                            <ul>
-                                                <li v-for="(listitem,listindex) of courierparseFloatlist" :key="listindex">
-                                                   <div>{{listitem.context}}</div>
-                                                   <div>{{listitem.logisticsTime |formatDate}}</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div @click="orderGoodswuliu(item.no,item.userId)">查看物流</div>                           
-                                        </el-popover> 
-                                    </div>
-
-                                    <div class="orderdafe-status" v-if="item.status == 0">处理中 </div>     
-                                    <div class="orderdafe-status" v-if="item.status == 1 && item.course !=2   && item.course !=0 && item.course !=3">审核通过</div>                               
-                                    <div class="orderdafe-status" v-if="item.status == -1">退款关闭</div>
-                                    <div class="orderdafe-status" v-if="item.status == 2">正在退款  </div>
-                                    <div class="orderdafe-status" v-if="item.status == -2">用户取消   </div>
-                                    <div class="orderdafe-status" v-if="item.status == 3">退款完成   </div>
-                                    <div class="orderdafe-status" v-if="item.status == null">暂无状态</div>
-
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 0">  售后待收货 </div>
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 3">  售后待退款 </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 0 && item.course == 0"> 
-                                        <el-button @click="tHtKok(item.no,item.orderMoneyTotalreal)" type="primary" size="mini" class="orderdafe-edit-btn">同意</el-button>    
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" class="orderdafe-edit-btn" size="mini">拒绝</el-button>                          
-                                    </div>
-
-                                     <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 0"> 
-                                        <el-button @click="querenSHO(item.no,item.userId)" type="primary" size="mini" class="orderdafe-edit-btn">确认收货</el-button>                                      
-                                    </div>
-                 
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 1"> 
-                                       <span>配送中</span>     
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 2"> 
-                                       <span>退款完成</span>     
-                                    </div>
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 1 && item.course == 3"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                                   
-                                    </div>
-
-                                     <div class="orderdafe-edit" v-if="item.type == 2  && item.status ==1 && item.course ==4"> 
-                                        <span>确认退款</span>
-                                     </div>
-
-
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status==1 &&  item.course != 2"> 
-                                        <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                              
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 1 && item.status==1 && item.course ==2"> 
-                                       <span>退款完成</span>
-                                    </div>
-                              
-                                    <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status== 0"> 
-                                        <el-button type="primary" size="mini" class="orderdafe-edit-btn" @click="oktuiK(item.no,item.orderMoneyTotalreal,item.type)">同意</el-button>
-                                        <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" size="mini"  class="orderdafe-edit-btn">拒绝</el-button>
-                                    </div>
-
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 1 && item.status == -1 ">
-                                        <span style="color:#f56c6c">退款关闭</span>
-                                    </div> -->
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
-                                        <span>换货配送中</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 2"> 
-                                        <span>换货完成</span>
-                                    </div>
-
-                                    <div class="orderdafe-edit" v-if="item.status == 3">
-                                        退款完成
-                                    </div>
-                               </div>           
-                            </div>
-
-                            <div v-if="listdata.length == 0" class="mhsafe-orderxxx">
-                                <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/order.png" alt="" srcset="">  
-                            </div>    
-
-                            <div>
-                                <div class="goods_list_dibu-twodiv cssbilie1" style="width:100%;margin-top:20px">
-                                <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
-                                        :current-page="currentPage4"
-                                        :page-sizes="[100, 200, 300, 400]"
-                                        :page-size="20"
-                                        layout="total, prev, pager, next, jumper"
-                                        :total="totalCount">
-                                </el-pagination>
-                            </div>       
-                            </div>
-                            <!--全部over-->
-                            <!--全部over-->
-                        </el-tab-pane>
+                        
                     </el-tabs>
                 </div>
 
@@ -1253,9 +417,7 @@
     </div>
 </template>
 <script>
-/*  
-    status， 0未处理， 1同意， -1,拒绝
-    
+/** status， 0未处理， 1同意， -1,拒绝
     维权订单退货退款状态
     0 待回寄
     1 配送中
@@ -1270,11 +432,16 @@ import shopnavbar from './shopnavbar';
 import baseapi from '../../utils/api';
 import {formatDate} from "../../filters/date";
 import addressjson from "../../../static/address.json";
+import {
+  zm_jsonToString,
+  zm_formDataToString
+} from "../../filters/zm_tools";
+
 export default {
       data() {
         return {
             upnote:{},
-            loading: true,
+            loading: false,
             thisstatus:'',
             tuihuono:'',
             tuikuanmoney:'',
@@ -1303,7 +470,8 @@ export default {
             refundpriceOne:'',
             refundprice:'',
             quanbu:"全部",
-            listdata:[
+            listdata:[],
+            listdata_test:[
                 {
                     course: null,
                     createTime: {time:''},
@@ -1376,7 +544,8 @@ export default {
     beforeRouteEnter (to, from, next) {
 		next(vm => {
             if( vm.$cookie.get('userId') != null && vm.$cookie.get('userId')  != '' && vm.$cookie.get('userId') != undefined   ){
-                vm.goodShop('',vm.thispageindex);
+                vm.request_goodShop('',vm.thispageindex);
+
                 next();
             } else {
                 next('/login');
@@ -1445,7 +614,7 @@ export default {
                         }
                         if(res.data.status == 200){
                             that.$message.success('确认收货成功');  
-                            that.goodShop('',that.thispageindex);
+                            that.request_goodShop('',that.thispageindex);
                         }
                     })     
             })
@@ -1493,7 +662,7 @@ export default {
                 if(res.data.status == 200){
                     that.$message.success('已同意');   
                     that.addressdialogFormVisible = false;
-                    that.goodShop('',that.thispageindex);
+                    that.request_goodShop('',that.thispageindex);
                 }
             })
 
@@ -1528,7 +697,7 @@ export default {
                 if(res.data.status ==200){
                     that.$message.success('备注成功');
                     that.dialogFormVisible = false;
-                    thta.goodShop('',that.thispageindex);
+                    thta.request_goodShop('',that.thispageindex);
                 } 
             }).catch(function(error){
                 console.error(error);
@@ -1562,7 +731,7 @@ export default {
                     }
                     if(res.data.status ==200){
                         that.$message.success('删除成功');
-                        thta.goodShop('',that.thispageindex);
+                        thta.request_goodShop('',that.thispageindex);
                     } 
                 }).catch(function(error){
                       console.error(error);
@@ -1597,7 +766,7 @@ export default {
                     }
                     if(res.data.status ==200){
                         that.$message.success('确认收货成功');
-                        thta.goodShop('',that.thispageindex);
+                        thta.request_goodShop('',that.thispageindex);
                     } 
                 }).catch(function(error){
                         console.log(error);
@@ -1634,7 +803,7 @@ export default {
                     }
                     if(res.data.status ==200){
                         that.$message.success('退款成功');
-                        that.goodShop('',that.thispageindex);
+                        that.request_goodShop('',that.thispageindex);
                     } 
                 }).catch(function(error){
                         console.log(error);
@@ -1648,11 +817,24 @@ export default {
         },
         //查看详情
         Seedetails(papams,type){   
-            let paramsobj = "id="+papams+'&type='+1;
-            let routerJump = this.$router.resolve({
-                path: `/ordersafeDetail/${paramsobj}`
+            // let paramsobj = "id="+papams+'&type='+1;
+            // let routerJump = this.$router.resolve({
+            //     path: `/ordersafeDetail/${paramsobj}`
+            // })
+            // window.open(routerJump.href, '_blank');
+
+            let item = {
+                papams: papams,
+                type: 1
+            };
+            this.$router.push({
+                path:'/order/ordersafeDetail',
+                query:{
+                    itemData:JSON.stringify(item),
+                }
             })
-            window.open(routerJump.href, '_blank');
+
+
         },
         //拒绝
         juJmethod(parmad,money,type){
@@ -1683,7 +865,7 @@ export default {
                 if(res.data.status ==200){
                     that.$message.success('操作成功');
                     that.jectdialogFormVisible = false;
-                    that.goodShop('',that.thispageindex);
+                    that.request_goodShop('',that.thispageindex);
                 }
             
             }).catch(function(error){
@@ -1730,7 +912,7 @@ export default {
                 if(res.data.status == 200){
                     that.$message.success('已同意');   
                     that.okdialogFormVisible = false;
-                    that.goodShop('',that.thispageindex);
+                    that.request_goodShop('',that.thispageindex);
                 }
             })
         },
@@ -1743,44 +925,51 @@ export default {
                           
          },
         selectdata(){
-            this.goodShop( this.thisstatus ,this.thispageindex);
+            this.request_goodShop( this.thisstatus ,this.thispageindex);
          },  
         handleCurrentChange(val) {
-            this.goodShop(this.thisstatus,val);
+            this.request_goodShop(this.thisstatus,val);
             this.thispageindex = val;
             console.log(`当前页: ${val}`);
         },
-        goodShop(status,page){
+        // 请求：售后订单列表（维权订单）  safeguardOrder、 orderAftersaleList
+        request_goodShop(status, page){
             let that = this;
-            let data = new FormData();
+            let params = new FormData();
                 if(this.orderparseFloat !=''){         
-                    data.append('sorderNo',this.orderparseFloat);
+                    params.append('sorderNo',this.orderparseFloat);
                 }
                 if(this.tuikuanparseFloat != ''){
-                    data.append('sno',this.tuikuanparseFloat);    
+                    params.append('sno',this.tuikuanparseFloat);    
                 }
-
                 if(this.shouhoutime != '' ){
-                    data.append('screateTimeStart',this.shouhoutime[0]);   
-                    data.append('screateTimeEnd',this.shouhoutime[1]);   
+                    params.append('screateTimeStart',this.shouhoutime[0]);   
+                    params.append('screateTimeEnd',this.shouhoutime[1]);   
                 }
                 if(this.souhouvalue != ""){
-                    data.append('stype',this.souhouvalue);            
+                    params.append('stype',this.souhouvalue);            
                 }
-
                 if(status != undefined  && status !=null){
-                    data.append('sstatus',status);
+                    params.append('status',status);
                 } 
-                    data.append('page',page);
-                    data.append('limit',20);
+                   
+                if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    params.append("ssupplierId", this.$cookie.get('supplierId'));
+                }else{
+                    params.append("ssupplierId", '2');
+                }
+                params.append('page',page);
+                params.append('limit',20);
+                params.append('token',this.$cookie.get('token'));
                 
                 this.$http({
                     method: "post",
-                    url: baseapi.safeguardOrder,
-                    data: data,
+                    url: baseapi.orderAftersaleList,
+                    data: params,
                     headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId') }
                 })
                 .then(function(res){
+                    console.log('---售后订单列表 data= ' + zm_jsonToString(res.data));
                     if(res.data.status ==200){
                         if(status == 999){
                             that.$message.success('筛选成功');
@@ -1794,8 +983,7 @@ export default {
                     }else{
                         that.$message.error(res.data.message);
                     }
-                })
-                .catch(function(error){        
+                }).catch(function(error){        
                          that.$message.error('服务器异常');              
                     console.log(error);
                 }) ; 
@@ -1805,19 +993,19 @@ export default {
                 console.log(tab.name);
                 if(tab.name == 1){
                     this.thisstatus = '';
-                    this.goodShop('',1); 
+                    this.request_goodShop('',1); 
                 }else if(tab.name == 2){
-                    this.goodShop('0',1);
+                    this.request_goodShop('0',1);
                     this.thisstatus = '0'
                 }else if(tab.name == 3){
                     this.thisstatus = '1';
-                    this.goodShop(1,1);
+                    this.request_goodShop(1,1);
                 }else if(tab.name == 5){
                     this.thisstatus = '-2';
-                    this.goodShop(-2,1);
+                    this.request_goodShop(-2,1);
                 }else{
                     this.thisstatus = '-1';
-                    this.goodShop(-1,1);    
+                    this.request_goodShop(-1,1);    
                 }
            
             },
@@ -1837,13 +1025,13 @@ export default {
     margin-top: 14px
 }
 .mhsafe-order_ul .mh-order_ul-one{
-    width: 28%;
+    width: 26%;
 }
 .mhsafe-order_ul .mh-order_ul-two{
     width: 10%;
 }
 .mhsafe-order_ul .mh-order_ul-there{
-    width: 12%;
+    width: 14%;
 }
 .mhsafe-order_ul .mh-order_ul-four{
     width: 18%;

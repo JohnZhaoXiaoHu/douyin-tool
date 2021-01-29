@@ -21,9 +21,9 @@
                               <div class="res-imgmain">
 
                                   <div class="res-imgleft">
-                                     <div class="res-imgleftdiv">
+                                     <!-- <div class="res-imgleftdiv">
                                         <button type="button" class="el-button el-button--default el-button--small" @click="addResGrounp(1)"><span><i class="el-icon-plus"></i>添加分组</span></button>
-                                      </div>
+                                      </div> -->
                                       <el-tree
                                           :default-expanded-keys="zhanarrqy"
                                           :data="data"
@@ -108,127 +108,10 @@
                                   </div>
 
                               </div>
-                                <!--我的资源图片结束-->
+                               
                             </el-tab-pane>
-                            <el-tab-pane label="语音" name="second">
-                                <button  @click="yindialogFormVisible =true" type="button" class="el-button el-button--primary el-button--small" style="margin-bottom: 20px;"><span>上传音频</span></button>
-                                  <div class="res-imgmain">
-                                  <div class="res-imgleft">
-                                     <div class="res-imgleftdiv">
-                                        <button type="button" class="el-button el-button--default el-button--small" @click="addResGrounp(3)"><span><i class="el-icon-plus"></i>添加分组</span></button>
-                                      </div>
-                                      <el-tree :data="data" :props="defaultProps" @node-click="yinNodeClick">
-                                         <span class="custom-tree-node" slot-scope="{ node, data }"> 
-                                          <span class="shipinnewnode">{{ data.name }}</span>                     
-                                          <el-button type="text" size="mini"   @click.stop="chongmingming(3,data.id,data.name)">
-                                          <el-tooltip class="item" effect="dark" content="重命名" placement="top">
-                                                 <i class="el-icon-edit" style="font-size: 12px;color: #409eff" ></i>                                             
-                                          </el-tooltip>
-                                            </el-button>
-                                          <el-button
-                                                  type="text"
-                                                  size="mini"
-                                                  @click.stop="() => remove(node, data,3)">
-                                               <el-tooltip class="item" effect="dark" content="删除分类" placement="top">
-                                                   <i class="el-icon-delete"></i>
-                                               </el-tooltip>
-                                          </el-button>
-                                        </span>                      
-                                      </el-tree>
-                                  </div>
+                             <!--我的资源图片结束-->
 
-                                  <div class="res-img-right">
-                                    <audio :src="yinpath" ref="audioomy">
-                                    您的浏览器不支持 audio 标签。
-                                   </audio>
-                                       <div class="res-img-right-div" v-show ="videoarr.length != 0"  v-for="(item,index) of videoarr" :key="index"> 
-                                          <img class="mh-resYinimg"  @click="audiomethod(item.path)" src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/yinle.png" alt="" srcset="">
-                                          <!-- <img  @click="tanvideoshow(item.path)" src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/wx/vadio.png" alt="" class="res-img-right-divimg"> -->
-                                          <div class="res-img-right-span">{{item.name}}</div>
-                                          <div class="res-img-right-grounp"> 
-                                            <button type="button" class="el-button el-button--text"><span @click="myvdeioedit(item.id,item.name,item.groupId,3)">改名</span></button>
-                                            <button type="button" class="el-button el-button--text"><span @click="vdeioeditlianjie(item.path)">链接</span></button>
-                                            <!-- <button type="button" class="el-button el-button--text"><span>分组</span></button> -->
-                                            <button type="button" class="el-button el-button--text"><span @click="vdeiodelResA(item.id,item.groupId,3)">删除</span></button>
-
-                                          </div>
-                                      </div>
-                                  <!--                                    
-                                         <div  v-if="videoarr.length != 0" style="margin-right:20px;margin-bottom:10px;border-radius: 10px;border: 1px solid #eee;" v-for="(itemvideo,indexvideo) of videoarr" :key="indexvideo"> 
-                                          <video :src="itemvideo.path" height="150" width="150" controls="controls" >
-                                         您的浏览器不支持 video 标签。
-                                          </video>                                    
-                                        </div>
-                                  -->
-
-                                    <div v-if="videoarr.length == 0" style="color:#909399;display:Flex;align-items: center;font-size:12px;margin-top:100px;margin-left:100px">
-                                        <!-- <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/logging.png" alt="" width="150" height="152"> -->
-                                        该分类下无音频
-                                    </div>                    
-                                  </div>
-
-
-                              </div>
-                            </el-tab-pane>
-                            <el-tab-pane label="视频" name="third">
-
-                              <button  @click="vdeiodialogFormVisible =true" type="button" class="el-button el-button--primary el-button--small" style="margin-bottom: 20px;"><span>上传视频</span></button>
-                                  <div class="res-imgmain">
-                                  <div class="res-imgleft">
-                                     <div class="res-imgleftdiv">
-                                        <button type="button" class="el-button el-button--default el-button--small" @click="addResGrounp(2)"><span><i class="el-icon-plus"></i>添加分组</span></button>
-                                      </div>
-                                      <el-tree :data="data" :props="defaultProps" @node-click="videoNodeClick">
-                                         <span class="custom-tree-node" slot-scope="{ node, data }"> 
-                                          <span class="shipinnewnode">{{ data.name }}</span>                     
-                                          <el-button type="text" size="mini"   @click.stop="chongmingming(2,data.id,data.name)">
-                                          <el-tooltip class="item" effect="dark" content="重命名" placement="top">
-                                                 <i class="el-icon-edit" style="font-size: 12px;color: #409eff" ></i>                                             
-                                          </el-tooltip>
-                                            </el-button>
-                                          <el-button
-                                                  type="text"
-                                                  size="mini"
-                                                  @click.stop="() => remove(node, data,2)">
-                                               <el-tooltip class="item" effect="dark" content="删除分类" placement="top">
-                                                   <i class="el-icon-delete"></i>
-                                               </el-tooltip>
-                                          </el-button>
-                                        </span>                      
-                                      </el-tree>
-                                  </div>
-
-                                  <div class="res-img-right">
-
-                                       <div class="res-img-right-div" v-show ="videoarr.length != 0"  v-for="(item,index) of videoarr" :key="index">                                        
-                                          <!-- <img  @click="tanvideoshow(item.path)" src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/wx/vadio.png" alt="" class="res-img-right-divimg"> -->
-                                          <img  @click="tanvideoshow(item.path)" :src="item.smallpath" alt="" title="点击观看" class="res-img-right-divimg">
-                                          <div class="res-img-right-span">{{item.name}}</div>
-                                          <div class="res-img-right-grounp"> 
-                                            <button type="button" class="el-button el-button--text"><span @click="myvdeioedit(item.id,item.name,item.groupId,2)">改名</span></button>
-                                            <button type="button" class="el-button el-button--text"><span @click="vdeioeditlianjie(item.path)">链接</span></button>
-                                            <!-- <button type="button" class="el-button el-button--text"><span>分组</span></button> -->
-                                            <button type="button" class="el-button el-button--text"><span @click="vdeiodelResA(item.id,item.groupId,2)">删除</span></button>
-
-                                          </div>
-                                      </div>
-                                  <!--                                    
-                                         <div  v-if="videoarr.length != 0" style="margin-right:20px;margin-bottom:10px;border-radius: 10px;border: 1px solid #eee;" v-for="(itemvideo,indexvideo) of videoarr" :key="indexvideo"> 
-                                          <video :src="itemvideo.path" height="150" width="150" controls="controls" >
-                                         您的浏览器不支持 video 标签。
-                                          </video>                                    
-                                        </div>
-                                  -->
-
-                                    <div v-if="videoarr.length == 0" style="color:#909399;display:Flex;align-items: center;font-size:12px;margin-top:100px;margin-left:100px">
-                                        <!-- <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/logging.png" alt="" width="150" height="152"> -->
-                                      该分类下无视频
-                                    </div>                    
-                                  </div>
-
-
-                              </div>
-                            </el-tab-pane>
                         </el-tabs>
                     </div>
 
@@ -430,7 +313,6 @@
                       </div>
                   </div>
                    <span slot="footer" class="dialog-footer">
-                        <!-- <el-button @click="vdeiodialogFormVisible = false">取 消</el-button> -->
                           <el-button @click="setvideoMethodquxiao">取 消</el-button>
                         <el-button type="primary" @click="setvideoMethod(file)" :loading="videotrue">{{videovalue}}</el-button>
                     </span>
@@ -470,9 +352,7 @@
                     </span>
 
                 </el-dialog>
-
                 <!-- 上传视频over -->
-
 
                <el-dialog title="修改分组名称" :visible.sync="editname">
                     <div class="mh-resoure-grounp">
@@ -562,16 +442,6 @@
                       <img width="100%" :src="TandialogImageUrl" alt="">
                  </el-dialog>
 
-
-                <!-- <canvas id="myCanvas" width="270" height="135" style="border:1px solid #d3d3d3;">
-    Your browser does not support the HTML5 canvas tag.
-</canvas>
-
-        <video id="video11" controls width="200" height="200" autoplay>
-    <source src="../../assets/1584434385622908.mp4">
-</video> -->
-        
-
             </div>
         </div>
         <!--        -->
@@ -584,13 +454,12 @@ import navbar from '../navbar';
 import sidebar from '../sidebar';
 import secnavbar from './secnavbar';
 import baseapi from '../../utils/api';
-
 import axios from "axios";
 
 export default {
     data() {
         return {
-          loading:true,
+          loading: false,
           cancel: null,//取消上传
           currentPage4:'',
           imgval:1,
@@ -705,24 +574,11 @@ export default {
            
             this.$nextTick(() => {
                 let video = document.getElementById("video11");
-
-
-
-
-
                 var c = document.getElementById("myCanvas");
                 let output = document.getElementById("output");
                 let source = document.createElement("source");
 
-
                 //创建视频
-
-
-                
-
-
-
-                
                  video.currentTime=1;
        
             setTimeout(function(){
@@ -792,7 +648,6 @@ export default {
            this.$nextTick(() => {
                 this.$refs.videomy.src = path;
              })
-           
         } , 
 
         //添加左边图片分组
@@ -823,12 +678,22 @@ export default {
                   }
               })  
         },
-        //请求右边图片分组
+        //请求右边图片分组（baseapi.resGrounpTee）
         selectResGrounp(param){
       
             let data = new FormData();
-            data.append('type',param);
-            this.http.post( baseapi.resGrounpTee,data).then(res=>{
+            // data.append('type',param);
+            data.append('groupId',0);    
+            data.append('type',1);
+            data.append('page',1);
+            data.append('limit',14);
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("supplierId", '2');
+            }
+
+            this.http.post( baseapi.resourceList, data).then(res=>{
                 if (res.data.list.length != 0) {
                     this.startid = res.data.list[0].id;
                     this.selectResList(res.data.list[0].id);
@@ -845,7 +710,7 @@ export default {
                 })              
             })        
         },
-        //删除左边图片分组
+        //删除左边图片分组（shachuResGrounp）
         leftdelectResGrounp(id,param){
           let that = this; 
           this.$confirm('你确定要删除该资源组吗, 是否继续?', '提示', {
@@ -854,9 +719,14 @@ export default {
               type: 'warning'
               }).then(() => {         
                 let data = new FormData();
-                data.append('id',id);
-                data.append('type',param);
-                this.http.post( baseapi.shachuResGrounp,data).then(res=>{
+                data.append('ids',id);
+                if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    data.append("supplierId", this.$cookie.get('supplierId'));
+                }else{
+                    data.append("supplierId", '2');
+                }
+
+                this.http.post( baseapi.resourceDelete, data).then(res=>{
                     that.$message.success('删除成功');
                     that.selectResGrounp(param);
                 })    
@@ -868,8 +738,13 @@ export default {
               let data = new FormData();
               data.append('name',this.editnamevalue);
               data.append('id',this.editrespaentid);
-              data.append('type',this.editresID)
-              this.http.post( baseapi.editResName,data).then(res=>{
+              if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    data.append("supplierId", this.$cookie.get('supplierId'));
+                }else{
+                    data.append("supplierId", '2');
+                }
+
+              this.http.post( baseapi.resourceUpdate, data).then(res=>{
                   that.$message.success('修改名称成功');
                   that.editnamevalue = '';
                   that.selectResGrounp(that.editresID);
@@ -912,7 +787,7 @@ export default {
             let that = this;
             let data = new FormData();
             data.append('type',param)
-            this.http.post( baseapi.resGrounpTee,data).then(res=>{
+            this.http.post( baseapi.resourceList,data).then(res=>{
                 if (res.data.list.length != 0) {
                     that.startid = res.data.list[0].id;
                     that.selectResList(res.data.list[0].id);
@@ -935,15 +810,18 @@ export default {
           selectResList(parpm,page=1){
               let that = this;
               let data = new FormData();
-              if(parpm != '' && parpm != undefined && parpm !=null){
-                    data.append('groupId',parpm);
-                }else{
-                    data.append('groupId',0);
-                }      
+              
+              data.append('groupId',0);    
               data.append('type',1);
               data.append('page',page);
               data.append('limit',18);
-              this.http.post( baseapi.imgresRught,data).then(res=>{
+              if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                  data.append("supplierId", this.$cookie.get('supplierId'));
+              }else{
+                  data.append("supplierId", '2');
+              }
+              // imgresRught
+              this.http.post( baseapi.resourceList,data).then(res=>{
                     that.imgarr = res.data.list;
                     that.totalCount = res.data.totalCount;
               })  
@@ -973,6 +851,8 @@ export default {
             data.append('files',this.vdieo.raw);
             data.append('name',this.vedionamexx);
             let CancelToken = axios.CancelToken
+
+            // baseapi.addImgRes
             this.$http({
                 method: "post",
                 url:baseapi.addImgRes,
@@ -1008,29 +888,7 @@ export default {
             }).catch(function(res){
               console.log(res);
             }) ;
-
-            // this.http.post( baseapi.addImgRes,data).then(res=>{
-              
-                // if(res.data.status == 200){
-
-                //   that.$message.success("添加视频成功");
-                //   that.videotrue = false;
-                //   that.videovalue = '确认';
-                //   that.$refs.vdeioupload.clearFiles(); 
-                //   that.selectvideoList(uploadimgid,2);
-                //   that.vdeiodialogFormVisible = false;
-                //   that.netimgUrl = '';
-                //   that.vdeiovalue = [];
-                //   that.vedionamexx = '';
-                //   that.vdieo = {};
-  
-                // }else{
-                //     that.$message(res.data.message);
-                //     that.vdeiodialogFormVisible = false;
-                //     that.videotrue = false;
-                //     that.videovalue = '提交';
-                // } 
-            // })   
+ 
           },
           setvideoMethodquxiao(){
               this.cancel = null;
@@ -1204,7 +1062,6 @@ export default {
     },
     handleChange(file,fileList){
 
-
       console.log(fileList);
       if(fileList != undefined){
       let  arr = [];
@@ -1224,14 +1081,8 @@ export default {
           this.imgvideotrue = true;
          this.imgvideovalue = '上传中';
       }
-      if(this.imgvalue.length == 1){
-          data.append('groupId',this.imgvalue[0]);
-          uploadimgid = this.imgvalue[0];
-      }
-      if(this.imgvalue.length >1){
-          data.append('groupId',this.imgvalue[this.imgvalue.length-1]);
-          uploadimgid = this.imgvalue[this.imgvalue.length-1];
-      }
+
+      data.append('groupId', 0);
       data.append('type',1);
 
       data.append('name',this.newimgname);
@@ -1243,7 +1094,16 @@ export default {
       for(let a=0;a<this.upfile.length;a++){
           data.append('files',this.upfile[a]);
       }
-      this.http.post( baseapi.addImgRes,data).then(res=>{
+      if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+          data.append("supplierId", this.$cookie.get('supplierId'));
+      }else{
+          data.append("supplierId", '2');
+      }
+
+      // baseapi.addImgRes
+      this.http.post( baseapi.resourceAdd, data).then(res=>{
+
+
           if(res.data.status != 200){
                 this.$message.error(res.data.message);
                 this.imgvideotrue = false;
@@ -1388,36 +1248,12 @@ export default {
                 this.$refs.mark.$el.querySelector('input').focus();
                 })
             },10)
-                 
-            // let that = this;
-
-              // //查出 pid 等于当前数目的 {id: 25, level: 1, name: "一级分类", pid: 0}           
-              //   let children = [];                   
-              //   if(that.data.children == null || that.data.children == undefined){
-              //     for(let i = 0; i < that.data.length; i++){                
-              //             that.$set(that.data[i],children,[]);   // that.data[i]['children'] = [];   
-              //     　　}   
-              //   };
-                  
-              //   // const newChild1 = { id: 25, level: 1, name: "一级分类", pid: 0,children: [] };              
-              //   if (!parendata.children) {
-              //     that.$set(parendata, 'children', []);
-              //   }
-              //   that.$set(parendata,'children',that.pidnewChild);
-
-                /**新增分类 */
-                // 
-                // parendata.children.push(newChild1) ;              
+                              
             },
             /**删除资源组 */
             remove(node, data,type) {
                 let id = data.id;
-                this.leftdelectResGrounp(id,type);   
-
-                // const parent = node.parent;
-                // const children = parent.data.children || parent.data;
-                // const index = children.findIndex(d => d.id === data.id);
-                // children.splice(index, 1);     
+                this.leftdelectResGrounp(id,type);      
             },
             handleDragStart(node, ev) {
                 console.log('drag start', node);
@@ -1470,7 +1306,6 @@ export default {
             }else{
                 data.append('groupId',0);
             }
-
             data.append('type',type);
             data.append('page',1);
             data.append('limit',20);
@@ -1550,10 +1385,8 @@ export default {
    border: 1px solid #eee;
    margin-bottom: 12px;
    transition:all .2s
-       /* */
  }
   .res-img-right-div:hover{
-    /* border: 1px solid #000; */
      cursor: pointer;
      box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
   }
@@ -1568,7 +1401,6 @@ export default {
   }
 
   .res-img-right-grounp{
-  
        display: flex;
        align-items: center;
        height: 22px;
@@ -1576,8 +1408,6 @@ export default {
        justify-content: space-around;
        padding: 0 15px;
        box-sizing: border-box;
-
-; 
   }
   .res-img-right-span{
       width: 100%;

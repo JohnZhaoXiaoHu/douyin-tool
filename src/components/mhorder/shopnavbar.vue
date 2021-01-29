@@ -6,9 +6,9 @@
         <router-link tag="a" to="/ordersafe">   
             <li class="goods-left_list"><span>维权订单</span></li>          
         </router-link>  
-         <router-link tag="a" to="/supplierOrder">   
+        <!-- <router-link tag="a" to="/supplierOrder">   
             <li class="goods-left_list"><span>供应商订单</span></li>          
-        </router-link> 
+        </router-link>  -->
             <!-- <router-link tag="a" to="/orderevaluate">   
             <li class="goods-left_list"><span>评价管理</span></li>          
         </router-link>  -->

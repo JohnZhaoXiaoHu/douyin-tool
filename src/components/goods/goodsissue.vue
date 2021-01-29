@@ -58,7 +58,7 @@
                           <i class="el-icon-success g-type-img"></i>
                         </div>                     
 
-                        <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogtwo}]">
+                        <!-- <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogtwo}]">
                           <ul @click="shiwugoods(2)">
                             <li class="g-type-name">虚拟商品</li>
                             <li class="g-type-huo">（无需物流）</li>
@@ -74,24 +74,25 @@
                             <i class="el-icon-success g-type-img"></i>
                         </div>
 
-                         <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogfour}]" >
+                        <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogfour}]" >
                           <ul @click="shiwugoods(4)">
                             <li class="g-type-name">抢购活动</li>
                             <li class="g-type-huo">（物流发货）</li>
                           </ul>  
                             <i class="el-icon-success g-type-img"></i>
-                        </div>
+                        </div> -->
 
 
                       </div>
                       <div>
-                        <div class="gf-more">
+                        <!-- <div class="gf-more">
                           <div class="mh-goodsgf-more"  @click="show3 = !show3">  
                               <span>更多设置</span>
                               <i :class="{'el-collapse-item__arrow':true,'el-icon-arrow-right':true,'is-active':show3}"></i>
                           </div>
-                        </div>
-                        <el-collapse-transition>
+                        </div> -->
+
+                        <!-- <el-collapse-transition>
                         <div v-show="show3">
                           <el-checkbox v-model="checked">跳转到其他网站购买</el-checkbox>
                           <dl class="gf-wailink">
@@ -108,7 +109,9 @@
                           </dl>
                           <div class="gf-tips">因特殊流程（如电影选座等）需要，可以从商品详情跳转到外部购买</div>
                         </div>
-                        </el-collapse-transition>
+                        </el-collapse-transition> -->
+
+
                       </div>
                     </div>
 
@@ -121,7 +124,7 @@
 
                           <div class="df-basic_row el-form-item">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">分享描述：</label>
-                            <input type="text" autocomplete="off" class="el-input__inner" v-model="shareName"/>
+                            <input type="text" autocomplete="off" class="el-input__inner" v-model="description"/>
                           </div>
 
 
@@ -133,11 +136,24 @@
                           
                                 <div class="mh-goods-resimg"  @click="fenhgmiantu"> 
                                 <i   class="el-icon-plus mh-goods-resimg-i"></i>
-                                     
                                 </div>
-                              </div>                  
+
+                                 <!-- <el-upload action="https://api.mihuanshop.com/live/base/file/single/upload " list-type="picture-card"
+                                  :on-preview="handlePictureCardPreview1"
+                                  :multiple="bgImg_elUpload_multipleImg1" 
+                                  :file-list='bgImg_elUpload_imgFileList1' 
+                                  :on-change="emc_fileChange1" 
+                                  :on-remove="handleRemove1">
+                                  <i class="el-icon-plus"></i>
+                                </el-upload>
+                                <el-dialog :visible.sync="dialogVisible1">
+                                  <img width="100%" :src="dialogImageUrl1" alt="">
+                                </el-dialog> -->
+
+                              </div>   
                           </div>
                        
+
 
 
                           <div class="df-basic_row el-form-item xxxx is-required" >
@@ -149,20 +165,12 @@
                                 </div>
                                 
                                 <div class="mh-goods-resimg"  @click="getsonimg"> 
-                                <i  class="el-icon-plus mh-goods-resimg-i"></i>
-                
+                                  <i  class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
-                              </div>                  
                             </div>
                           </div>
 
-                          <div class="df-basic_row el-form-item">
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">图片展示方式：</label>
-                            <div style="width: 80%">
-                              <el-radio v-model="imageShowType" label="1">左右轮播</el-radio>
-                              <el-radio v-model="imageShowType" label="2">纵向展示</el-radio>
-                            </div>
-                          </div>
+                        </div>
 
                         <div class="gf-more">
                             <div class="mh-goodsgf-more"  @click="show4 = !show4">  
@@ -175,35 +183,28 @@
                             <div class="df-basic_row el-form-item pppp">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品分类：</label>
                             <div class="block" style="width:500px">
-                              <!-- <el-select v-model="catevalue" placeholder="请选择">
-                                <el-option
-                                  v-for="item in shopcategory"
+                              <el-select v-model="catevalue" placeholder="请选择">
+                                <el-option v-for="item in shopcategory"
                                   :key="item.id"
                                   :label="item.name"
                                   :value="item.id">
                                 </el-option>
-                              </el-select> -->
+                              </el-select>
 
 
-                                <el-select
-                                  style="width:400px"
+                                <!-- <el-select style="width:400px" multiple filterable allow-create default-first-option
                                   v-model="catevalue"
-                                  multiple
-                                  filterable
-                                  allow-create
-                                  default-first-option
                                   placeholder="请选择商品分类：">
-                                  <el-option
-                                    v-for="item in shopcategory"
+                                  <el-option  v-for="item in shopcategory"
                                     :key="item.id"
                                     :label="item.name"
                                     :value="item.id">
                                   </el-option>
-                                </el-select>
+                                </el-select> -->
                             </div>
                           </div>
 
-                          <div class="df-basic_row el-form-item" style="margin-bottom: 36px">
+                          <!-- <div class="df-basic_row el-form-item" style="margin-bottom: 36px">
                         
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品分组：</label>
                             <div class="block" style="width:500px">
@@ -234,43 +235,18 @@
                               </router-link>
                               </button>
                             </div>
-                          </div>
+
+                          </div> -->
+
+
 
                           <div class="df-basic_row el-form-item">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品卖点：</label>
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="maidian" style="flex:1"/>
                           </div>
 
-                          <div class="df-basic_row el-form-item" style="margin-bottom: 15px">
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">主图视频类型：</label>
-                            <div style="width: 80%;position: relative">
-                              <!-- <el-radio-group v-model="videoType"> -->
-                                <el-radio label="1" v-model="videonum" @change="videomethod">本地视频</el-radio>
-                                <el-radio label="2" v-model="videonum" @change="videomethod">视频地址</el-radio>
-                                <el-radio label="3" v-model="videonum" @change="videomethod">腾讯视频</el-radio>
-                              <!-- </el-radio-group> -->
-                              <!-- <div class="df-basic-mv">小程序不支持视频地址及腾讯视频</div> -->
-                            </div>
-                          </div>
+                         
 
-                          <div class="df-basic_row el-form-item">
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">主图视频：</label>
-                            <div style="width: 80%;" v-show="isshowvideoone">        
-                                <div class="mh-xxcard-add" v-if="sonpath == ''" @click="upshipintanchuang"><i  class="iconfont icon-add1" style="color: rgb(64, 158, 255);"></i></div>
-                                    <div  v-if="sonpath != ''"  style="position: relative;width:64px;height64px;border:1px dashed #eee;padding:3px">
-                                    <i @click="sonpath = ''"   class="el-icon-close " style="position: absolute; right: -10px; top: -10px; cursor: pointer; color: red;font-size:18px"></i>
-                                    <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/wx/vadio.png" alt="" srcset="" title="点击播放视频">
-                                  </div>
-                            </div>
-
-                            <div style="width: 80%;" v-show="isshowvideotwo">
-                              <input type="text" autocomplete="off" class="el-input__inner" />
-                            </div>
-                            <div style="width: 80%;position: relative" v-show="isshowvideothere">
-                              <input type="text" autocomplete="off" class="el-input__inner" v-model="waivideourl" style="margin-bottom:6px"/>
-                              <span class="df-up-notmv">目前只支持腾讯视频，一定要填写带有vid或者sid的视频地址</span>
-                            </div>
-                          </div>
                         </div>
                       </el-collapse-transition>
                     </div>
@@ -284,12 +260,9 @@
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">商品规格：</label>
                         <div style="width: 88%">
                           <div v-if="isshowgglist">
-                  
 
                               <test ref="refgui" :mhqdaoflag="mhqdaoflagsTATUS"  :protableData="tableDataone"  :prospecArr="specArrtwo" :proallData="thereallData"></test>
             
-
-
                             </div>
                             <button v-if="addgoodsisshow" @click="goodsguilist" type="button" class="el-button el-button--default el-button--mini" >
                             <span>添加规格项目</span>
@@ -302,27 +275,28 @@
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">价格</label>
                           <div class="df-kucun-price">
                             <div>
-                              <el-input placeholder="请输入价格" v-model="viprice"  :disabled="xuanzeshuxi" type='number'>
+                              <el-input placeholder="请输入价格" v-model="viprice"  type='number'>
                                 <template slot="prepend">￥</template>
                               </el-input>
                             </div>
                             <!-- 会员价格弹出等级设置 -->
-                            <button @click="vippopup"
-                            v-show="isgoodsdengji"
+                            <!-- <button @click="vippopup" v-show="isgoodsdengji"
                               type="button"
                               class="el-button el-button--primary el-button--mini"
                               style="margin-left: 10px; height: 32px;"
                             >
                               <span>会员价格</span>
-                            </button>
+                            </button> -->
                             <!-- 渠道商价格弹出等级设置 -->
-                            <button  @click="qdspopup"  v-show="jinebiliefanyong"
+                            <!-- <button  @click="qdspopup"  v-show="jinebiliefanyong"
                             type="button"
                             class="el-button el-button--primary el-button--mini"
                             style="margin-left: 10px; height: 32px;"
                           >
                             <span>渠道商价格</span>
-                          </button>
+                          </button> -->
+
+
                           </div>
                       </div>
                       
@@ -341,7 +315,7 @@
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">库存：</label>
                         <div class="el-form-item__content" style="margin-left: 150px">
                           <div class="el-input el-input--small" style="width: 25%;display: flex;align-items: center;">
-                            <el-input placeholder="请输入库存" v-model="inventoryTotal"  :disabled="xuanzeshuxi" type='number'>
+                            <el-input placeholder="请输入库存" v-model="stockNum"  :disabled="xuanzeshuxi" type='number'>
                             </el-input>
                             <input
                               type="text"
@@ -369,14 +343,14 @@
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">重量：</label>
                         <div class="el-form-item__content" style="margin-left: 150px">
                           <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <input type="number" autocomplete="off" class="el-input__inner" v-model="shopweight" />
+                            <input type="number" autocomplete="off" class="el-input__inner" v-model="weight" />
                       
                           </div>
                           <div class="tips el-col el-col-24 df-tps-zi">千克(最多两位小数)</div>
                         </div>
                       </div>
 
-                      <div class="df-basic_row_new el-form-item">
+                      <!-- <div class="df-basic_row_new el-form-item">
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">会员折扣：</label>
                         <div class="el-form-item__content" style="margin-left: 150px">
                           <div class="el-input el-input--small" style="width: 25%;display: flex">
@@ -384,7 +358,7 @@
                           </div>
                           <div class="tips el-col el-col-24 df-tps-zi">是否勾选不影响自定义会员价生效</div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="df-basic_row_new el-form-item">
                         <label
@@ -442,7 +416,7 @@
                             </div>
 
                       
-                            <div class="df-basic_row_new el-form-item">
+                            <!-- <div class="df-basic_row_new el-form-item">
                               <label for="item_title" class="el-form-item__label" style="width: 150px;">供应商：：</label>
                               <div class="el-form-item__content" style="margin-left: 150px">
                                 <div class="el-input el-input--small" style="width: 25%;display: flex">
@@ -456,9 +430,9 @@
                                   </el-select>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
 
-                            <div class="df-basic_row_new el-form-item">
+                            <!-- <div class="df-basic_row_new el-form-item">
                               <label for="item_title" class="el-form-item__label" style="width: 150px;">供货价：：</label>
                               <div class="el-form-item__content" style="margin-left: 150px">
                                 <div class="el-input el-input--small" style="width: 25%;display: flex">
@@ -478,7 +452,7 @@
                                   </el-input>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
 
 
                             </div>
@@ -531,9 +505,7 @@
                                     {{ft_name}}
                                 </el-button>
                                 
-                                <button v-if="isyfmoban1" type="button" @click="ft_addReightTemplateClick" class="el-button el-button--text el-button--small" style="margin-left:15px">
-                                  <span>新建</span>
-                                </button>
+                      
                               </div>
     
                               <div >
@@ -591,7 +563,6 @@
                               <el-switch v-model="yugou" active-color="#409EFF" inactive-color="#f8f8f8" @change="yugoudata"></el-switch>
                             </div>
                           </div>
-                          <!-- <div class="tips el-col el-col-24 df-tps-zi">勾选后商品详情页面不展示评价信息</div> -->
                         </div>
                       </div>
 
@@ -661,508 +632,22 @@
                               </div>
                               </div>
                         </el-collapse-transition>
-                        <div class="mh-goodsgf-more"  @click="show5 = !show5">  
+                        <!-- <div class="mh-goodsgf-more"  @click="show5 = !show5">  
                               <span>更多设置</span>
                               <i :class="{'el-collapse-item__arrow':true,'el-icon-arrow-right':true,'is-active':show5}"></i>
-                        </div>
+                        </div> -->
 
                         <div class="gf-qita-more">
                           <el-collapse-transition>
                           <div v-show="show5">
 
-                          <div class="df-basic_row_new el-form-item">
-                            <label
-                              for="item_title"
-                              class="el-form-item__label"
-                              style="width: 150px;"
-                            >购买所需积分：</label>
-                            <div class="el-form-item__content" style="margin-left: 150px">
-                              <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                <input type="number" autocomplete="off" class="el-input__inner"   v-model="needjifen"/>
-                              </div>
-                              <div class="tips el-col el-col-24 df-tps-zi">购买每件该商品额外需要的积分</div>
-                            </div>
-                          </div>
-
-                          <div class="gf-qita-more">
-                            <div class="df-basic_row_new el-form-item">
-                              <label
-                                for="item_title"
-                                class="el-form-item__label"
-                                style="width: 150px;"
-                              >参与积分抵现:</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 50%;">
-                                  <el-radio v-model="integralIsdeposit" label="1" >否</el-radio>
-                                  <el-radio v-model="integralIsdeposit" label="2">是</el-radio>
-                                  <el-radio v-model="integralIsdeposit" label="3">跟随系统开关</el-radio>
-
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="gf-qita-more">
-                            <div class="df-basic_row_new el-form-item">
-                              <label
-                                for="item_title"
-                                class="el-form-item__label"
-                                style="width: 150px;"
-                              >积分抵现百分比：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 20%;display: flex">
-                                  <input type="text"  autocomplete="off" class="el-input__inner" v-model="dixianbai" style="margin-right:15px"/>
-                                  <span>%</span>
-                                </div>
-                                <div class="tips el-col el-col-24 df-tps-zi">优先于积分抵现总设置</div>
-                              </div>
-                            </div>
-
-                            <div class="gf-qita-more">
-                              <div class="df-basic_row_new el-form-item">
-                                <label
-                                  for="item_title"
-                                  class="el-form-item__label"
-                                  style="width: 150px;"
-                                >服务费：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 60%;display: flex">
-                                    <input
-                                      type="text"
-                                      autocomplete="off"
-                                      class="el-input__inner"
-                                      style="width: 20%!important;"
-                                      v-model="fuweumany"
-                                    />
-                                    <span style="display: inline-block;margin: 0 8px">元或</span>
-                                    <input
-                                      type="text"
-                                      autocomplete="off"
-                                      class="el-input__inner"
-                                      style="width: 20%!important;"
-                                      v-model="fuweumanybai"
-                                    />
-                                    <span style="display: inline-block;margin-left: 8px">%</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="gf-qita-more">
-                              <div class="df-basic_row_new el-form-item">
-                                <label for="item_title" class="el-form-item__label"  style="width: 150px;">起卖数：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 60%;display: flex">
-                                    <div>
-                                      <div class="shop_buy_price">
-                                        <div class="shop_buy_price_div">
-                                          <input type="number"  autocomplete="off" min="0" class="el-input__inner" placeholder="件" />
-                                          <button  @click="show6 = !show6" type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;" >
-                                            <span>
-                                              <i class="el-icon-edit"  style="margin-right: 5px;"></i>编辑渠道商等级起卖数
-                                            </span>
-                                          </button>
-                                          <!-- <button type="button" class="el-button el-button--primary el-button--small" >
-                                            <span  @click="show6 = !show6">收起</span>
-                                          </button> -->
-                                        </div>
-                                        <el-collapse-transition>
-                                        <ul class="goods-el-form-ul_one" v-show="show6">
-                                          <li  v-for="(item3,index3) in qudaoshang" :key="index3">
-                                            <span>{{item3.nickName}}</span> <p> <input  type="number"  autocomplete="off"  min="0"  class="el-input__inner" /><span>件</span></p>
-                                          </li>
-                                          
-                                        </ul>
-                                          </el-collapse-transition>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="tips el-col el-col-24 df-tps-zi">起卖数大于0时，购买必须达到起卖数量才能下单</div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- <div class="gf-qita-more">
-                              <div class="df-basic_row_new el-form-item">
-                                <label for="item_title" class="el-form-item__label"  style="width: 150px;" >送优惠券:</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 60%;display: flex">
-                                    <el-select v-model="value" placeholder="请选择">
-                                      <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                      ></el-option>
-                                    </el-select>
-                                  </div>
-                                </div>
-                              </div>
-                            </div> -->
-
-                            <div class="gf-qita-more">
-                              <div class="df-basic_row_new el-form-item">
-                                <label  for="item_title"  class="el-form-item__label" style="width: 150px;" >消费送积分：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 20%;display: flex">
-                                    <el-input v-model="songjifen" placeholder="0"></el-input>
-                                    <span style="display: inline-block;margin-left: 8px">分</span>
-                                  </div>
-                                  <div class="tips el-col el-col-24 df-tps-zi">默认为0,为0取总设置</div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="df-basic_row_new el-form-item" style="display:flex;align-items: center;">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">没有上级不能下单：</label>                 
-                                    <el-radio v-model="onupclass" label="1">开启</el-radio>
-                                    <el-radio v-model="onupclass" label="0">关闭</el-radio>
-                            </div>
-
-                            <div class="gf-qita-more">
-                              <div class="df-basic_row_new el-form-item">
-                                <label
-                                  for="item_title"
-                                  class="el-form-item__label"
-                                  style="width: 150px;"
-                                >留言是否必填：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 50%;">
-                                    <el-radio v-model="isbtian" label="1">否</el-radio>
-                                    <el-radio v-model="isbtian" label="2">是</el-radio>
-                                    <el-radio v-model="isbtian" label="3">跟随系统开关</el-radio>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <!--                        -->
-                          </div>
                         </div>
                         </el-collapse-transition>
                       </div>
                     </div>
                   </el-tab-pane>
-                  <el-tab-pane label="佣金设置" name="fourth" :disabled="typeThere">
-                    <div class="df-basic_row el-form-item" v-if="!typeThere">
-                      <label for="item_title" class="el-form-item__label" style="width: 150px;">渠道商返佣类型：</label>
-                      <div style="width: 80%">
-                        <el-radio v-model="chRebateType" label="1" @change="isqudao">按渠道商差价返佣</el-radio>
-                        <el-radio v-model="chRebateType" label="2" @change="isqudao">按渠道商佣金金额比例返佣</el-radio>
-                      </div>
-                    </div>
-                    <div class="gf-qita-more">
-                        <div class="df-basic_row_new el-form-item">
-                          <label for="item_title" class="el-form-item__label"   style="width: 150px;" >是否跟随系统</label>
-                          <div class="el-form-item__content" style="margin-left: 150px">
-                            <div class="el-input el-input--small" style="width: 50%;">
-                              <el-radio v-model="gengxitong" label="1">是</el-radio>
-                              <el-radio v-model="gengxitong" label="0">否</el-radio>
-                      
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <p class="goodsisue_tuike">推客：</p>
 
-                    <div class="gf-yongjin">
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 152px;"
-                        >直系上级拿到的佣金：</label>
-                        <div class="el-form-item__content" style="margin-left: 152px">
-                          <div class="el-input el-input--small" style="width: 90%;display: flex">
-                            <div class="shop_buy_tuike-parent">
-                              <div class="shop_buy_tuike_div">
-                                <input  type="number"  autocomplete="off"  maxlength="10"  v-model="tuikeitem1value"  class="el-input__inner"  />
-                                <span class="shop_buy_tuike-span">元或</span>
-                                <input  type="number" autocomplete="off"   maxlength="10"  v-model="tuikeitem2value" class="el-input__inner"/>
-                                <span class="shop_buy_tuike-baispan">%</span>
-                                <button @click="show7 = !show7"  type="button" class="el-button el-button--primary el-button--small"  style="margin-left: 5px;" >
-                                    <span>  <i  class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金  </span>
-                                </button>
-                                <!-- <button  type="button"  class="el-button el-button--primary el-button--small" >
-                                  <span >收起</span>
-                                </button> -->
-                              </div>
-                              <el-collapse-transition>
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two"  v-show="show7">
 
-                                <!-- <li v-for="(tuikeitem1,tuike1) in tuikedengji" :key="tuike1"> -->
-                                    <li v-for="(tuikeitem1,tuike1) in rcmCommissionData" :key="tuike1">
-                                  
-                                  <span>{{tuikeitem1.name}}</span>
-                                  <p>
-                                    <input type="number" autocomplete="off"  min="0" v-model="tuikeitem1.moneytone" class="el-input__inner"  />
-                                    <span>元或</span>
-                                    <input  type="number" autocomplete="off" min="0" v-model="tuikeitem1.pcttone" class="el-input__inner go_du-input2"  />
-                                    <span>%</span>
-                                  </p>
-                                </li>               
-                              </ul>
-                                </el-collapse-transition>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title"  class="el-form-item__label"  style="width: 150px;" >二级能拿到的佣金：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 90%;display: flex">
-                            <div class="shop_buy_tuike-parent">
-                              <div class="shop_buy_tuike_div">
-                                <input type="number" autocomplete="off"  maxlength="10"  v-model="tuikeitem3value"  class="el-input__inner" />
-                                <span class="shop_buy_tuike-span">元或</span>
-                                <input type="number"  autocomplete="off"  maxlength="10"  v-model="tuikeitem4value"  class="el-input__inner" />
-                                <span class="shop_buy_tuike-baispan">%</span>
-                                <button @click="show8 = !show8" type="button"  class="el-button el-button--primary el-button--small" style="margin-left: 5px;" >
-                                  <span>
-                                    <i class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金
-                                  </span>
-                                </button>
-                                <!-- <button type="button"  class="el-button el-button--primary el-button--small"  >
-                                  <span  @click="show8 = !show8">收起</span>
-                                </button> -->
-                              </div>
-                              <el-collapse-transition>
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two" v-show="show8">
-                                  <li v-for="(tuikeitem2,tuike2) in rcmCommissionData2" :key="tuike2">
-                                  <span>{{tuikeitem2.name}}</span>
-                                  <p>
-                                    <input type="number" autocomplete="off"  min="0"  v-model="tuikeitem2.moneyttwo"  class="el-input__inner" />
-                                    <span>元或</span>
-                                    <input type="number" autocomplete="off" min="0"  v-model="tuikeitem2.pctttwo" class="el-input__inner go_du-input2" />
-                                    <span>%</span>
-                                  </p>
-                                </li>
-                            
-                              </ul>
-                              </el-collapse-transition>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label
-                          for="item_title"
-                          class="el-form-item__label"
-                          style="width: 150px;"
-                        >三级能拿到的佣金：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 90%;display: flex">
-                            <div class="shop_buy_tuike-parent">
-                              <div class="shop_buy_tuike_div">
-                                <input type="number" autocomplete="off" maxlength="10" v-model="tuikeitem5value" class="el-input__inner"/>
-                                <span class="shop_buy_tuike-span">元或</span>
-                                <input  type="number" autocomplete="off" maxlength="10" v-model="tuikeitem6value" class="el-input__inner" />
-                                <span class="shop_buy_tuike-baispan">%</span>
-                                <button  @click="show9 = !show9" type="button" class="el-button el-button--primary el-button--small" style="margin-left: 5px;" >
-                                  <span>
-                                    <i  class="el-icon-edit" style="margin-right: 5px;"></i>编辑推客等级佣金
-                                  </span>
-                                </button>
-                                <!-- <button type="button"  class="el-button el-button--primary el-button--small"   style  >
-                                  <span @click="show9 = !show9">收起</span>
-                                </button> -->
-                              </div>
-                                <el-collapse-transition>
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two" v-show="show9">
-                                <li v-for="(tuikeitem3,tuike3) in rcmCommissionData3" :key="tuike3">
-                                  <span>{{tuikeitem3.name}}</span>
-                                  <p>
-                                    <input
-                                      type="number"
-                                      autocomplete="off"
-                                      min="0"
-                                      v-model="tuikeitem3.moneytthere"
-                                      class="el-input__inner"
-                                    />
-                                    <span>元或</span>
-                                    <input
-                                      type="number"
-                                      autocomplete="off"
-                                      min="0"
-                                      v-model="tuikeitem3.pcttthere"
-                                      class="el-input__inner go_du-input2"
-                                    />
-                                    <span>%</span>
-                                  </p>
-                                </li>
-                            
-                            
-                              </ul>
-                              </el-collapse-transition>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">是否返佣：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 20%;display: flex">
-                            <div class="shop_buy_tuike_three_div">
-                              <el-radio v-model="istuikefan" label="1">开启</el-radio>
-                              <el-radio v-model="istuikefan" label="0">关闭</el-radio>
-                            </div>
-                          </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">关闭后，将不参与返佣</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <p class="goodsisue_tuike">渠道商：</p>
-                    <div class="gf-qdao">
-                      <div class="df-basic_row_new el-form-item" v-if="isqudaoxiaosou || chRebateType ==2">
-                        <!-- <label for="item_title" class="el-form-item__label" style="width: 150px;">是否返佣：</label> -->
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 20%;display: flex">
-                            <div class="shop_buy_tuike-parent tuike-pading">
-                              <!-- <div class="shop_buy_tuike_div">
-                                <el-radio v-model="radio" label="1">按渠道商差价返佣</el-radio>
-                                <el-radio v-model="radio" label="2">按渠道商佣金金额或比列返佣</el-radio>
-                              </div> -->
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two">
-                                <li v-for="(item11,index11) in qudaoshang1" :key="index11">
-                                  <span>{{item11.nickName}}：</span>
-                                  <p>
-                                    <input
-                                      type="number"
-                                      autocomplete="off"
-                                      min="0"
-                                      class="el-input__inner"
-                                      v-model="item11.moneyxx"
-                                    />
-                                    <span>元或</span>
-                                    <input
-                                      type="number"
-                                      autocomplete="off"
-                                      min="0"
-                                      class="el-input__inner go_du-input2"
-                                      v-model="item11.pctxx"
-                                    />
-                                    <span>%</span>
-                                  </p>
-                                </li>
-                      
-                              
-                              </ul>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label
-                          for="item_title"
-                          class="el-form-item__label"
-                          style="width: 150px;"
-                        >渠道商平级销售奖：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 20%;display: flex">
-                            <div class="shop_buy_tuike-parent">
-                              <div class="shop_buy_tuike_div">
-                                <button  @click="show10 = !show10" type="button"  class="el-button el-button--primary el-button--small" style="margin-left: 5px;" >
-                                  <span>
-                                    <i class="el-icon-edit" style="margin-right: 5px;"></i>编辑渠道商平级销售奖：
-                                  </span>
-                                </button>
-                                <!-- <button
-                                  type="button"
-                                  class="el-button el-button--primary el-button--small"
-                                  style
-                                >
-                                  <span >收起</span>
-                                </button> -->
-                              </div>
-                                <el-collapse-transition>
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two" v-show="show10">
-                                <li v-for="(item44,index4) in qudaoshang2" :key="index4">  
-                                    <span>{{item44.nickName}}</span> <p>
-                                      <input type="number" autocomplete="off" min="0" v-model="item44.moneyone" class="el-input__inner" />
-                                    <span>元或</span> <input type="number" autocomplete="off"  min="0"  class="el-input__inner go_du-input2" v-model="item44.pctone" />
-                                    <span>%</span>
-                                  </p>
-                                </li>
-                                
-                              </ul>
-                                  </el-collapse-transition>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label
-                          for="item_title"
-                          class="el-form-item__label"
-                          style="width: 150px;"
-                        >渠道商越级销售奖：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 20%;display: flex">
-                            <div class="shop_buy_tuike-parent">
-                              <div class="shop_buy_tuike_div">
-                                <button  @click="show11 = !show11" type="button"  class="el-button el-button--primary el-button--small"  style="margin-left: 5px;">
-                                  <span>
-                                    <i class="el-icon-edit" style="margin-right: 5px;"></i>编辑渠道商越级销售奖
-                                  </span>
-                                </button>
-                                <!-- <button  type="button"  class="el-button el-button--primary el-button--small"  style >
-                                  <span @click="show11 = !show11">收起</span>
-                                </button> -->
-                              </div>
-                              <el-collapse-transition>
-                              <ul class="goods-el-form-ul_one goods-el-form-ul_one_two" v-show="show11">
-                                <li v-for="(item55,index5) in qudaoshang3" :key="index5">  
-                                  <span>{{item55.nickName}}</span>  <p>
-                                    <input type="number" autocomplete="off"  min="0" class="el-input__inner" v-model="item55.moneythree"/>
-                                    <span>元或</span>
-                                    <input  type="number" autocomplete="off"  min="0" v-model="item55.pctthree" class="el-input__inner go_du-input2" />
-                                    <span>%</span>
-                                  </p>
-                                </li>
-                              
-                              </ul>
-                              </el-collapse-transition>
-                            </div>
-                          </div>
-                          <div
-                            class="tips el-col el-col-24 df-tps-zi"
-                          >金额和比例都为0.00或空表示采用 推客等级或 系统设置的提成比例计算佣金</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">销售奖是否返佣：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 20%;display: flex">
-                            <div class="shop_buy_tuike_three_div">
-                              <el-radio v-model="qudaoxiaosou" label="1">开启</el-radio>
-                              <el-radio v-model="qudaoxiaosou" label="0">关闭</el-radio>
-                            </div>
-                          </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">关闭后，将不参与返佣</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </el-tab-pane>
               </el-tabs>      
 
              <!-- over -->
@@ -1188,8 +673,6 @@
                       </div>
                       <span class="mh-resoure-grounp_onespan">元</span>
                  </div>
-
-            
                   <span slot="footer" class="dialog-footer">
                       <el-button @click="vipdialogFormVisible = false">取 消</el-button>
                       <el-button type="primary" @click="vipdialogFormVisible = false">确 定</el-button>
@@ -1210,7 +693,7 @@
                   </span>
           </el-dialog>
            <!-- sku会员价格 -->
-          <el-dialog title="会员价格" :visible.sync="vippricedialogFormVisible" width="25%">
+          <!-- <el-dialog title="会员价格" :visible.sync="vippricedialogFormVisible" width="25%">
                   <div class="mh-resoure-grounp mh-goodsfabutan"   v-for="(vipitem,vipitemindex) of skusvipdengjiid" :key="vipitemindex">
                       <span class="mh-resoure-grounp_onespan mh-goodsfabutan_span" >{{vipitem.name}}:</span>
                       <div class="block" style="margin:0 15px">
@@ -1222,9 +705,9 @@
                       <el-button @click="vippricedialogFormVisible = false">取 消</el-button>
                       <el-button type="primary" @click="okskuprice">确 定</el-button>
                   </span>
-          </el-dialog>
+          </el-dialog> -->
 
-          <el-dialog title="渠道商价格" :visible.sync="shpricedialogFormVisible" width="25%">
+          <!-- <el-dialog title="渠道商价格" :visible.sync="shpricedialogFormVisible" width="25%">
                    <div class="mh-resoure-grounp mh-goodsfabutan"  v-for="(item,index) in skuqudaoprice" :key="index" data-id="item.grade">      
                         <span class="mh-resoure-grounp_onespan mh-goodsfabutan_span"  >{{item.nickName}}</span>
                         <div class="block" style="margin:0 15px">
@@ -1236,7 +719,7 @@
                         <el-button @click="shpricedialogFormVisible = false">取 消</el-button>
                         <el-button type="primary" @click="okskuqudaoMethod">确 定</el-button>
                     </span>
-           </el-dialog>
+           </el-dialog> -->
 
            <!-- 弹框： 模板列表-->
                     <el-dialog title="模板列表" :visible.sync="ft_tableDialogVisible" width="700px">
@@ -1279,11 +762,28 @@ import {
         zm_jsonToString,
         zm_formDataToString, zm_formDataToJson
     } from "../../filters/zm_tools"
+import { FormItem } from 'element-ui';
 
 export default {
   el : '#goodsissuemain',
   data() {
     return {
+      dialogImageUrl1: '',
+      dialogVisible1: false,
+      bgImg_elUpload_multipleImg1: true,
+      bgImg_elUpload_limitNum1: 1,
+      bgImg_elUpload_imgFileList1: [],
+      fileList1: [],
+      fileImgList1: [],
+
+      dialogImageUrl2: '',
+      dialogVisible2: false,
+      bgImg_elUpload_multipleImg2: true,
+      bgImg_elUpload_limitNum2: 1,
+      bgImg_elUpload_imgFileList2: [],
+      fileList2: [],
+      fileImgList2: [],
+      
           //模板列表 弹框
           ft_Id: '',
           ft_name: '请选择运费模板',
@@ -1301,9 +801,6 @@ export default {
         },
         activeName: 'first',
       
-      // specArr: [],
-      // tableData: [],
-      // allData: [],
       baseSalesVolume:'',
       mhqdaoflag:true,
       basexiaoling:0,
@@ -1334,8 +831,7 @@ export default {
       wuliyouValue:'1',
       addspv:'',
       xuanzeshuxi:false,
-
-      addgoodsisshow:true,
+      
       //渠道商价格弹窗
       shpricedialogFormVisible:false,
       vippricedialogFormVisible:false,
@@ -1357,42 +853,36 @@ export default {
       spv10:'',
       isMemberDiscountvale:0,
       vipitemid:'',
-      //推客等级
-      tuikedengji:[],
       //规格值数组
       ggzarr:[{
       price: '' ,
-      inventoryTotal: '' ,
+      stockNum: '' ,
       inventoryUnit: '' ,
-      priceDiscount: '' ,
+      discountPrice: '' ,
       weight: '' ,
       isShowInventory: 1 ,
       isMemberDiscount: false ,
       isMemberDiscountvale:0,
       isVirtual: "1",
       inventoryVirtualMin: 1 ,
-      priceCost: '' ,
-      priceSupply: '' ,
-      pricePlatform: '' ,
+      // marketPrice: '' ,
+      // marketPrice: '' ,
+      marketPrice: '' ,
     
       imgReqName: 1 ,
-      spuImgs:'',
+      specPic:'',
       guigezhivalue:"",
       pv: [{pId: null,pName: null , vId: null, vText: null ,img:''} ] }],
      //属性值循环数据
       isshowgglistarr:[],
       guigeimg:[],
-      //主图视频控制
-      isshowvideoone:true,
-      isshowvideotwo:false,
-      isshowvideothere:false,
-
       jinebiliefanyong:true,
         
       shopgrounpvalue:'',//商品分组
       accuseitem: {},
       accuseVisible: false,
-      isshowgglist :false,
+      isshowgglist :true,
+      addgoodsisshow:false,
       typetate:false,
       //商品属性
       guigearrlist:[],
@@ -1418,7 +908,7 @@ export default {
       userLimitNum: 1, //卖家限购
       redirection: '', //跳转地址
       chRebateType: "2", //渠道商返佣类型 1.金额  2.比例
-      videonum:'1',
+      // videonum:'1',
 
       //运费
       yiyoufei:"1",
@@ -1430,18 +920,19 @@ export default {
       skus: [
           {
             price: '' ,
-            inventoryTotal: '' ,
+            stockNum: '' ,
+            specDetail: '',
             inventoryUnit: '',
-            priceDiscount: '' ,
+            discountPrice: '' ,
             weight: '',
             isShowInventory: 1 ,
             isMemberDiscount: false ,
             isMemberDiscountvale:0,
             isVirtual: "1",
             inventoryVirtualMin: 1 ,
-            priceCost: '' ,
-            priceSupply: '' ,
-            pricePlatform: '' ,
+            // marketPrice: '' ,
+            // marketPrice: '' ,
+            marketPrice: '' ,
             imgReqName: 1 ,
            pv: [
              {pId: 111,pName: 111 , vId: 111, vText: 111,img:'' }
@@ -1468,7 +959,7 @@ export default {
       rcmIsCommission: 1, //推客是否返佣 1是 0否
       chXsjIsCommission: 1, //渠道商销售奖是否返佣 1是 0否
 
-      shareName: "", //分享描述
+      description: "", //分享描述
       buyingPoint: "11", //买点
       categoryId: 111, //分类ID
       groupId: 111, //分组ID
@@ -1491,7 +982,7 @@ export default {
       input: "11",
       value1: 1,
       checked: false,
-      imageUrl: "",
+      pic: "",
       radio: "1",
       value: [],
       props: { multiple: true },
@@ -1540,7 +1031,7 @@ export default {
         fuweumany:'',
         fuweumanybai:'',
         isbtian:'1',
-        waivideourl:'',
+        // waivideourl:'',
         gengxitong:'0',
         istuikefan:"0",
         qudaoxiaosou:"0",
@@ -1604,21 +1095,32 @@ export default {
         //
         viprice:'',
         priceMember:'',
-        inventoryTotal:'',
+        stockNum:'',
         kucundan:'件',
-        // 折扣价 null
+        // 折扣价 
         zhekoujia:null,
         isMemberDiscount:1,
         vipxuniku:0,
         xunigou:null,
-        qudaogoodsprice:null,
-        shopweight:null,
-        //商品分类
-        shopcategory:[],
-        catevalue:'',
+        weight:null,
+        //商品分类（供应商商品类型 0普通 3虚拟 6玉石闪购 7云闪购）
+        shopcategory:[
+          { id: 0,
+            name: '普通'
+          },
+          { id: 3,
+            name: '虚拟'
+          },
+          { id: 6,
+            name: '玉石闪购'
+          },
+          { id: 7,
+            name: '云闪购'
+          }
+        ],
+        catevalue: 0,
 
         shopgrounpnote:[],
-        shopcategory:[],  
         sonurl:[],
         type: 1, //商品类型 1.实物  2.虚拟
         upsahngjiatime:'', // 上下架时间
@@ -1626,7 +1128,7 @@ export default {
         qudaoshang:[],//渠道商等级
         diffindex:1,
         showsonvdeio:false,
-        sonpath:'',
+        // sonpath:'',
         sonaccuseVisible :false,
         goodsisuserTwoUrl:'',
         suinde:0,
@@ -1658,13 +1160,14 @@ export default {
 		})
 	},
   mounted() {
-      this.tuikedengjimethod();
-      this.shopcategoryme();
-      this.selectshopproperty(); // 商品属性
-      this.shopgrounplist();
-      this.selectqudo();
-      this.reqvipdengjilist();           //请求: 会员列表
+      // this.tuikedengjimethod();
+      // this.shopcategoryme(); //渲染商品分类数据
+      // this.selectshopproperty(); // 商品属性
+      // this.shopgrounplist(); //商品分组
+      // this.selectqudo(); //请求：查询渠道商 
+      // this.reqvipdengjilist();           //请求: 会员列表
       this.request_freightTemplateList();//请求: 运费模板列表
+      this.goodsguilist();
       console.log('------发布商品');
 
 
@@ -1685,22 +1188,37 @@ export default {
        deep:true //true 深度监听
   },
   methods: {
-    
+      //1、封面图
+      handleRemove1(file, fileList) {
+         console.log('--文件移除时的钩子: '+ file, fileList);
+      },
+      emc_fileChange1(file, fileList) {
+          //console.log('---文件状态改变时的钩子： change：file= ' + file + '、fileList= ' + fileList.length);
+          console.log('---fileList1= ', zm_jsonToString(fileList));
+          this.fileList1 = fileList;
+      },
+      handlePictureCardPreview1(file) {
+        this.dialogImageUrl1 = file.url;
+        this.dialogVisible1 = true;
+      },
+      // 2、商品图
+      handleRemove2(file, fileList) {
+         console.log('--文件移除时的钩子: '+ file, fileList);
+      },
+      emc_fileChange2(file, fileList) {
+          console.log('---fileList2= ', zm_jsonToString(fileList));
+          this.fileList2 = fileList;
+      },
+      handlePictureCardPreview2(file) {
+        this.dialogImageUrl2 = file.url;
+        this.dialogVisible2 = true;
+      },
+
     //---------------------运费模板列表--------------------- 
     ft_tableDialogVisibleClick(){
       console.log('---模板选择: ft_tableDialogVisibleClick');
         // 模板选择
         this.ft_tableDialogVisible = true;
-    },
-    ft_addReightTemplateClick(){
-        // 创建模板  goodsissue
-        // this.$router.push('/goodslist/goods_freightTemplateCreate');
-        this.$router.push({
-            path:'/goodslist/goods_freightTemplateCreate',
-            query:{
-              isFaBu:true,
-            }
-        })
     },
     ft_closeclick(){
         console.log('---ftList= ' +this.$refs.ftList);
@@ -1717,12 +1235,16 @@ export default {
     ft_fatherPage(val){
         console.log('-------ft_fatherPage= '+val);
     },
+    // 请求：运费模板
     request_freightTemplateList(){
             let self = this;
             let params = new FormData();   
             let urlStr = baseapi.TIP + baseapi.ft_findAll;
-            // urlStr = "http://172.16.1.84:8083/panicbuy/freight/findAll";
-            // console.log('---运费模板列表: urlStr= '+urlStr + '\n params= '+ zm_formDataToString(params));
+                urlStr = baseapi.supplierFreightTemplateList
+            params.append('page', 0);  
+            params.append('size',100);
+            //console.log('---运费模板列表: urlStr= '+urlStr + '\n params= '+ zm_formDataToString(params));
+           
             this.$http({
                 method: "post",
                 url: urlStr,
@@ -1731,8 +1253,8 @@ export default {
                 // console.log('---运费模板列表：response= '+zm_jsonToString(res));
                 if(res.status ==200){
                     if (res.data) {
-                        if (res.data.list.length>0) {
-                            self.ft_tableData = res.data.list;
+                        if (res.data.data.List.length>0) {
+                            self.ft_tableData = res.data.data.List;
                             console.log('---运费模板列表: length= '+self.ft_tableData.length);
                             // self.totalCount = res.data.total;
                         }
@@ -1806,20 +1328,21 @@ export default {
       let newStringName = this.ggzarr[0].pv[0].pName;
         this.ggzarr.push( {
             price: '' ,
-            inventoryTotal: '' ,
+            stockNum: '' ,
+            specDetail: '' ,
             inventoryUnit: '' ,
-            priceDiscount: '' ,
+            discountPrice: '' ,
             weight: '' ,
             isShowInventory: 1 ,
             isMemberDiscount: false ,
             isMemberDiscountvale:0,
             isVirtual: "1",
             inventoryVirtualMin: 1 ,
-            priceCost: '' ,
-            priceSupply: '' ,
-            pricePlatform: '' ,
+            // marketPrice: '' ,
+            // marketPrice: '' ,
+            marketPrice: '' ,
             code:'',
-            spuImgs:'',
+            specPic:'',
             pv: [
               {pId:newString,pName:newStringName , vId: null, vText: null,img:'' }
              ] 
@@ -1845,30 +1368,11 @@ export default {
       this.$refs.imgsrc.imgdialogFormVisible = true;
       this.$refs.imgsrc.pid = 88;
     },
-    upshipintanchuang(){
-        this.$refs.videoson.imgdialogFormVisible = true;
-        this.showsonvdeio = true;
-    },
     //属性规格获取图片
     getsonshuimg(index){
         this.suinde = index;
         this.$refs.imgsrc.imgdialogFormVisible = true;
         this.$refs.imgsrc.pid = 2;
-    },
-    videomethod(){
-      if(this.videonum == 1){
-        this.isshowvideoone = true;
-          this.isshowvideothere=false;
-            this.isshowvideotwo = false;
-      }else if(this.videonum == 2){
-        this.isshowvideotwo = true;
-        this.isshowvideoone = false;
-        this.isshowvideothere=false;
-      }else{
-        this.isshowvideothere=true;
-        this.isshowvideoone = false;
-        this.isshowvideotwo = false;
-      }
     },
     //删除图片
     delectimg(index){
@@ -1876,7 +1380,7 @@ export default {
     },
     delectguigeimg(index){
 
-      this.ggzarr[index].spuImgs = '';
+      this.ggzarr[index].specPic = '';
     },
 
     hauhau(){
@@ -1890,24 +1394,6 @@ export default {
       }else{
         this.isshowuptime = true
       }
-    },
-    //是否参加会员折扣
-    isMemberDiscounth(){
-        if(this.isMemberDiscount){
-            this.isMemberDiscountvale  = 1;
-        }else{
-           this.isMemberDiscountvale  = 0;
-        } 
-    },
-    reqvipdengjilist(){
-        let data = new FormData();
-        data.append('page',1);
-        data.append('limit',10);     
-        
-        this.http.post( baseapi.vipdengji,data).then(res=>{
-            this.vipdengjiid = res.data.list           
-            this.skusvipdengjiid = res.data.list;
-        })      
     },
 
     Close_dialog (val,url) {
@@ -1952,14 +1438,13 @@ export default {
         this.isyfmoban1 = false
        }
     },
-    //商品分组
+    //请求：商品分组
    shopgrounplist(){
      let data = new FormData();
       this.http.post( baseapi.shopgrounplist,data).then(res=>{
           this.shopgrounpnote = res.data.list;
       })       
     },
-
     //会员等级弹窗 
     vippopup(){
         this.vipdialogFormVisible = true;
@@ -1968,25 +1453,7 @@ export default {
     qdspopup(){
       this.qddialogFormVisible = true;
     },
-    //渲染商品分类数据
-    shopcategoryme(){   
-        let data = new FormData();
-        data.append('page',1);  
-        data.append('limit',10);   
-        this.http.post( baseapi.shopcatexiang,data).then(res=>{
-            this.shopcategory = res.data.list;
-        })    
-      },
-
-      //查询共有属性
-      selectshopproperty(){
-        let data = new FormData();
-        this.http.post( baseapi.goodsshuixng,data).then(res=>{
-            this.guigearrlist = res.data.list;
-        }) 
-      },
-
-      //显示spu属性列表事件
+      //显示spu属性列表事件（添加规格项目）
       goodsguilist(){
           this.isshowgglist = true;
           this.addgoodsisshow = false;
@@ -1994,35 +1461,7 @@ export default {
           this.jinebiliefanyong = false;
           this.isgoodsdengji = false;
       },
-      //拉取推客等级
-      tuikedengjimethod(){
-        let data = new FormData();
-        data.append('status',1);
-        data.append('page',1);
-        data.append('limit',10);  
-        this.http.post( baseapi.tuikedengji,data).then(res=>{
-            this.tuikedengji = res.data.list;
-            this.rcmCommissionData = res.data.list;
-            this.rcmCommissionData2 = res.data.list;
-            this.rcmCommissionData3 = res.data.list;
-        }) 
-      },
-      isqudao(){
-     
-      if(this.chRebateType == 1 ){
-          this.mhqdaoflagsTATUS = true;
-          this.isqudaoxiaosou = false;
-          if(this.isshowgglist == false){
-            this.jinebiliefanyong = true; 
-          }
-      }else{
-          this.mhqdaoflagsTATUS = false;
-          this.isqudaoxiaosou = true;
-          if(this.isshowgglist == false){
-             this.jinebiliefanyong = false;
-          }
-      }
-   },
+      
     baocunreq(){
         this.getdata();
     },
@@ -2109,85 +1548,71 @@ export default {
            this.$message.error('商品名称不能为空');
            return false;
       }
-      //分享描述
-      if(that.shareName != ''){
-           data.append("shareName", that.shareName); 
-      }
-      console.log( that.sonurl)
-      //商品图片
-      if(that.sonurl != '' && that.sonurl != null  && that.sonurl != undefined){
-          data.append("spuImgs", JSON.stringify(that.sonurl));
-      }else{
-          this.$message.error('商品图片不能为空');
-          return false;
-      }
 
-      if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
-            data.append("imageUrl", that.goodsfenimg);
+      data.append("status", '0');                   //商品显示状态：默认不显示
+      data.append("productFormat", '0');            // 商品格式
+      data.append("recommendRemark", '商品物美价廉'); // 商家推荐
+      //卖点 --> 商家推荐
+      if( that.maidian != ''){
+          //  data.append("buyingPoint", that.maidian); 
+          data.append("recommendRemark", that.maidian);
+      }
+      data.append("remark", '备注'); // 商家可见备注
+
+        //分享描述（description） 详情
+        if(that.goodsfenimg != ''){
+            data.append("description", that.goodsfenimg); 
+        }
+
+        //封面图（商品主图 最多5张）
+        if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
+            data.append("pic", that.goodsfenimg);
         }else{
             this.$message.error('商品封面图必传');
             return false;
         }
 
-      // if(that.shopweight == '' ||  that.shopweight <= 0 ){
-      //     this.$message.error('商品重量不合规范');
-      //        return false;
+        // let goodsfenImg = [];
+        // let picImg = [];
+        // this.fileList1.forEach(element => {
+        //     goodsfenImg.push(element.response.data);
+        // });
+        // this.fileList2.forEach(element => {
+        //     picImg.push(element.response.data);
+        // });
+
+        // //封面图  分享描述（description） 详情
+        // if(goodsfenImg.length> 0){
+        //     data.append("description", goodsfenImg);
+        // }else{
+        //     this.$message.error('商品封面图必传');
+        //     return false;
+        // }
+        // //商品图（商品主图 最多5张）
+        // if(picImg.length> 0){
+        //     data.append("pic", picImg);
+        // }else{
+        //     this.$message.error('商品图必传');
+        //     return false;
+        // }
+
+      // //商品规格图片
+      // if(that.sonurl != '' && that.sonurl != null  && that.sonurl != undefined){
+      //     data.append("specPic", JSON.stringify(that.sonurl));
+      // }else{
+      //     this.$message.error('商品图片不能为空');
+      //     return false;
       // }
-
-      // if(that.chRebateType !=3 && that.jinebiliefanyong == false && that.isgoodsdengji == false){
-      //       let shDengArrtxt = [];   
-      //       that.qudaoshang.forEach(function(item,indexnum){
-      //       if(item.price == undefined ){
-      //             shDengArrtxt.push({'gradeid':item.grade,'money':-1})
-      //         }else{
-      //             shDengArrtxt.push({'gradeid':item.grade,'money':Number(item.price*100)})
-      //         }   
-      //     })
-
-      //     if(shDengArrtxt[0].money == -1){
-      //       that.$message.error('渠道商价格必填');
-      //        return false;
-      //     }
-          
-      // }
-
+      data.append("weightUnit", 1);  // 商品重量单位：0-kg , 1-g
+      data.append("productType", this.catevalue); // 分类ID  this.catevalue
       //图片展示方式           
       data.append("imageShowType",that.imageShowType);  
-      // data.append("userLimitNum", "1");  卖家限购数目
- 
-      if( that.catevalue.length != 0){
-        let strarr = this.catevalue.join(",");
-        strarr = strarr.substring(0, strarr.length);
-        data.append("categoryIds", strarr); // 分类ID
-      }
-    //  if( that.shopgrounpvalue != ''){
-    //      data.append("groupId", that.shopgrounpvalue);  //分组id
-    //   }
 
-       if( that.shopgrounpvalue.length != 0){
+
+      if( that.shopgrounpvalue.length != 0){
         let strarr = this.shopgrounpvalue.join(",");
         strarr = strarr.substring(0, strarr.length);
         data.append("groupIds", strarr); // 分组id
-      }
-
-      //卖点
-      if( that.maidian != ''){
-           data.append("buyingPoint", that.maidian); 
-      }
-      //视频类型
-      if(that.videonum != '' && that.videonum != undefined){
-             data.append("videoType", that.videonum);
-      }
-      //等于1 传视频资源
-      if(that.videonum == 1){
-        if(that.sonpath != ''){
-             data.append("videoUrl",that.sonpath);
-        }   
-      }else{
-         //视频地址
-        if(that.waivideourl  != ''){
-          data.append("videoUrl", that.waivideourl);
-        }
       }
 
       // 基础销量  
@@ -2212,38 +1637,20 @@ export default {
        if(that.yiyoufei != '' && that.yiyoufei != undefined){
           data.append("postageType", that.yiyoufei);
       }
-      
-      // data.append("postageType", data.yiyoufei);
-       
-      if(that.needjifen != '' && that.needjifen != undefined){  //所需积分
-          data.append("integralNeet", that.needjifen);
-      }
-       if(that.dixianbai != '' && that.dixianbai != undefined){  //积分兑现百分比
-          data.append("integralDepositper", that.dixianbai);
-      }
-       if(that.fuwufei != '' && that.fuwufei != undefined){  //积分兑现百分比
-          data.append("serviceFeetype", that.fuwufei);
-      }
+
 
       //没有上级不能下单
       data.append("orderNoSuperior",that.onupclass); 
-      // isshowComment
-      // alert(data.upsahngjiatime[0]);
-      // data.append("postagePrice", data.youfeivalue);
       if(that.upsahngjiatime != undefined && that.upsahngjiatime != '' ){
             data.append("putawayTimestart",that.upsahngjiatime[0]);  //  上架时间戳
       }
-
-        if(that.upsahngjiatime != undefined && that.upsahngjiatime != '' ){
+      if(that.upsahngjiatime != undefined && that.upsahngjiatime != '' ){
           data.append("putawayTimeend", that.upsahngjiatime[1]);   //  下架时间戳 
       }
-    
       data.append("putawayType", that.shangjiatime); // 上架的方式
-      // data.append("integralNeet", data.needjifen);// 所需积分  needjifen
       data.append("integralIsdeposit", that.integralIsdeposit);  //是否积分底线     x'x
       data.append("groundless7d", that.wuliyouValue); //是否支持7天无理由
-      // data.append("integralDepositper",data.dixianbai);  
-      // data.append("serviceFeetype", data.fuwufei);   //  xx 
+     
       if(that.fuweumany != ''){
         data.append("serviceFee", that.fuweumany); 
       }
@@ -2251,14 +1658,13 @@ export default {
         data.append("serviceFeepct",(that.fuweumanybai).toString()); 
       }
       data.append("isneedRemark", that.isbtian);
-     //推客分销是否跟谁系统
-      data.append("commissionFollowSys",that.gengxitong); 
-      data.append("chIsCommission", that.chIsCommission);
-      data.append("rcmIsCommission", that.istuikefan);
-      data.append("chXsjIsCommission", that.qudaoxiaosou);
-      data.append("brandId", 11);  
-      //详情
-      data.append('description','');
+      // //推客分销是否跟谁系统
+      // data.append("commissionFollowSys",that.gengxitong); 
+      // data.append("chIsCommission", that.chIsCommission);
+      // data.append("rcmIsCommission", that.istuikefan);
+      // data.append("chXsjIsCommission", that.qudaoxiaosou);
+      // data.append("brandId", 11);  
+      
 
       if(that.jinebiliefanyong || that.isgoodsdengji){
         //会员等级价格
@@ -2269,18 +1675,18 @@ export default {
         }else{
           vipDengArr.push({"gradeid":item.id,"money":Number(item.price*100)})  
         }   
-       })
+      })
       
         //会员等级价格结束
         //渠道商等级价格
-        let shDengArr = [];   
-        that.qudaoshang.forEach(function(item,indexnum){
+      let shDengArr = [];   
+      that.qudaoshang.forEach(function(item,indexnum){
         if(item.price == undefined ){
             shDengArr.push({'gradeid':item.grade,'money':0})
         }else{
             shDengArr.push({'gradeid':item.grade,'money':Number(item.price*100)})
         }   
-       })
+      })
 
       //渠道商等级价格结束
       data.append("skus", JSON.stringify(
@@ -2288,19 +1694,21 @@ export default {
           priceMember:vipDengArr,
           chmoney:shDengArr,
           price: parseInt(that.viprice*1000/10),
-          inventoryTotal: Number(that.inventoryTotal), //库存数字必传
+          stockNum: Number(that.stockNum), //库存数字必传
+          specDetail: that.description,
           inventoryUnit: that.kucundan,
-          priceDiscount:parseInt(that.zhekoujia*1000/10),     //折扣价       
-          weight: Number(that.shopweight*1000),               //重量
+          // discountPrice:parseInt(that.zhekoujia*1000/10),     //折扣价       
+          // weight: Number(that.weight*1000),               //重量
+          // weightUnit: 1,
           isShowInventory: 1 ,                                //是否显示库存 页面不存在不显示
           isMemberDiscount: Number(that.isMemberDiscountvale),//是否会员折扣
-          isVirtual: Number(that.vipxuniku),                  //会员是够购买虚拟库存  1是  0 否
-          inventoryVirtualMin: Number(that.xunigou),          //虚拟库存起购数
-          //更多设置
-          priceCost: parseInt(that.chengmoney*1000/10),     //成本价
-          priceSupply: parseInt(that.gonghuomoney*1000/10), //供货价
-          pricePlatform: parseInt(that.ptMoney*1000/10),    //分销价
-          code:that.goodscode,
+          // isVirtual: Number(that.vipxuniku),                  //会员是够购买虚拟库存  1是  0 否
+          // inventoryVirtualMin: Number(that.xunigou),          //虚拟库存起购数
+          // //更多设置
+          // marketPrice: parseInt(that.chengmoney*1000/10),     //成本价
+          // marketPrice: parseInt(that.gonghuomoney*1000/10), //供货价
+          // marketPrice: parseInt(that.ptMoney*1000/10),    //分销价
+          // code:that.goodscode,
           // chmoney:that.qudaoArr.map(Number) ,//渠道价  ? 
           // priceMember:                         会员价 -- 有会员列表
           pv: [ {pId:Number(that.shuxinvalue),pName: that.firstsx,vId:Number(that.guigezhivalue), vText: that.addspv }]       
@@ -2315,16 +1723,34 @@ export default {
         that.jinzeone = this.$refs.refgui.specArr;
         that.jinzetwo = this.$refs.refgui.specArr;
         that.jinzethere = this.$refs.refgui.specArr;
-        let Cshu=   this.$refs.refgui.specArr;
-        let shulist  =  this.$refs.refgui.allData;
-        let Cgoos = this.$refs.refgui.tableData;
+        let Cshu    =   this.$refs.refgui.specArr;
+        let shulist =  this.$refs.refgui.allData;
+        let Cgoos   = this.$refs.refgui.tableData;
+        let guiGe_skus = [];
+        let specs = '';  
+        let specPic = [];          
+        let guiGe_pv = null;
+        let guiGe_Cshu = null;
+
         Cgoos.forEach(function (item,index) {
             item.Cshu = Cshu;
+            console.log('--Cshu= '+zm_jsonToString(item.specs));
+            let skuItme = {
+                price: item.price*100,
+                stockNum: item.stock,
+                specDetail: item.specs.toString(),
+            }
+            specPic.push(item.img);
+            guiGe_skus.push(skuItme);
         });
-        console.log('--Cshu= '+Cshu);
+        // console.log('--Cgoos= '+zm_jsonToString(Cgoos));
+        // console.log('--guiGe_skus= '+zm_jsonToString(guiGe_skus));
+        // console.log('--specPic= '+zm_jsonToString(specPic));
+        data.append("specPic", specPic); // 规格图片
+        
         Cgoos.forEach(function (item,index) {
-                item.vtext = [];
-                item.specs.forEach(function(sunitem,sunindex){
+            item.vtext = [];
+            item.specs.forEach(function(sunitem,sunindex){
                     item.vtext.push(sunitem);
                     if(item.Cshu[sunindex].shuXarr){
                         item.Cshu[sunindex].shuXarr.forEach(function(sonitem,sonindex){
@@ -2332,8 +1758,6 @@ export default {
                               item.specs[sunindex] = sonitem.id
                           }
                       })
-                    }else{
-                        //  item.specs[sunindex] = null;
                     }
             })
         });
@@ -2343,43 +1767,69 @@ export default {
         })
         console.log('--shulist= '+shulist);
         console.log('--Cgoos= '+Cgoos);
+        data.append("specName", '颜色-尺码'); 
+         
+        
 
         if(isDeep){
-             Cgoos.forEach(function (item,index) {
+             Cgoos.forEach(function (item, index) {
                 item.pv = [];
-                console.log(  item.Cshu);
+                // console.log('---item.Cshu11= '+ zm_jsonToString(item.Cshu) );
+                if (guiGe_Cshu==null) {
+                  guiGe_Cshu = item.Cshu;
+                }
                 item.Cshu.forEach(function(sonitem,sonindex){
                     sonitem.pId == '' || sonitem.pId == null  ? sonitem.pId = null : null ;   
-                  //  item.pv.push({pName: sonitem.name,pId: sonitem.pId,vText:shulist[index][sonindex],vId: typeof(item.specs[sonindex]) == 'string' ? item.specs[sonindex] = null : item.specs[sonindex] });
-                      item.pv.push({pName: sonitem.name,pId: sonitem.pId,vText:item.vtext[sonindex],vId: typeof(item.specs[sonindex]) == 'string' ? item.specs[sonindex] = null : item.specs[sonindex] });
-               
+                    item.pv.push({pName: sonitem.name, pId: sonitem.pId,vText:item.vtext[sonindex],vId: typeof(item.specs[sonindex]) == 'string' ? item.specs[sonindex] = null : item.specs[sonindex] });
+
+                    if (guiGe_pv==null) {
+                      guiGe_pv = item.pv;
+                    }
+                    // console.log('---item.guiGe_pv= '+ zm_jsonToString(item.pv));
                });
             });
         }else{
            Cgoos.forEach(function (item,index) {
                 item.pv = [];
-                 console.log(  item.Cshu);
+                console.log('---item.Cshu22= '+ item.Cshu);
+                if (guiGe_Cshu==null) {
+                  guiGe_Cshu = item.Cshu;
+                }
                 item.Cshu.forEach(function(sonitem,sonindex){
-                   
                     sonitem.pId == '' || sonitem.pId == null  ? sonitem.pId = null : null ;   
-                   // item.pv.push({pName: sonitem.name,pId: sonitem.pId,vText:shulist[index],vId: typeof(item.specs[sonindex]) == 'string' ? item.specs[sonindex] = null : item.specs[sonindex] });
                     item.pv.push({pName: sonitem.name,pId: sonitem.pId,vText:item.vtext[sonindex],vId: typeof(item.specs[sonindex]) == 'string' ? item.specs[sonindex] = null : item.specs[sonindex] });
+                    if (guiGe_pv==null) {
+                      guiGe_pv = item.pv;
+                    }
                });
             });
         }
-    
+
+        console.log('---item.guiGe_Cshu= '+ zm_jsonToString(guiGe_Cshu));
+        console.log('---item.guiGe_pv= '+ zm_jsonToString(guiGe_pv));
+        // 颜色|黑色,白色,黄色^尺码|S,M,L 
+        guiGe_Cshu.forEach(function(item, index){
+          if (index==0) {
+            specs = item.name + '|' + item.conName.toString();
+          }else{
+            specs = specs + '^' + item.name + '|' + item.conName.toString()
+          }
+        });
+        console.log('---specs= '+ zm_jsonToString(specs));
+        data.append("specs", specs);
+        // data.append("specPic", '');
 
       let addskuDengPrice = JSON.parse(JSON.stringify(Cgoos));
-      addskuDengPrice.forEach(function(item,indexnum){
+      addskuDengPrice.forEach(function(item, indexnum){
           item.price = parseInt(item.price*1000/10);               //价格
-          item.inventoryTotal = Number(item.stock); //库存
-          item.code = Number(item.code);                      //编码
-          item.priceSupply  = parseInt(item.gprice*1000/10);  //供货价
-          item.priceCost    = parseInt(item.qprice*1000/10);  //成本价 
-          item.pricePlatform= parseInt(item.pPrice*1000/10);  //分销价 
-          item.priceDiscount = parseInt(that.zhekoujia*1000/10);   //划线价
+          item.stockNum = Number(item.stock); //库存
+          // item.code = Number(item.code);                      //编码
+          // item.marketPrice  = parseInt(item.gprice*1000/10);  //供货价
+          // item.marketPrice    = parseInt(item.qprice*1000/10);  //成本价 
+          // item.marketPrice= parseInt(item.pPrice*1000/10);  //分销价 
+          item.discountPrice = parseInt(that.zhekoujia*1000/10);   //划线价
           item.inventoryUnit = that.kucundan;  
-          item.weight = Number(that.shopweight*1000);//按g算
+          item.weight = Number(that.weight*1000);//按g算
           item.isShowInventory =  1 ;
           item.isMemberDiscount = Number(that.isMemberDiscountvale);
           item.isVirtual = Number(that.vipxuniku);
@@ -2389,52 +1839,20 @@ export default {
           // item.Cshu = [];
           // item.vtext = [];
           // item.specs = [];
-          // item.pv[0].img = item.spuImgs;
+          // item.pv[0].img = item.specPic;
       })  
 
-      data.append("skus", JSON.stringify(addskuDengPrice));
-      data.append("attech", JSON.stringify(addskuDengPrice));
-     
-      //   let vipDengArr = [];
-      //   that.vipdengjiid.forEach(function(item,indexnum){
-      //     console.log(item);
-      //   if(item.tprice == undefined ){
-      //       vipDengArr.push({"gradeid":item.id,"money":0})
-      //   }else{
-      //       vipDengArr.push({"gradeid":item.id,"money":Number(item.tprice*100)})
-      //   }   
-      //  })
-        //会员等级价格结束
-        
-        //渠道商等级价格
-        // let shDengArr = [];
-        // that.qudaoshang.forEach(function(item,indexnum){
-        //   console.log(item);
-        //     if(item.tprice == undefined ){
-        //        shDengArr.push({'gradeid':item.grade,'money':0})
-        //     }else{
-        //        shDengArr.push({'gradeid':item.grade,'money':Number(item.tprice*100)})
-        //     }   
-        //  })
-      
-    }
-    //新增gui
-        
-      //预售不传   
-      //  data.append("preorder", JSON.stringify(  
-      //    [
-      //     { isPreorder: that.kaiqiyusou },
-      //     { handsel:that.yugouvalue1 },
-      //     { deduction:that.yugouvalue2},
-      //     { presellEndtime:  Date.parse(that.yugouvalue3) / 1000000 },
-      //     { deliverStarttime:Date.parse(that.yugouvalue4) / 1000000 },
-      //     { deliverEndtime:  Date.parse(that.yugouvalue5) / 1000000 }
-      //   ]
-      //  ));
+      data.append("marketPrice", parseInt(that.zhekoujia*1000/10) ); //商品划线价
+      data.append("discountPrice", parseInt(that.viprice*1000/10) ); //商品售价
+      data.append("weight",  Number(that.weight*1000));  //重量
+      data.append("weightUnit", 1);
 
-      // data.append("limitUserids", [1, 2, 3, 4, 5]); 限制购买数
-       //推客数据
-    
+      console.log('---addskuDengPrice.count= '+ addskuDengPrice.count);
+      data.append("skus", JSON.stringify(guiGe_skus));
+      // data.append("skus", JSON.stringify(addskuDengPrice));
+      data.append("attech", JSON.stringify(addskuDengPrice));
+    }
+
       let packData = new Map();
       let vuparr1 = {};
       if(that.rcmCommissionData){
@@ -2530,22 +1948,8 @@ export default {
       }
      // console.log(mhgetArr.length != 0);
 
-      //会员等级
-      // if(mhgetArr.length != 0){
-      //     // data.append("rcmCommissionData", JSON.stringify(mhgetArr)); 
-      // }else{
-      //     data.append("rcmCommissionData", JSON.stringify(packdataArr)); 
-      // }
       data.append("rcmCommissionData", JSON.stringify(packdataArr)); 
-        // console.log(packdataArr);
-      //       console.log(mhgetArr);
-      //       mhgetArr.forEach(function(item,index){
-      //         console.log(item);
-      //       });
-      // // packdataArr.unshift()
-      //       packdataArr.forEach(function(item,index){
-      //           console.log(item);
-      //       })
+
       // qudaoshang1
       let qpackData2 = new Map();
       let qvuparr2 = {};
@@ -2604,10 +2008,22 @@ export default {
     　   　});
           data.append("chRebateData", JSON.stringify(qvuparr1));   //渠道商
       }
-      // 请求：商品发布
-      console.log('---请求：商品发布 参数= '+zm_formDataToString(data) +'urlStr= '+baseapi.goodsissueGoods);
+      //类目
+      data.append("firstCid", '0');
+      data.append("secondCid", '0');
+      data.append("thirdCid", '0');
+      if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+         data.append("supplierId", that.$cookie.get('supplierId'));
+      }else{
+         data.append("supplierId", '2');
+      }
+     
 
-      this.http.post( baseapi.goodsissueGoods, data).then(res=>{
+      // 请求：商品发布  （baseapi.goodsissueGoods  supplierProductAdd ）
+      var urlStr = baseapi.supplierProductAdd;
+      console.log('---请求：商品发布 参数= '+zm_formDataToString(data) +'urlStr= '+urlStr);
+    
+      this.http.post( urlStr, data).then(res=>{
 
           if(res.data.status == 500 && res.data.message == "SKU库存不正确"){
             that.$message.error("商品库存必填");
@@ -2628,37 +2044,38 @@ export default {
           }
 
           if(res.data.status == 200){
-            that.$message.success("发布成功");
-            let  sonDatail = res.data.item.id;
-            if(parameter != 1){
-                that.$router.push({
-                  path: '/goodsedit/'+sonDatail
-              })
-            }else{
-                that.$router.push({
-                  path: '/goodslist'
-              })
-            }
+            that.$message.success("发布成功"); 
+            // let sonDatail = res.data.itemId; //res.data.item.id;
+
+            // if(parameter != 1){
+            //     that.$router.push({
+            //       path: '/goodsedit/'+sonDatail
+            //   })
+            // }else{
+            //     that.$router.push({
+            //       path: '/goodslist'
+            //   })
+            // }
           }else{
             that.$message("发布失败," + res.data.message);
           }
       })  
     },
-    //查询渠道商 
-    selectqudo(){
-      let data = new FormData();
-      this.http.post( baseapi.qudaogoods,data).then(res=>{
-          this.qudaoshang = res.data.list;
-          this.skuqudaoprice = res.data.list;
-          this.qudaoshang1 = res.data.list;
-          this.qudaoshang2 = res.data.list;   
-          this.qudaoshang3 = res.data.list.filter(function(ele,idx,arr){
-            return idx !== 0;
-          });
-      })    
-    } ,  
+    // //请求：查询渠道商 
+    // selectqudo(){
+    //   let data = new FormData();
+    //   this.http.post( baseapi.qudaogoods,data).then(res=>{
+    //       this.qudaoshang = res.data.list;
+    //       this.skuqudaoprice = res.data.list;
+    //       this.qudaoshang1 = res.data.list;
+    //       this.qudaoshang2 = res.data.list;   
+    //       this.qudaoshang3 = res.data.list.filter(function(ele,idx,arr){
+    //         return idx !== 0;
+    //       });
+    //   })    
+    // } ,  
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.pic = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";

@@ -35,27 +35,26 @@
                         <template>
                             <el-table :data="tableData" style="width: 100%" class="sa_TableView">
 
-                                <el-table-column prop="phone" label="" >
+                                <el-table-column label="" >
                                     <template slot-scope="scope">
                                         <div class="sa_cell">
                                             <div style="display: flex;">
                                                 <div>收货人：{{scope.row.name}}</div>
-                                                <img :src="scope.row.phone" class="sm_imgView" alt="" srcset="">
                                             </div>
                                             <div style="display: flex;">
-                                                <div>联系电话：{{scope.row.name}}</div>
+                                                <div>联系电话：{{scope.row.phone}}</div>
                                             </div>
                                             <div style="display: flex;">
-                                                <div>省市：{{scope.row.name}}</div>
+                                                <div>省市：{{scope.row.address}}</div>
                                             </div>
                                             <div style="display: flex;">
-                                                <div>详细地址：{{scope.row.name}}</div>
+                                                <div>详细地址：{{scope.row.regionId}}</div>
                                             </div>
 
                                             <div class="sa_opreate">
-                                                <button v-if="scope.$index==0" type="danger" plain size="mini" class="sa_normal1" @click="normalClick">默认</button>
-                                                <el-button v-if="scope.$index!=0" type="info" plain size="mini" class="sa_normal" @click="setNoramlClick">设为默认</el-button>
-                                                <el-button type="danger" round size="mini" class="sa_edit" @click="editClick">编辑</el-button>
+                                                <button v-if="scope.row.isDefault==1" type="danger" plain size="mini" class="sa_normal1" @click="normalClick(scope.$index)">默认</button>
+                                                <el-button v-if="scope.row.isDefault==0" type="info" plain size="mini" class="sa_normal" @click="setNoramlClick(scope.$index)">设为默认</el-button>
+                                                <el-button type="danger" round size="mini" class="sa_edit" @click="editClick(scope.$index)">编辑</el-button>
                                             </div>
                                         </div>
                                     </template>
@@ -80,40 +79,8 @@
                     </div>    
 
 
-
-                     <!-- 修改已有地址地址 -->
-                        <el-dialog title="修改收货地址" :visible.sync="startaddressdialogFormVisible" width="40%">
-                            <div class="add-shop-cate">
-                                <div class="df-basic_row_new el-form-item" style="display:flex">
-                                    <label for="item_title" class="el-form-item__label" style="width: 100px;">收货人姓名:</label>
-                                    <div class="el-form-item__content" style="margin-left: 20px;width:70%">
-                                        <el-input type="text" v-model="startAddressName"></el-input>                  
-                                    </div>
-                                </div>
-                                <div class="df-basic_row_new el-form-item" style="display:flex">
-                                    <label for="item_title" class="el-form-item__label" style="width: 100px;">收货人手机号: </label>
-                                        <div class="el-form-item__content" style="margin-left: 20px;width:70%">
-                                            <el-input type="text" v-model="startAddressPhone"   maxlength="11"   show-word-limit></el-input>
-                                        </div>       
-                                    
-                                </div>
-                                <div class="df-basic_row_new el-form-item" style="display:flex">
-                                    <label for="item_title" class="el-form-item__label" style="width: 100px;">当前收货地址: </label>
-                                        <div class="el-form-item__content" style="margin-left: 20px;width:70%">
-                                            <el-input type="text" v-model="startAddress" disabled="true"></el-input> 
-                                            <el-button type="info" plain size="mini" @click="editthisDress">修改当前收货地址</el-button>                
-                                        </div>       
-                                </div>
-            
-                                <div slot="footer" class="dialog-footer add-shop-cate-footer" style="display: flex;justify-content: center;">
-                                    <el-button @click="startaddressdialogFormVisible = false">取 消</el-button>
-                                    <el-button type="primary" @click="startAddressid">确 定</el-button>
-                                </div>
-                            </div>
-                        </el-dialog>
-                    <!-- 修改已有地址over -->
-                    <!-- 修改地址 -->
-                    <el-dialog title="修改收货地址" :visible.sync="addressdialogFormVisible" width="40%">
+                    <!-- 添加\修改 地址 -->
+                    <el-dialog :title="editTitle" :visible.sync="addressdialogFormVisible" width="50%">
                         <div class="add-shop-cate">
                             <div class="df-basic_row_new el-form-item" style="display:flex">
                                 <label for="item_title" class="el-form-item__label" style="width: 100px;">收货人姓名:</label>
@@ -123,14 +90,14 @@
                             </div>
                             <div class="df-basic_row_new el-form-item"  style="display:flex">
                                 <label for="item_title" class="el-form-item__label" style="width: 100px;">收货人手机号: </label>
-                                <div class="el-form-item__content" style="margin-left: 20px;width:60%;flex:1">                     
+                                <div class="el-form-item__content" style="margin-left: 20px;width:60%; flex:1">                     
                                      <el-input type="text" v-model="startAddressPhone"   maxlength="11" show-word-limit></el-input>                            
                                 </div>
                             </div>
                              <div class="df-basic_row_new el-form-item"  style="display:flex">
-                                <label for="item_title" class="el-form-item__label" style="width: 100px;">新收货地址: </label>
-                                <div class="el-form-item__content" style="margin-left: 20px;width:60%;flex:1">
-                                    <el-cascader v-model="addressvalue" @change="handleChange"
+                                <label for="item_title" class="el-form-item__label" style="min-width: 100px;">新收货地址: </label>
+                                <div class="el-form-item__content" style="margin-left: 20px; flex:1">
+                                    <el-cascader v-model="addressvalue" @change="handleChange" class="set_shipAddress" style="width: 200px;"
                                     :change-on-select="true"     
                                     :options="addressjsonop"
                                     :props="{ expandTrigger: 'hover',children:'childList',value:'id',label:'name' }">
@@ -147,13 +114,13 @@
                             <div class="df-basic_row_new el-form-item"  style="display:flex">
                                 <label for="item_title" class="el-form-item__label" style="width: 20px;"> </label>
                                 <div class="el-form-item__content" style="margin-left: 20px;width:60%;flex:1" >
-                                    <el-checkbox v-model="normalAddressChecked">设为默认地址</el-checkbox>                  
+                                    <el-checkbox v-model="isDefault">设为默认地址</el-checkbox>                  
                                 </div>
                             </div>
                         
                             <div slot="footer" class="dialog-footer add-shop-cate-footer" style="display: flex;justify-content: center;">
                                 <el-button @click="addressdialogFormVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="editshouHuoaddress">确 定</el-button>
+                                <el-button type="primary" @click="editAddressConfirm">确 定</el-button>
                             </div>
                         </div>
                     </el-dialog>
@@ -176,13 +143,19 @@
 import navbar from '../navbar';
 import sidebar from '../sidebar';
 import settingnav from './settingnav';
-import api from '../../utils/api';
+import network from '../../utils/api';
 import addressjson from "../../../static/address.json";
+import {
+        zm_jsonToString,
+        zm_formDataToString
+} from "../../filters/zm_tools.js"
 // import aa  from "../../../static/ad";
+
+
 export default {
     data() {
         return {
-            loading : true,
+            loading : false,
             tableData:[],
             totalCount:0,
             value1:'',
@@ -194,22 +167,35 @@ export default {
             startAddressName: '',
             startAddressPhone: '',
             startAddress: '',
+            xingaxiadress: '',
+            shophuoSmallId: '',
             addressjsonop: '',
-            normalAddressChecked: false,
+            addressvalue: [],
+            isDefault: false,
+            editTitle: '',
+            addCahange: '', //1添加、2编辑
+            addressItem: '',
         };
     },
     beforeRouteEnter (to, from, next) {
 		next(vm => {
             if( vm.$cookie.get('userId') != null && vm.$cookie.get('userId')  != '' && vm.$cookie.get('userId') != undefined   ){
-                vm.getData(1);
+                vm.request_shippingAddress(1);
             } else {
                 next('/login');
             }
 		})
     },
-     mounted() {
+    watch:{ 
+        isDefault: function(val) {
+            console.log("---isDefault= "+ val);
+        },
+        addressvalue: function(val) {
+            console.log("---addressvalue= "+ val);
+        },
+    },
+    mounted() {
         this.syebol();
-
         let newArr = [];
         for (var i in addressjson.region) {
             newArr.push(addressjson.region[i]);
@@ -223,51 +209,103 @@ export default {
     },
     methods:{
         normalClick(index){
-
+            
         },
         setNormalClick(index){
             
         },
         editClick(index){
-            this.startaddressdialogFormVisible = true;
+            // this.startaddressdialogFormVisible = true;
+            this.addressItem = this.tableData[index];
+            console.log('---收货地址 item= ' + zm_jsonToString(this.addressItem));
+            this.editTitle = '修改收货地址';
+            this.addCahange= 2;
+            this.startAddressName   = this.addressItem.name;
+            this.startAddressPhone  = this.addressItem.phone;
+            this.xingaxiadress      = this.addressItem.address;
+            this.shophuoSmallId     = this.addressItem.regionId;
+            this.addressvalue = this.addressItem.regionIds;
+            this.isDefault = this.addressItem.isDefault == 1 ?  true : false;
+            this.addressdialogFormVisible = true;
         },
         changeAddressConfirm(){
-            this.startaddressdialogFormVisible = false;
+            // this.startaddressdialogFormVisible = false;
+            this.editTitle = '添加收货地址';
+            this.addCahange= 1;
+            this.addressdialogFormVisible = false;
         },
-        editshouHuoaddress() {
-            let data = new FormData();
+        editAddressConfirm() {
+            if (this.addCahange==1) {
+                this.request_addAddress();
+            }else{
+                this.request_changeAddress();
+            }
+        },
+        request_addAddress() {
+            let params = new FormData();
             let that = this;
-            data.append('receiverName', this.startAddressName); //收货人 
-            data.append('receiverPhone', this.startAddressPhone); //收货电话
-            data.append('receiverAddress', this.xingaxiadress); //收货地址
-            data.append('regionId', this.shophuoSmallId); //收货id  
-            data.append('no', that.editadressid)
+            params.append('id', this.addressItem.id)
+            params.append('name', this.startAddressName);   //收货人 
+            params.append('phone', this.startAddressPhone); //收货电话
+            params.append('address', this.xingaxiadress);   //收货地址
+            params.append('regionId', this.shophuoSmallId); //收货id  
+            var isDefault = this.isDefault == true ?  1 : 0;
+            params.append('isDefault', isDefault);
+
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '1');
+            }
+            this.$http({
+                    method: "post",
+                    url: network.addressAdd,
+                    data: params,
+                    headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId'), userId: this.editadressuserid }
+            }).then(function(res) {
+                 if (res.data.status == 200) {
+                        that.$message.success('添加地址成功');
+                        that.request_shippingAddress(1);
+                        that.addressvalue = [];
+                        that.addressdialogFormVisible = false;
+                    } else {
+                        that.$message.error(res.data.message);
+                    }
+            })
+        },
+        request_changeAddress() {
+            let params = new FormData();
+            let that = this;
+            params.append('id', this.addressItem.id)
+            params.append('name', this.startAddressName);   //收货人 
+            params.append('phone', this.startAddressPhone); //收货电话
+            params.append('address', this.xingaxiadress);   //收货地址
+            params.append('regionId', this.shophuoSmallId); //收货id  
+            var isDefault = this.isDefault == true ?  1 : 0;
+            params.append('isDefault', isDefault);
+
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '1');
+            }
+            // console.log('---修改收货地址 params= ' + zm_formDataToString(params));
 
             this.$http({
                     method: "post",
-                    url: baseapi.mhorderupodate,
-                    data: data,
+                    url: network.addressUpdate,
+                    data: params,
                     headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId'), userId: this.editadressuserid }
-                })
-                .then(function(res) {
-                    if (res.data.status == 505) {
-                        that.$message.error('服务器异常');
-                        return false;
-                    }
-                    if (res.data.status == 500) {
-                        that.$message.error(res.data.message);
-                        return false;
-                    }
+            }).then(function(res) {
                     if (res.data.status == 200) {
                         that.$message.success('修改地址成功');
-                        that.shuaixuanmethod(that.shuaixuanid, that.thispageindex);
+                        that.request_shippingAddress(1);
                         that.addressvalue = [];
                         that.addressdialogFormVisible = false;
-
                     } else {
-                        that.$message.error('修改地址不成功');
+                        that.$message.error(res.data.message);
                     }
-                })
+            })
         },
         editwuliuaddress(no, uerid) {
             this.addressdialogFormVisible = true;
@@ -279,56 +317,6 @@ export default {
             this.startaddressdialogFormVisible = false;
             this.addressdialogFormVisible = true;
         },
-        editwuliuaddressStart(parme1, parme2, parme3, parme4, parme5, regionid) {
-
-            this.editadressid = parme1;
-            this.editadressuserid = parme2;
-            this.startAddressName = parme3;
-            // let hiddenphone = parme4.substr(0,3) + "****" + parme4.substr(7)
-
-            this.startAddressPhone = parme4;
-            this.startAddress = parme5
-            this.startaddressdialogFormVisible = true;
-            let newArr = parme5.split(" ");
-            this.smalladdressname = newArr[newArr.length - 2];
-            this.xingaxiadress = newArr[newArr.length - 1];
-            this.smalladdressid = regionid;
-            // this.gethref(this.addressjsonop,this.smalladdressname);
-        },
-        startAddressid() {
-            let data = new FormData();
-            let that = this;
-            data.append('receiverName', this.startAddressName); //收货人 
-            data.append('receiverPhone', this.startAddressPhone); //收货电话
-            data.append('receiverAddress', this.xingaxiadress); //收货地址
-            data.append('regionId', this.smalladdressid); //收货id  
-            data.append('no', that.editadressid)
-
-            this.$http({
-                    method: "post",
-                    url: baseapi.mhorderupodate,
-                    data: data,
-                    headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId'), userId: this.editadressuserid }
-                })
-                .then(function(res) {
-                    if (res.data.status == 505) {
-                        that.$message.error('服务器异常');
-                        return false;
-                    }
-                    if (res.data.status == 500) {
-                        that.$message.error(res.data.message);
-                        return false;
-                    }
-                    if (res.data.status == 200) {
-                        that.$message.success('修改地址成功');
-                        that.startaddressdialogFormVisible = false;
-                        that.shuaixuanmethod(that.shuaixuanid, that.thispageindex);
-
-                    } else {
-                        that.$message.error('修改地址不成功');
-                    }
-                })
-        },
         handleChange() {
             console.log(this.addressvalue);
             let newArr = this.addressvalue;
@@ -339,7 +327,6 @@ export default {
         reqaddressJson() {
             let data = new FormData();
             let that = this;
-
             this.$http({
                     method: "get",
                     url: 'http://sanyetongsj.oss-cn-shanghai.aliyuncs.com/region.json',
@@ -348,43 +335,39 @@ export default {
                 })
                 .then(function(res) {
                     console.log(res);
-
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
         },
-        getData(parme,status){
+        request_shippingAddress(parme, status){
             let that = this;
-            let data = new FormData();       
-            data.append('page', parme);  
-            data.append('limit',20);
-        
+            let params = new FormData();       
+            params.append('page', parme);  
+            params.append('limit',20);
             if(this.value1 != ''){
-                 data.append('saccount',this.value1);//账号手机号
+                 params.append('saccount',this.value1);//账号手机号
             }
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '1');
+            }
+            let urlStr = network.addressList; 
+            console.log('---收货地址列表 params=' + zm_formDataToString(params) +'\n urlStr= ', urlStr);
 
             this.$http({
                 method: "post",
-                url:api.logList,
-                data: data
+                url: urlStr,
+                data: params
             })
             .then(function(res){
-                console.log(res);
+                console.log('---收货地址列表 data= ' + zm_jsonToString(res.data));
                 if(res.data.status ==200){
-                    let data =   res.data.list;
-                   
+                    let data = res.data.list;
                     that.tableData = data;
                     that.totalCount = res.data.totalCount;
                     that.loading = false
-                    if (status == 9) {
-                        that.$message.success({
-                            showClose: true,
-                            message: '筛选成功',
-                            type:'success',
-                            duration:600
-                         });
-                    }     
                 }else{
                     that.$message.error(res.data.message);
                 }
@@ -397,7 +380,7 @@ export default {
             let that = this;
             this.$http({
                 method: "post",
-                url:api.sysbelNum
+                url:network.sysbelNum
             }).then(function(res){
                     let list =  res.data.data;
                     // that.syebolArr = res.data.data;
@@ -407,7 +390,7 @@ export default {
             })
         },
         shuaixuan(){
-            this.getData(1,9)
+            this.request_shippingAddress(1,9)
         },
         clearData(){
             this.value1 = '';
@@ -416,7 +399,7 @@ export default {
             this.value4 = '';
         },
         handleCurrentChange(val){
-            this.getData(val)
+            this.request_shippingAddress(val)
         },
         
        

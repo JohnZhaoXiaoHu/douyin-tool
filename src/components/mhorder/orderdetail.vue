@@ -17,7 +17,6 @@
                             <el-breadcrumb separator-class="el-icon-arrow-right">
                             <el-breadcrumb-item :to="{ path: '/order' }">所有订单</el-breadcrumb-item>
                             <el-breadcrumb-item>订单详情</el-breadcrumb-item>
-                
                             </el-breadcrumb>
                         </div>
 
@@ -32,46 +31,38 @@
                             </el-steps>
                         </div>
 
-                  
-
-                    
-                        
-             
-
-
                         <div class="osofeDe0-div">
                             <div class="osofeDe0-div_one">
                              
                                 <dl>
                                     <dt>订单编号:</dt>
-                                    <dd>{{list.no}}</dd>
+                                    <dd>{{orderDetailData.no}}</dd>
                                 </dl>
                                  <dl>
                                     <dt>付款方式:</dt>
-                                    <dd>{{list.payFrom == 1 ? '支付宝支付' : list.payFrom == 2 ? '微信支付' : list.payFrom == 3 ? '余额支付' : list.payFrom == 4 ? '线下付款' : list.payFrom == 5 ? '货到付款' : '未付款' }}</dd>
+                                    <dd>{{orderDetailData.payFrom == 1 ? '支付宝支付' : orderDetailData.payFrom == 2 ? '微信支付' : orderDetailData.payFrom == 3 ? '余额支付' : orderDetailData.payFrom == 4 ? '线下付款' : orderDetailData.payFrom == 5 ? '货到付款' : '未付款' }}</dd>
                                 </dl>
-                           
                                 <div class="osofeDe0-div_onedotto"></div>
 
                                 <dl>
                                     <dt>配送方式:</dt>
-                                    <dd>{{list.deliverType == 1 ? '快递' : list.deliverType == 2 ? '自提' : ''}}</dd>   
+                                    <dd>{{orderDetailData.deliverType == 1 ? '快递' : orderDetailData.deliverType == 2 ? '自提' : ''}}</dd>   
                                 </dl>
                                 <dl>
                                     <dt>自提地址 :</dt>
-                                    <dd>{{list.receiverAddress}}</dd>   
+                                    <dd>{{orderDetailData.receiverAddress}}</dd>   
                                 </dl> 
                                  <dl>
                                     <dt>买家留言:</dt>
-                                    <dd>{{list.remark ? list.remark : "无"}}</dd>
+                                    <dd>{{orderDetailData.remark ? orderDetailData.remark : "无"}}</dd>
                                 </dl> 
                                  <dl>
                                     <dt>会员ID:</dt>
-                                    <dd>{{list.userId}}</dd>   
+                                    <dd>{{orderDetailData.supplierId}}</dd>   
                                 </dl>
                                  <dl>
                                     <dt>会员昵称:</dt>
-                                    <dd>{{user.nickname}}</dd>   
+                                    <dd>{{orderDetailData.receiverName}}</dd>   
                                 </dl>
                                  <dl>
                                     <dt>优惠券抵:</dt>
@@ -84,26 +75,22 @@
                                     <i  class="el-icon-warning osofeDe0-div_twoimg" style="color: rgb(230, 162, 60);"></i>
                                     <div class="osofeDe0-div_twodiv">
                                         <dl>
-                                            <dt class="osofeDe-title" v-if="goodsTypeStatus != 10">订单状态：{{zuiStatus}}</dt>
-                                             <dt class="osofeDe-title" v-if="goodsTypeStatus == 10">订单状态：{{TypezuiStatus}}</dt>
+                                            <dt class="osofeDe-title" v-if="goodsTypeStatus != 10">订单状态：{{zm_getOrderType(zuiStatus)}}</dt>
+                                             <dt class="osofeDe-title" v-if="goodsTypeStatus == 10">订单状态：{{zm_getOrderType(TypezuiStatus)}}</dt>
                                             <dd v-if="zuiStatus == 1">买家已付款，请尽快发货，否则买家有权申请退款</dd>
                                         </dl>
                                 
                                     </div>
                                 </div>
 
-                                <div class="osofeDe0-div_fivediv">
-                                    <!-- <el-button type="primary" size="mini">发货</el-button> -->
+                                <!-- <el-button type="primary" size="mini">发货</el-button> -->
+                                <!-- <div class="osofeDe0-div_fivediv">
                                     <button  type="button" @click="beizhu" class="el-button el-button--text"><span>备注</span></button>
-                                </div>
+                                </div> -->
 
                                 <div class="osofeDe0-div_fourdiv">
                                    卖家备注 &nbsp;:&nbsp; {{list.note}}
-
                                 </div>
-
-
-
                                 <div class="osofeDe0-div_twodivxx">
                                     <div class="osofeDe0-div_twodiv_div">
                                        <p> 温馨提醒：</p>
@@ -115,23 +102,6 @@
                             </div>
                         </div>
 
-                          <div class="ordersaft-bot-list" >
-                            <div class="titleheade">佣金信息</div>
-                            <div class="ordersaft_list-div">
-                                <ul class="ordersaft_list-divul">
-                                    <li  v-for="(orderlistitem,orderlistindex) of  orderList" :key="orderlistindex" v-if="orderList.length!=0">
-                                        {{orderlistitem.userNickName != null ? orderlistitem.userNickName  : orderlistitem.userName }} :    
-                                        &nbsp; &nbsp;
-                                        <a class="ordersaft_list-divul_a" @click="geRenzhong(orderlistitem.userId)"> {{orderlistitem.userName}}</a>
-                                         &nbsp; &nbsp; 
-                                        <span style="color: rgb(51, 51, 51);">¥{{orderlistitem.moneyCommission}}</span>
-                                         &nbsp; 
-                                        {{orderlistitem.formula}}  
-                                    </li>
-                                    <li  v-if="orderList.length==0">该订单无佣金信息</li>
-                                </ul>
-                            </div>
-                        </div>
 
                         <div class="ordersaft-bot-list" >
                             <ul class="ordersaft-bot-listtitleul">
@@ -144,9 +114,9 @@
                                 <li class="listtitleul_two">快递单号</li>
                             </ul>
                             <div>
-                                <div class="ordersaft_list-div orderdetail-goodslist" v-for="(goodsitem,goodsindex) of  goodsList" :key="goodsindex">
+                                <div class="ordersaft_list-div orderdetail-goodslist" v-for="(goodsitem, goodsindex) of  goodsList" :key="goodsindex">
                                     <div class="orderdetail-goodslist_one">
-                                        <img :src="goodsitem.imageurl" alt="" srcset="">
+                                        <img :src="goodsitem.imageUrl" alt="" srcset="">
                                         <span>{{goodsitem.name}}</span>
                                     </div>
 
@@ -157,21 +127,20 @@
                                     <span class="orderdetail-goodslist_therr"> 0.00   </span>
                                     <span class="orderdetail-goodslist_therr"> 0.00   </span>
                                     <span class="orderdetail-goodslist_therr"> {{goodsitem.moneyTotal}}  </span>
-                                    <!-- <span class="orderdetail-goodslist_therr"> {{goodsitem.status | currency}} </span> -->
-                                    <span v-if="goodsTypeStatus != 10"  class="orderdetail-goodslist_therr"> {{zuiStatus}} </span>
-                                    <span v-if="goodsTypeStatus == 10" class="orderdetail-goodslist_therr"> {{TypezuiStatus}} </span>
-                                    <!-- zuiStatus -->
-                                    <span class="orderdetail-goodslist_therr">{{goodsitem.logisticsNo ? goodsitem.logisticsNo : '' }} </span>
+                                    <span class="orderdetail-goodslist_therr"> {{zm_getOrderType(zuiStatus)}} </span>
+
+                                    <span v-if="goodsTypeStatus" class="orderdetail-goodslist_therr">
+                                        {{goodsitem.logisticsNo=="," ?  '' : goodsitem.logisticsNo}} 
+                                    </span>
+
+
                                  </div>
                             </div>
 
                             <div class="orderdetail-overdiv">
                                 <span >订单共{{goodsLength}}件商品，总计：</span>
                                 <span  style="color: rgb(245, 108, 108);">
-                                ￥{{allprice}}
-                                <!---->
-                                （含运费 ￥0.00
-                                <!---->）
+                                ￥{{allprice}}（含运费 ￥0.00）
                                  </span>
                             </div>
                    
@@ -188,7 +157,7 @@
         </div>
 
               
-        <!--        -->
+        <!-- -->
 
     </div>
     <!--主体 over-->
@@ -226,6 +195,15 @@ import sidebar from '../sidebar';
 import shopnavbar from './shopnavbar';
 import baseapi from '../../utils/api';
 import {formatDate} from "../../filters/date";
+import {
+  zm_jsonToString,
+  zm_formDataToString
+} from "../../filters/zm_tools";
+import {
+  zm_getOrderType
+} from "../../filters/zm_data";
+
+
 /**
  *  维权订单状态
  *   1 同意   -1 拒绝  0  待审核
@@ -234,6 +212,10 @@ var app0;
 export default {
     data() {
         return {
+            getItemData: '',
+            orderDetailData: '',
+            orderType: '',
+            orderStatus: '',
             allprice:0,
             user:{
                 userId:0,
@@ -398,24 +380,34 @@ export default {
                 next('/login');
             }
 		})
-	},
+    },
+    created() {
+        console.log("--------created 模板渲染前");
+        //获取页面传递数据：把字符串转为--> 对象
+        this.getItemData = eval("(" + this.$route.query.itemData + ")");
+        console.log("--->订单详情页: getItemData= " + zm_jsonToString(this.getItemData));
+    },
     mounted(){
-        let routerStr = this.$route.params.id;
-        console.log(routerStr);
-        let str =  routerStr.split("&")   
-        this.user.userId = str[0].split('=')[1];
-        this.user.no = str[1].split('=')[1];
-        this.user.nickname = str[2].split('=')[1];
+        console.log('---订单详情：mounted');
+        // let routerStr = this.$route.params.id;
+        // console.log(routerStr);
+        // let str =  routerStr.split("&")   
+        // this.user.userId = str[0].split('=')[1];
+        // this.user.no = str[1].split('=')[1];
+        // this.user.nickname = str[2].split('=')[1];
 
-        this.reqdata();    
-        this.orderfinance(); 
+        this.request_orderDetail();    
+        // this.orderfinance(); //佣金信息
       
     },
 
     methods:{
-        beizhu(){
-            this.dialogFormVisible = true
-        },  
+        zm_getOrderType(type){
+            return zm_getOrderType(type);
+        },
+        // beizhu(){
+        //     this.dialogFormVisible = true
+        // },  
         resbeizhu() {
             let data = new FormData();
             let that = this;
@@ -433,7 +425,7 @@ export default {
                     if (res.status == 200) {
                         that.$message.success('备注成功');
                         that.dialogFormVisible = false;
-                        that.reqdata();    
+                        that.request_orderDetail();    
                     } else {
                         that.$message('备注失败');
                     }
@@ -486,18 +478,28 @@ export default {
             this.dialogImageUrl = this.shenheimg;
             this.dialogVisible = true;
         },
-        reqdata(){
+        //请求：订单详情
+        request_orderDetail(){
             let that = this;
-            let data = new FormData();       
-            data.append('no', this.user.no);  
+            let params = new FormData();     
+            params.append('platform', 1);  
+            params.append('orderNo', this.getItemData.no); 
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '1');
+            }
+            params.append("token", this.$cookie.get('token'));
+
             this.$http({
                 method: "post",
-                url: baseapi.orderDetailMehod,
-                data: data,
-                headers: { "Content-Type": "multipart/form-data", userId: that.user.userId }
+                url: baseapi.orderDetail,
+                data: params,
+                // headers: { "Content-Type": "multipart/form-data", userId: that.user.userId }
             })
             .then(function(res){
-                console.log(res);
+                 console.log('---请求：订单详情= '+zm_jsonToString(res.data));
+
                 if(res.data.status ==505){
                     that.$message.error('服务器异常');
                     return false;
@@ -507,36 +509,35 @@ export default {
                     return false;
                 }
                 if(res.data.status ==200){
-                    that.goodsTypeStatus = res.data.order.type;
-                    if(res.data.order.status == 10 && res.data.order.type ==10) {
+
+                    that.orderDetailData = res.data.data;
+                    that.goodsTypeStatus = that.orderDetailData.type;
+                    that.orderType   = that.orderDetailData.type;
+                    that.orderStatus = that.orderDetailData.status;
+
+                    if(that.orderStatus == 10 && that.orderType ==10) {
                         that.TypezuiStatus = "抢购中"
                     }
-
-                    if(res.data.order.status == 0 && res.data.order.type ==10) {
+                    if(that.orderStatus == 0 && that.orderType ==10) {
                         that.TypezuiStatus = "抢购成功, 待发货"
                     }
-
-                    if(res.data.order.status == 2 && res.data.order.type ==10) {
+                    if(that.orderStatus == 2 && that.orderType ==10) {
                         that.TypezuiStatus = "退款完成"
                     }
-
-                     if(res.data.order.status == -4 && res.data.order.type ==10) {
+                     if(that.orderStatus == -4 && that.orderType ==10) {
                         that.TypezuiStatus = "交易关闭"
                     }
-
-                    if(res.data.order.status == 1 && res.data.order.type ==10) {
+                    if(that.orderStatus == 1 && that.orderType ==10) {
                         that.TypezuiStatus = "已发货"
                     }
-
-                     if(res.data.order.status == 3  && res.data.order.type ==10) {
+                     if(that.orderStatus == 3  && that.orderType ==10) {
                         that.TypezuiStatus = "已收货"
                     }
-
-                    if(res.data.order.status == 7  && res.data.order.type ==10) {
+                    if(that.orderStatus == 7  && that.orderType ==10) {
                         that.TypezuiStatus = "已完成"
                     }
-
-                    let goodsList = res.data.order.detailList;
+                    
+                    let goodsList = that.orderDetailData.detailList;
                     let allprice = 0;
                     goodsList.forEach(function(item,index){
                         item.money = parseFloat(item.money/100).toFixed(2);
@@ -544,11 +545,11 @@ export default {
                         item.moneyTotal = parseFloat(item.moneyTotal/100).toFixed(2);
                     })
                     that.goodsList = goodsList;
-                    that.list = res.data.order;
+                    that.list      = that.orderDetailData.detailList;
                   
-                    that.allprice =  parseFloat(allprice).toFixed(2);
+                    that.allprice    =  parseFloat(allprice).toFixed(2);
                     that.goodsLength = goodsList.length
-                    that.shujuSmole(res.data.order.status);
+                    // that.shujuSmole(that.orderStatus);
 
                   
                 } 

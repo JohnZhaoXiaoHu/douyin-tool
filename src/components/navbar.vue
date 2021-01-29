@@ -52,14 +52,12 @@ export default {
         //     this.mhLogo = this.$cookie.get('miHuanLogo');
         // }
 
-        let miHuanLogo = this.$cookie.get('miHuanLogo');
-        if ( miHuanLogo != undefined &&  miHuanLogo != null && miHuanLogo != 'undefined') {
-            console.log('---Logo 有');
-            this.mhLogo = this.$cookie.get('miHuanLogo');
-        }
+        // let miHuanLogo = this.$cookie.get('miHuanLogo');
+        // if ( miHuanLogo != undefined &&  miHuanLogo != null && miHuanLogo != 'undefined') {
+        //     console.log('---Logo 有');
+        //     this.mhLogo = this.$cookie.get('miHuanLogo');
+        // }
         this.mhLogo = "../../static/images/icon/douYinImg.png"
-
-        
 
     },
     methods:{

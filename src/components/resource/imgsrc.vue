@@ -141,7 +141,12 @@
 import navbar from '../navbar';
 import sidebar from '../sidebar';
 import baseapi from '../../utils/api';
+import {
+        zm_jsonToString,
+        zm_formDataToString
+} from "../../filters/zm_tools.js"
 let id = 1000;
+
 export default {
     data() {
         return {
@@ -544,16 +549,26 @@ export default {
         handleChangevalue(val) {
             this.imgvalue = val;
         },
-        //请求左边图片分组
+        //请求左边图片分组（resGrounpTee）
         selectResGrounp(param){
             let data = new FormData();
-            data.append('type',param);
-            this.http.post( baseapi.resGrounpTee,data).then(res=>{
+            // data.append('type',param);
+            data.append('groupId',0);    
+            data.append('type',1);
+            data.append('page',1);
+            data.append('limit',14);
+		    if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("supplierId", '2');
+            }
+
+            this.http.post( baseapi.resourceList,data).then(res=>{
+                // console.log('---资源图片 data= ' + zm_jsonToString(res.data));
                 if (res.data.list.length != 0) {
                     this.startid = res.data.list[0].id;
                     this.selectResList(res.data.list[0].id,1);
                     this.chongid = res.data.list[0].id
-
                     
                 } else {
                   this.selectResList();
@@ -566,16 +581,19 @@ export default {
         //图片右边
         selectResList(parpm,page=1){
             let that = this;
-            let data = new FormData();
-            if(parpm != '' && parpm != undefined && parpm !=null){
-                data.append('groupId',parpm);
-            }else{
-                data.append('groupId',0);
-            }      
+            let data = new FormData(); 
+            data.append('groupId',0);    
             data.append('type',1);
             data.append('page',page);
             data.append('limit',14);
-            this.http.post( baseapi.imgresRught,data).then(res=>{
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("supplierId", '2');
+            }
+
+            //baseapi.imgresRugh
+            this.http.post( baseapi.resourceList, data).then(res=>{
                 that.imgarr = res.data.list;    
                 that.totalCount = res.data.totalCount;
             })  
@@ -635,11 +653,6 @@ export default {
     display: flex;
     justify-content: center;
 }
-
-/* .imgtanzhujian{
-  position: relative;
-  z-index: 999999999;
-} */
 
 .imgtanzhujian .el-dialog__title {
     font-size: 14px !important;

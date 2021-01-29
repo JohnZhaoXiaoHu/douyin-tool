@@ -116,9 +116,11 @@ export default {
     testClick(index) {
       console.log('---查看详情= testClick: '+index);
       //this.$router.push('/marketing/qiangGou/qiang_gou');
+      //src/components/zmTest/bbTest.vue
+
       let item = this.tableData[index];
       this.$router.push({
-          path:'/twitter/bbTest',
+          path:'/zmTest/bbTest',
           query:{
             itemData:JSON.stringify(item),
         }

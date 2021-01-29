@@ -1,7 +1,7 @@
 
 
 .sidebar{
-    width: 155px; /*原：125px*/
+    width: 125px; /*原：125px*/
     height: 100%;
     min-height: 400px;
     background-color: rgb(68, 68, 68);
