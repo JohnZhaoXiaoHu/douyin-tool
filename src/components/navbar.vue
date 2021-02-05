@@ -20,10 +20,10 @@
                             <!-- <img src="https://sanyetongsj.oss-cn-shanghai.aliyuncs.com/system/root/crs/vip/mihuan.png" alt="抖音工具" class="g-logo" width="35" height="35"> -->
                             <img :src="mhLogo" alt="抖音工具" class="g-logo navMhLogo" width="35" height="35">
                         </dt>
-                        <dd>
+                        <!-- <dd>
                             <span>平台版+小程序</span>
                             <i class="el-icon-arrow-down hd-down" ></i>
-                        </dd>
+                        </dd> -->
                     </dl>
                 </el-popover>
             </div>
@@ -57,7 +57,8 @@ export default {
         //     console.log('---Logo 有');
         //     this.mhLogo = this.$cookie.get('miHuanLogo');
         // }
-        this.mhLogo = "../../static/images/icon/douYinImg.png"
+        // this.mhLogo = "../../static/images/icon/douYinImg.png"
+        this.mhLogo = "static/images/icon/douYinImg.png"
 
     },
     methods:{

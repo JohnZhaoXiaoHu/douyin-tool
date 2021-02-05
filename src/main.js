@@ -43,8 +43,6 @@ Vue.component("goodgroupmodal", goodgroupmodal)
 Vue.component("categorymodal", categorymodal)
 Vue.component("sevengoodmodal", sevengoodmodal)
 
-
-
 //全局封装
 //引入post请求封装类
 //import Request from '@/utils/request.js' // 引入封装的文件
@@ -103,9 +101,8 @@ router.beforeEach((to, from, next) => {
   // console.log('---全局路由   to.path= '+to.path);
   // console.log('---全局路由 toDepth= '+toDepth);
   // console.log('---全局路由 fromDepth= '+fromDepth);
-
   if (toDepth < fromDepth) {
-    console.log('<--返回 back')
+    // console.log('<--返回 back')
 
   } else if (toDepth > fromDepth)  {
     // console.log('-->进入 enter...')
@@ -114,13 +111,8 @@ router.beforeEach((to, from, next) => {
     // console.log('---平行页...')
 
   }
-
-
-    next();
-  // }
-  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-  // 如果用户未能验证身份，则 `next` 会被调用两次
-  // next()
+  next();
+ 
 })
 
 //全局过滤器

@@ -17,7 +17,7 @@ window.g = {
 
 
      fsassUrl:'https://api.mihuanshop.com',  // 未加入sass的url 线上修改  - > https://api.mihuanshop.com  /https://api.chainfos.com
-    //  domain:'douyin.mihuanshop.com/sp' //全局domain 设置
+     domain:'douyin.mihuanshop.com/sp' //全局domain 设置
      // domain:'localhost' //全局domain 设置    //测试写相应地址sp.chainfos.com   test.chainfos.com 正式不修改
      // domain:'test.chainfos.com'
 }

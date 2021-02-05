@@ -1,7 +1,7 @@
 <template>
   <div class="login_body">
       <div class="loginContent">
-		<div class="login_logo">蜜獾科技分销系统登录</div>
+		<div class="login_logo">抖音工具系统登录</div>
         <div class="login_form">
 			<form method="post" οnsubmit="return false" >
 			    <ul>
@@ -70,7 +70,7 @@
 
 
 	</div>
-	<div class="login_footer"><p>Powered By © 2020 蜜獾</p></div>
+	<div class="login_footer"><p>Powered By © 2020 蜜獾-抖音工具管理平台</p></div>
   </div>
 </template>
 
@@ -202,20 +202,25 @@ export default {
 						that.$cookie.set('account ', res.data.data.user.account, 7);	
 						that.$cookie.set('status ', res.data.data.user.status, 7);	
 						that.$cookie.set('token ', res.data.data.token, 7);	
+						that.$cookie.set('userId ', res.data.data.user.id);
+						that.$cookie.set('roleId ', res.data.data.user.id);
+						that.$cookie.set('adminId ', res.data.data.user.id);
+
 						// console.log('--------登录保存: supplierId= '+  that.$cookie.get('supplierId'));
 						// console.log('--------登录保存: token= '+  that.$cookie.get('token'));
 						// sessionStorage.setItem('loginInfo',JSON.stringify(res.data));
-						
-						// that.$route.push('/goodslist');	///home
-						
 
-						if(that.$cookie.get('supplierId')){
-							if(that.thisUrl == '/'){	
-								that.$route.push('/goodslist');	///home			
-							}else{
-								that.$route.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
-							}					
-						}	
+						console.log(1, that.$route);
+						console.log(2, that.$router);
+						that.$router.push('/goodslist');	//home
+
+						// if(that.$cookie.get('supplierId')){
+						// 	if(that.thisUrl == '/'){	
+						// 		that.$router.push('/goodslist');	///home			
+						// 	}else{
+						// 		that.$router.push(`${that.thisUrl}`);  // 登陆成功后默认跳转的路由					
+						// 	}					
+						// }	
                     }				
 				})
 	  }

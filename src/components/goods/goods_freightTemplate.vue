@@ -238,6 +238,7 @@ export default {
             },function(res){
                 self.$message.error(res.data.message);
             })
+            // src/components/shopMin
         },
         ft_addReightTemplateClick(){
             // 创建模板

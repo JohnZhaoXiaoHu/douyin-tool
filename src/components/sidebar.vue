@@ -2,7 +2,7 @@
         <ul class="sidebar" id="sidebar_disabled">
       
         <li>
-            <img class="g-logo miHuanLogo" :src="mhLogo" alt="蜜獾分销">
+            <img class="g-logo miHuanLogo" :src="mhLogo">
             <div class="miHuanName">{{miHuanName}}</div>
         </li>
        
@@ -46,7 +46,7 @@ export default {
         };
     },
     mounted(){
-        this.mhLogo = "../../static/images/icon/douYinImg.png"
+        this.mhLogo = "static/images/icon/douYinImg.png"
 
     },
     methods:{

@@ -43,13 +43,9 @@
                         <div class="m-search-box el-row el-row-my-div">
                             <div class="vip-item-list_time mh-order mihuanorder-time mh-shoporderlist-xx">
                                 <label class="el-form-item__label" style="width: 130px;">申请时间:</label>
-                                <el-date-picker
-                                       value-format="timestamp"             
-                                        v-model="shouhoutime"
-                                        type="datetimerange"
-                                        range-separator="至"
+                                <el-date-picker value-format="timestamp" v-model="shouhoutime" type="datetimerange"
+                                        range-separator="至"  style="width: 100%"
                                         start-placeholder="开始日期"
-                                        style="width: 100%"
                                         end-placeholder="结束日期">
                                 </el-date-picker>
                             </div>
@@ -75,13 +71,12 @@
                             <!--全部-->
                             <ul class="mhsafe-order_ul">
                                 <li class="mh-order_ul-one">商品</li>
-                                <!-- <li class="mh-order_ul-two">订单金额</li> -->
-                                <li class="mh-order_ul-there" style="text-indent: 4.5rem; min-width:90px; ">单价/数量</li>
-                                <!-- <li class="mh-order_ul-four">买家信息</li> -->
+                                <li class="mh-order_ul-there" style="text-indent: 4.5rem; min-width:90px; "></li>
+                                <li class="mh-order_ul-four">数量/店铺信息</li>
                                 <li class="mh-order_ul-five">退款金额</li>
                                 <li class="mh-order_ul-sex">售后类型</li>
                                 <li class="mh-order_ul-seven">售后状态</li>
-                                <li class="mh-order_ul-night">操作</li>
+                                <!-- <li class="mh-order_ul-night">操作</li> -->
                             </ul>
                             <div class="mhorder-table" v-show="listdata.length != 0 " v-for="(item,index) of listdata" :key="index" >
                                 <div class="mhorder-table-top">
@@ -116,20 +111,27 @@
                                             <div class="mhorder-table-bottom-div" style="width:80%">
                                                 <img :src="skuitem.imageUrl" alt="" width="50" height="50" class="ordersafe-tab-img">
                                                 <dl class="mhorder-table-bottom-div_dl">
-                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.name}}</span></dt>
+                                                    <dt class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品名称 : </span><span class="mhorder-table-bottom-divdtspan">{{skuitem.item.name}}</span></dt>
                                                     <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">商品ID : </span><span>{{skuitem.skuId}}</span></dd>
                                                     <!-- <dd><span>规格: </span><span>红/M</span></dd> -->
                                                     <!-- <dd class="mhorder-table-bottom-divdt"><span class="mhorder-table-bottom-name">退款数量 : </span><span>{{skuitem.quantity}}</span></dd> -->
                                                 </dl>
                                             </div>   
-                                            <div class="orderdafe-price" style="width:10%">
+                                            <!-- <div class="orderdafe-price" style="width:10%">
                                                 <span class="orderdafe-price-fhao">¥</span>{{parseFloat(skuitem.moneyTotal/100)}}
+                                            </div> -->
+                                            <div class="orderdafe-num" style="width:20%">
+                                            1/ {{skuitem.shop.name}}
                                             </div>
-                                            <div class="orderdafe-num" style="width:10%">
-                                            1
-                                            </div>
+
+                                            <!-- <div class="orderdafe-tuiprice">
+                                                <span class="orderdafe-price-fhao">{{skuitem.shop.name}}</span>
+                                            </div> -->
+
                                         </div>
-                                     </div>
+                                    </div>
+
+                                   
                                  
 
                                     <div class="orderdafe-tuiprice">
@@ -158,20 +160,9 @@
                                         </el-popover> 
                                     </div>
 
-                                    <div class="orderdafe-status" v-if="item.status == 0">处理中 </div> 
+                                    <div class="orderdafe-status">{{zm_getOrderCourse(item.course)}} </div> 
 
-                                 
-                                    <div class="orderdafe-status" v-if="item.status == 1 && item.course !=2   && item.course !=0 && item.course !=3">审核通过</div>                               
-                                    <div class="orderdafe-status" v-if="item.status == -1">退款关闭</div>
-                                    <div class="orderdafe-status" v-if="item.status == 2">正在退款  </div>
-                                    <div class="orderdafe-status" v-if="item.status == -2">用户取消   </div>
-                                    <div class="orderdafe-status" v-if="item.status == 3">退款完成   </div>
-                                    <div class="orderdafe-status" v-if="item.status == null">暂无状态</div>
-
-
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 0">  售后待收货 </div>
-                                    <div class="orderdafe-edit" v-if="item.type == 2  && item.status== 1 && item.course == 3">  售后待退款 </div>
-
+<!-- 
                                     <div class="orderdafe-editbtn" v-if="item.type == 2  && item.status== 0 && item.course == 0"> 
                                         <el-button @click="tHtKok(item.no,item.orderMoneyTotalreal)" type="primary" size="mini" class="orderdafe-edit-btn">同意</el-button>    
                                         <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" class="orderdafe-edit-btn" size="mini">拒绝</el-button>                          
@@ -197,14 +188,6 @@
                                         <span>确认退款</span>
                                      </div>
 
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 2  && item.status == -1"> 
-                                        <span style="color:#f56c6c">拒绝</span>
-                                    </div>    -->
-  
-                                    <!-- <div class="orderdafe-edit" v-if="item.type == 3  && item.status == -1 "> 
-                                           <span style="color:#f56c6c">拒绝</span>
-                                    </div> -->
-
                                     <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status==1 &&  item.course != 2"> 
                                         <el-button @click="okTuiPrice(item.userId,item.no)" type="primary" size="mini" class="orderdafe-edit-btn">确认退款</el-button>                              
                                     </div>
@@ -216,13 +199,13 @@
                                     <div class="orderdafe-editbtn" v-if="item.type == 1 && item.status== 0"> 
                                         <el-button type="primary" size="mini" class="orderdafe-edit-btn" @click="oktuiK(item.no,item.orderMoneyTotalreal,item.type)">同意</el-button>
                                         <el-button  @click="juJmethod(item.no,item.orderMoneyTotalreal,item.type)" type="danger" size="mini"  class="orderdafe-edit-btn">拒绝</el-button>
-                                    </div>
+                                    </div> -->
 
                                     <!-- <div class="orderdafe-edit" v-if="item.type == 1 && item.status == -1 ">
                                         <span style="color:#f56c6c">退款关闭</span>
                                     </div> -->
 
-                                    <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
+                                    <!-- <div class="orderdafe-edit" v-if="item.type == 3 && item.status ==1 && item.course == 1"> 
                                         <span>换货配送中</span>
                                     </div>
 
@@ -232,7 +215,7 @@
 
                                     <div class="orderdafe-edit" v-if="item.status == 3">
                                         退款完成
-                                    </div>
+                                    </div> -->
 
 
                                </div>
@@ -436,6 +419,9 @@ import {
   zm_jsonToString,
   zm_formDataToString
 } from "../../filters/zm_tools";
+import {
+        zm_getOrderCourse
+} from "../../filters/zm_data.js"
 
 export default {
       data() {
@@ -560,6 +546,9 @@ export default {
         this.addressjsonop = newArr;  
     },
     methods: {
+        zm_getOrderCourse(course){
+            return zm_getOrderCourse(course);
+        },
         selectUp(userid){
             let data = new FormData();
             let that = this;
@@ -1028,7 +1017,7 @@ export default {
     width: 26%;
 }
 .mhsafe-order_ul .mh-order_ul-two{
-    width: 10%;
+    width: 30%;
 }
 .mhsafe-order_ul .mh-order_ul-there{
     width: 14%;
@@ -1040,7 +1029,7 @@ export default {
     width: 10%;
 }
 .mhsafe-order_ul .mh-order_ul-sex{
-    width: 10%;
+    width: 17%;
 }
 .mhsafe-order_ul .mh-order_ul-seven{
     width: 10%;
@@ -1138,10 +1127,8 @@ export default {
 }
 
 .mhorder-table-bottomfu{
-    width: 40%;
+    width: 55%;
     border-right: 1px solid #eee;
-    /* display: flex; */
-    /* align-items: center; */
 }
 .mhorder-table-bottomfusafe{
     width: 100%;
@@ -1188,7 +1175,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width:10%;
+    width:15%;
     text-align: center;
     border-right: 1px solid #eee;
 }
@@ -1197,7 +1184,7 @@ export default {
     align-items: center;
     justify-content: center;
     border-right: 1px solid #eee;
-    width: 10%;
+    width: 15%;
     text-align: center
 }
 
@@ -1206,7 +1193,7 @@ export default {
     align-items: center;
     justify-content: center;
     border-right: 1px solid #eee;
-    width: 10%;
+    width: 15%;
     text-align: center;
         color: #409eff;
 }

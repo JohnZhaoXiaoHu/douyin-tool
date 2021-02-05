@@ -4,6 +4,7 @@ export {
 	test_dpIP,
 	//正式数据
 	zm_getOrderStatus,
+	zm_getOrderCourse,
 	zm_getOrderType,
 	zm_getOrderTypeList,
 	zm_getPayType,
@@ -54,6 +55,55 @@ function zm_getOrderType(status){
 		return '未知';
 	}
 }
+
+// function zm_getOrderStatusData(){
+// 	return  [{
+// 		value: '-4', label: '系统关闭'
+// 	}, {
+// 		value: '-3', label: '用户拒收'
+// 	}, {
+// 		value: '-2', label: '用户取消'
+// 	}, {
+// 		value: '-1', label: '未付款'
+// 	}, {
+// 		value: '0', label: '代发货'
+// 	}, {
+// 		value: '1', label: '配送中'
+// 	}, {
+// 		value: '2', label: '退款完成'
+// 	}, {
+// 		value: '3', label: '已收货'
+// 	}, {
+// 		value: '4', label: '正在付款'
+// 	}, {
+// 		value: '5', label: '正在取消'
+// 	}, {
+// 		value: '6', label: '取消审核'
+// 	}, {
+// 		value: '7', label: '已完成'
+// 	}, {
+// 		value: '8', label: '发起售后'
+// 	}];
+// }
+
+//--------------订单状态（新）--------------
+function zm_getOrderCourse(status){
+	if (status==-3) {        return '退货拒绝';
+	} else if (status==-2) { return '售后失败';
+	} else if (status==-1) { return '拒绝售后申请';
+	} else if (status==0) { return '其他';
+	} else if (status==1) { return '售后申请';
+	} else if (status==2) { return '退货中';
+	} else if (status==3) { return '已发货';
+	} else if (status==4) { return '用户已收货';
+	} else if (status==5) { return '确认退款';
+	} else if (status==6) { return '售后成功';
+	} else if (status==7) { return '商家已收货';
+	} else {
+		return '未知';
+	}
+}
+
 
 //--------------订单状态--------------
 function zm_getOrderType(){

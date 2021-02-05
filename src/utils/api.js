@@ -246,42 +246,9 @@ const sysbelNum   = NOROUTER +'/order/dict/type?t=28';//操作日志字典量
 const sysbelNum14 = NOROUTER +'/order/dict/type?t=14'; //地址详情
 const logList     = NOROUTER+'/log/operation/admin/list';
 const sysbelNum12 =  NOROUTER + '/order/dict/type?t=12';
-
-
-//创建活动（qg：抢购）
-const qg_createPanicbuy = '/shop' +'/panicbuy/createPanicbuy';
-//已 上架/下架
-const qg_upordown = '/shop' +'/panicbuy/upordown'; 
-const qg_doornot = '/shop' +'/panicbuy/doornot'; 
-const qg_nameAndTime = '/shop' +'/panicbuy/nameAndTime';//模糊查询
-const qg_thisrank   = '/shop' +'/panicbuy/thisrank';    //收益明细
-const qg_update     = '/shop' +'/panicbuy/update';      //编辑
-const qg_delete     = '/shop' +'/panicbuy/delete';      //删除
-const qg_soldout    = '/shop' +'/panicbuy/soldout';    //下架
-const qg_soldup     = '/shop' +'/panicbuy/soldup';     //上架
-const qg_updatemore = '/shop' +'/panicbuy/updatemore'; //批量下架
-const qg_deletemore = '/shop' +'/panicbuy/deletemore'; //批量删除
 const qg_TYset = '/shop' +'/panicbuy/TYset';      //统一设置
 const qg_TYsetHX = '/shop' +'/panicbuy/TYsetHX';  //统一设置回显
-const qg_TYsetUpdate = '/shop' +'/panicbuy/uniformSetting/update'; //统一设置修改（新）
-const qg_TYsetDelete = '/shop' +'/panicbuy/uniformSetting/delete'; //统一设置删除（新）
-const qg_TYsetInsert = '/shop' +'/panicbuy/uniformSetting/insert'; //统一设置添加（新）
-const qg_TYsetFindall= '/shop' +'/panicbuy/uniformSetting/findall';//统一设置回显（新）
-// //优惠券（cp：coupon）
-// const cp_list = '/order' +'/coupon/admin/list';        //列表
-// const cp_add = '/shop' +'/tPanicbuyConpon/add';        //添加优惠券
-// const cp_update = '/shop' +'/tPanicbuyConpon/update';  //修改优惠券
-// const cp_delete = '/shop' +'/tPanicbuyConpon/delete';  //删除优惠券
-// const cp_findall = '/shop' +'/tPanicbuyConpon/findall';//查询优惠券
-// const cp_open = '/shop' +'/tPanicbuyConpon/open';      //启用
-// const cp_close = '/shop' +'/tPanicbuyConpon/close';    //关闭
-// const cp_selectByTpcid= '/shop' +'/tPanicbuyConpon/selectByTpcid';  //根据优惠券id查询优惠券详情
-// //礼包 
-// const cp_addPackage = '/shop' +'/tPanicbuyConpon/addPackage';       //添加优惠券 礼包
-// const cp_deletePackage = '/shop' +'/tPanicbuyConpon/deletePackage'; //删除优惠券 礼包
-// const cp_updatePackage = '/shop' +'/tPanicbuyConpon/updatePackage'; //修改优惠券 礼包
-// const cp_findallPackage= '/shop' +'/tPanicbuyConpon/findallPackage';//查询优惠券 礼包
-// const cp_findpackagebyId= '/shop' +'/tPanicbuyConpon/findpackagebyId';//根据礼包id查询礼包详情
+
 
 //商品 （ cm：commodity ）
 const cm_skuInfos = '/shop' + "/sku/infos";                       //获取商品信息（商品列表）
@@ -337,10 +304,10 @@ const set_updateServiceMoney= '/user'+ "/setting/admin/update/";  //抽佣设置
 const bp_trackAdd   =  '/log'+'/track/add';   
 const bp_adminBasic  =  '/log'+'/track/admin/basic';   
 const bp_adminData  =  '/log'+'/track/admin/data';   
-// 微店（shopMin）
-const sm_vshopList =  '/user'+'/vshop/admin/list';          //微店列表  
-const sm_findApply =  '/user'+'/vshop/admin/findApply';     //查看申请
-const sm_closeOropen =  '/user'+'/vshop/admin/closeOropen'; //店铺开关按钮
+// // 微店（shopMin）
+// const sm_vshopList =  '/user'+'/vshop/admin/list';          //微店列表  
+// const sm_findApply =  '/user'+'/vshop/admin/findApply';     //查看申请
+// const sm_closeOropen =  '/user'+'/vshop/admin/closeOropen'; //店铺开关按钮
 // 供应商（supplier）
 const sp_add        =  '/user'+'/supplier/admin/add';     //添加
 const sp_update     =  '/user'+'/supplier/admin/update';  //修改
@@ -426,10 +393,6 @@ export default {
   sp_list: sp_list,
   sp_simplist: sp_simplist,
   sp_distribute, sp_distribute,
-  // 微店
-  sm_vshopList: sm_vshopList,
-  sm_findApply: sm_findApply,
-  sm_closeOropen: sm_closeOropen,
   // 运费模板
   ft_findAll:ft_findAll,
   ft_copy:ft_copy,
@@ -483,22 +446,22 @@ export default {
   cm_skuInfos:cm_skuInfos,
   cm_selectBySpus:cm_selectBySpus,
 
-  // 抢购
-  qg_TYsetUpdate:qg_TYsetUpdate,
-  qg_TYsetDelete:qg_TYsetDelete,
-  qg_TYsetInsert:qg_TYsetInsert,
-  qg_TYsetFindall:qg_TYsetFindall,
-  qg_nameAndTime:qg_nameAndTime,
-  qg_upordown:qg_upordown,
-  qg_doornot:qg_doornot,
-  qg_createPanicbuy:qg_createPanicbuy,
-  qg_thisrank:qg_thisrank,
-  qg_update:qg_update,
-  qg_delete:qg_delete,
-  qg_soldout:qg_soldout,
-  qg_soldup:qg_soldup,
-  qg_updatemore:qg_updatemore,
-  qg_deletemore:qg_deletemore,
+  // // 抢购
+  // qg_TYsetUpdate:qg_TYsetUpdate,
+  // qg_TYsetDelete:qg_TYsetDelete,
+  // qg_TYsetInsert:qg_TYsetInsert,
+  // qg_TYsetFindall:qg_TYsetFindall,
+  // qg_nameAndTime:qg_nameAndTime,
+  // qg_upordown:qg_upordown,
+  // qg_doornot:qg_doornot,
+  // qg_createPanicbuy:qg_createPanicbuy,
+  // qg_thisrank:qg_thisrank,
+  // qg_update:qg_update,
+  // qg_delete:qg_delete,
+  // qg_soldout:qg_soldout,
+  // qg_soldup:qg_soldup,
+  // qg_updatemore:qg_updatemore,
+  // qg_deletemore:qg_deletemore,
   selectUp:selectUp,
   financetradeNo:financetradeNo,
   allZhi:allZhi,

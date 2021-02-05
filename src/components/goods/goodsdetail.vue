@@ -58,19 +58,18 @@
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="shareName"/>
                           </div>
 
-                            <!-- 封面图必填 -->
+                            <!-- 商品图图必填 -->
                           <div class="df-basic_row el-form-item xxxx is-required" >
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">封面图：</label>
+                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
                             <div style="width: 80%" class="oooo" >
                                 <img :src="goodsfenimg" alt="" v-if="goodsfenimg!=''" class="oooo_img" >
-                          
                                 <div class="mh-goods-resimg"  @click="fenhgmiantu"> 
                                 <i   class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
                               </div>                  
                           </div>
                           <!-- 商品图： -->
-                          <div class="df-basic_row el-form-item xxxx is-required" >
+                          <!-- <div class="df-basic_row el-form-item xxxx is-required" >
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
                             <div style="width: 80%" class="oooo" >
                                 <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of sonurl" :key="indeximg"> 
@@ -82,7 +81,9 @@
                                 <i  class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
                               </div>                  
-                            </div>
+                          </div> -->
+
+
                           </div>
 
 
@@ -108,11 +109,11 @@
                             </div>
                           </div>
 
-                          <div class="df-basic_row el-form-item">
+                          <div class="df-basic_row el-form-item is-required">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品卖点：</label>
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="maidian" style="flex:1"/>
                           </div>
-                          <br><br><br>
+                          <br><br><br><br><br><br>
 
                         </div>
                       </el-collapse-transition>
@@ -165,18 +166,6 @@
                           <div class="tips el-col el-col-24 df-tps-zi">商品没有优惠的情况下，划线价在商品详情会以划线形式显示</div>
                         </div>
                       </div>
-
-                      <!-- <div class="df-basic_row_new el-form-item is-required">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">库存：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex;align-items: center;">
-                            <el-input placeholder="请输入库存" v-model="inventoryTotal"  :disabled="xuanzeshuxi" type='number'>
-                            </el-input>
-                            <input type="text" autocomplete="off"  placeholder="件" class="el-input__inner df-kucun-jian"
-                              v-model="kucundan"/>
-                          </div>
-                        </div>
-                      </div> -->
 
                       <div class="df-basic_row_new el-form-item">
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">重量：</label>
@@ -744,10 +733,12 @@ export default {
 
               //----------item1：基本信息---------
                //封面、商品图、分享描述备注-备注
-              if(gData.description != ''&& gData.description != undefined && gData.description != null){
-                that.goodsfenimg = gData.description;
-                that.itemimg     = gData.description; //pic 
+              if(gData.pic != ''&& gData.pic != undefined && gData.pic != null){
+                that.goodsfenimg = gData.pic;
+                that.itemimg     = gData.pic; //pic 
               }
+
+              that.description     = gData.description;
               that.name      = gData.name; 
               that.shareName = gData.remark; 
               that.catevalue = gData.productType;
@@ -1106,7 +1097,7 @@ export default {
         if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
             data.append("imageUrl", that.goodsfenimg);
         }else{
-            this.$message.error('商品封面图必传');
+            this.$message.error('商品图必传');
             return false;
         }
 

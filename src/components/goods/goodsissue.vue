@@ -122,41 +122,25 @@
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="name" />
                           </div>
 
-                          <div class="df-basic_row el-form-item">
+                          <div class="df-basic_row el-form-item is-required">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">分享描述：</label>
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="description"/>
                           </div>
 
 
-                          <!-- 封面图必填 -->
+                          <!-- 商品图必填 -->
                           <div class="df-basic_row el-form-item xxxx is-required" >
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">封面图：</label>
+                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
                             <div style="width: 80%" class="oooo" >
                                 <img :src="goodsfenimg" alt="" v-if="goodsfenimg!=''" class="oooo_img" >
-                          
                                 <div class="mh-goods-resimg"  @click="fenhgmiantu"> 
-                                <i   class="el-icon-plus mh-goods-resimg-i"></i>
+                                  <i class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
-
-                                 <!-- <el-upload action="https://api.mihuanshop.com/live/base/file/single/upload " list-type="picture-card"
-                                  :on-preview="handlePictureCardPreview1"
-                                  :multiple="bgImg_elUpload_multipleImg1" 
-                                  :file-list='bgImg_elUpload_imgFileList1' 
-                                  :on-change="emc_fileChange1" 
-                                  :on-remove="handleRemove1">
-                                  <i class="el-icon-plus"></i>
-                                </el-upload>
-                                <el-dialog :visible.sync="dialogVisible1">
-                                  <img width="100%" :src="dialogImageUrl1" alt="">
-                                </el-dialog> -->
-
                               </div>   
                           </div>
                        
 
-
-
-                          <div class="df-basic_row el-form-item xxxx is-required" >
+                          <!-- <div class="df-basic_row el-form-item xxxx is-required" >
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
                             <div style="width: 80%" class="oooo" >
                                 <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of sonurl" :key="indeximg"> 
@@ -168,7 +152,7 @@
                                   <i  class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
                             </div>
-                          </div>
+                          </div> -->
 
                         </div>
 
@@ -179,18 +163,16 @@
                             </div>
                         </div>
                         <el-collapse-transition>
-                        <div v-show="show4">
+                        <div v-show="show4" class="el-form-item xxxx is-require">
                             <div class="df-basic_row el-form-item pppp">
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品分类：</label>
+                            <label for="item_title" class="el-form-item__label is-required" style="width: 150px;">商品分类：</label>
                             <div class="block" style="width:500px">
                               <el-select v-model="catevalue" placeholder="请选择">
                                 <el-option v-for="item in shopcategory"
-                                  :key="item.id"
-                                  :label="item.name"
+                                  :key="item.id" :label="item.name"
                                   :value="item.id">
                                 </el-option>
                               </el-select>
-
 
                                 <!-- <el-select style="width:400px" multiple filterable allow-create default-first-option
                                   v-model="catevalue"
@@ -204,50 +186,16 @@
                             </div>
                           </div>
 
-                          <!-- <div class="df-basic_row el-form-item" style="margin-bottom: 36px">
-                        
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品分组：</label>
-                            <div class="block" style="width:500px">
-                                <el-select
-                                  style="width:400px"
-                                  v-model="shopgrounpvalue"
-                                  multiple
-                                  filterable
-                                  allow-create
-                                  default-first-option
-                                  placeholder="请选择商品分组">
-                                  <el-option
-                                    v-for="item in shopgrounpnote"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
-                                  </el-option>
-                                </el-select>
-
-
-
-                              <button style="margin-left:18px;"
-                                type="button"
-                                class="el-button el-button--text el-button--small mhbtn-a_link"            
-                              >
-                              <router-link tag="a" to="/goods/goodsgroup/addgoodsgroup" >      
-                                <span>新建分组</span>
-                              </router-link>
-                              </button>
-                            </div>
-
-                          </div> -->
-
-
-
-                          <div class="df-basic_row el-form-item">
+                          <div class="df-basic_row el-form-item is-required">
                             <label for="item_title" class="el-form-item__label" style="width: 150px;">商品卖点：</label>
                             <input type="text" autocomplete="off" class="el-input__inner" v-model="maidian" style="flex:1"/>
                           </div>
 
-                         
+                          <br><br><br>
 
                         </div>
+                        <br><br><br>
+
                       </el-collapse-transition>
                     </div>
                   
@@ -256,18 +204,15 @@
                     <div class="df-kucun">
                      
 
-                      <div class="df-basic_row el-form-item">
+                      <div class="df-basic_row el-form-item is-required">
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">商品规格：</label>
                         <div style="width: 88%">
                           <div v-if="isshowgglist">
-
                               <test ref="refgui" :mhqdaoflag="mhqdaoflagsTATUS"  :protableData="tableDataone"  :prospecArr="specArrtwo" :proallData="thereallData"></test>
-            
                             </div>
                             <button v-if="addgoodsisshow" @click="goodsguilist" type="button" class="el-button el-button--default el-button--mini" >
                             <span>添加规格项目</span>
                           </button> 
-                          <!--  -->
                         </div>
                       </div>
 
@@ -279,24 +224,6 @@
                                 <template slot="prepend">￥</template>
                               </el-input>
                             </div>
-                            <!-- 会员价格弹出等级设置 -->
-                            <!-- <button @click="vippopup" v-show="isgoodsdengji"
-                              type="button"
-                              class="el-button el-button--primary el-button--mini"
-                              style="margin-left: 10px; height: 32px;"
-                            >
-                              <span>会员价格</span>
-                            </button> -->
-                            <!-- 渠道商价格弹出等级设置 -->
-                            <!-- <button  @click="qdspopup"  v-show="jinebiliefanyong"
-                            type="button"
-                            class="el-button el-button--primary el-button--mini"
-                            style="margin-left: 10px; height: 32px;"
-                          >
-                            <span>渠道商价格</span>
-                          </button> -->
-
-
                           </div>
                       </div>
                       
@@ -314,339 +241,44 @@
                       <div class="df-basic_row_new el-form-item is-required">
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">库存：</label>
                         <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex;align-items: center;">
+                          <div class="el-input el-input--small" style="width: 35%; display: flex;align-items: center;">
                             <el-input placeholder="请输入库存" v-model="stockNum"  :disabled="xuanzeshuxi" type='number'>
                             </el-input>
-                            <input
-                              type="text"
-                              autocomplete="off"
-                              placeholder="件"
+                            <input type="text" autocomplete="off" placeholder="件"
                               class="el-input__inner df-kucun-jian"
-                              v-model="kucundan" 
-                            />
+                              v-model="kucundan" />
                           </div>
                         </div>
                       </div>
 
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">基础销量:</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <input type="number" autocomplete="off" class="el-input__inner" v-model="baseSalesVolume" />
-                      
-                          </div>
-                        
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
+                      <div class="df-basic_row_new el-form-item is-required">
                         <label for="item_title" class="el-form-item__label" style="width: 150px;">重量：</label>
                         <div class="el-form-item__content" style="margin-left: 150px">
                           <div class="el-input el-input--small" style="width: 25%;display: flex">
                             <input type="number" autocomplete="off" class="el-input__inner" v-model="weight" />
                       
                           </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">千克(最多两位小数)</div>
+                          <div class="tips el-col el-col-24 df-tps-zi">克</div>
                         </div>
                       </div>
-
-                      <!-- <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">会员折扣：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <el-checkbox v-model="isMemberDiscount" @change="isMemberDiscounth">参加会员折扣</el-checkbox>
-                          </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">是否勾选不影响自定义会员价生效</div>
-                        </div>
-                      </div> -->
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label
-                          for="item_title"
-                          class="el-form-item__label"
-                          style="width: 150px;"
-                        >会员购买虚拟库存：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <div>
-                              <el-radio v-model="vipxuniku" label="1">是</el-radio>
-                              <el-radio v-model="vipxuniku" label="0">否</el-radio>
-                            </div>
-                          </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">开启后，会员允许购买虚拟库存</div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">虚拟库存起购数：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <input type="number" autocomplete="off" class="el-input__inner" v-model="xunigou"/>
-                          </div>
-                        </div>
-                      </div>
-
-                       <div class="mh-goodsgf-more"  @click="show33 = !show33">  
+                      <br><br><br>
+        
+                       <!-- <div class="mh-goodsgf-more"  @click="show33 = !show33">  
                           <span>更多设置</span>
                           <i :class="{'el-collapse-item__arrow':true,'el-icon-arrow-right':true,'is-active':show33}"></i>
-                        </div>
+                        </div> -->
 
 
                       <el-collapse-transition>
                         <div v-show="show33">
-                            <div class="df-basic_row_new el-form-item">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">商品编码：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                  <input type="text" autocomplete="off"  v-model="goodscode" class="el-input__inner" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="df-basic_row_new el-form-item">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">成本价：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                  <el-input placeholder="请输入内容" v-model="chengmoney" :disabled="xuanzeshuxi" type="number">
-                                    <template slot="prepend">￥</template>
-                                  </el-input>
-                                </div>
-                                <div class="tips el-col el-col-24 df-tps-zi">用于按照利润计算佣金</div>
-                              </div>
-                            </div>
-
-                      
-                            <!-- <div class="df-basic_row_new el-form-item">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">供应商：：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                  <el-select v-model="gysvalue" placeholder="请选择供应商">
-                                    <el-option
-                                      v-for="item in gys"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value"
-                                    ></el-option>
-                                  </el-select>
-                                </div>
-                              </div>
-                            </div> -->
-
-                            <!-- <div class="df-basic_row_new el-form-item">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">供货价：：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                  <el-input placeholder="请输入供货价" v-model="gonghuomoney" :disabled="xuanzeshuxi" type="number">
-                                    <template slot="prepend">￥</template>
-                                  </el-input>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="df-basic_row_new el-form-item">
-                              <label for="item_title" class="el-form-item__label" style="width: 150px;">分销价：：</label>
-                              <div class="el-form-item__content" style="margin-left: 150px">
-                                <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                  <el-input placeholder="请输入供货价" v-model="ptMoney" :disabled="xuanzeshuxi" type="number">
-                                    <template slot="prepend">￥</template>
-                                  </el-input>
-                                </div>
-                              </div>
-                            </div> -->
-
-
-                            </div>
+                           
+                        </div>
                       </el-collapse-transition>       
                     </div>
 
                   </el-tab-pane>
-                  <el-tab-pane label="其他信息" name="third">
-                    <div class="gf-qita">
-                      
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">商品评价：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;display: flex">
-                            <el-checkbox v-model="isshowComment" @change="clickpingjiame">商品详情不展示评价</el-checkbox>
-                          </div>
-                          <div class="tips el-col el-col-24 df-tps-zi">勾选后商品详情页面不展示评价信息</div>
-                        </div>
-                      </div>
 
-                      
-                      <div class="df-basic_row_new el-form-item">
-                         <label for="item_title" class="el-form-item__label" style="width: 142px;">是否支持7天无理由:</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 50%;">
-                            <el-radio v-model="wuliyouValue" label="1">是</el-radio>
-                            <el-radio v-model="wuliyouValue" label="0" >否</el-radio>
-                          
-                          </div>
-                        </div>
-                      </div>
-                         
-
-                      <div class="df-basic_row_new el-form-item" v-if="iskuaidishow">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">快递运费：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 70%;display: flex">
-                            <div>
-                              <div class="gf-kuaidi" style="display:flex;align-items: center;margin-bottom:15px;height: 40px;">
-                                <el-radio v-model="yiyoufei" label="1"  @change="goodsissueyfmethod">统一邮费</el-radio>
-                                <el-input placeholder="请输入内容" v-model="youfeivalue" v-if="isyfmoban">
-                                  <template slot="prepend">￥</template>
-                                </el-input>
-                              </div>
-                              <!-- 运费模板暂时没隐藏 -->
-                              <div class="gf-kuaidi" style="display:flex;align-items: center;margin-bottom:15px;height: 40px;">
-                                <el-radio v-model="yiyoufei" label="2"  @change="goodsissueyfmethod">运费模板</el-radio>
-                                <!-- <el-input type="button" v-model="ft_name" @click="ft_tableDialogVisibleClick" placeholder="请选择运费模板" > </el-input> -->
-                                <el-button v-if="isyfmoban1" class="ft_name" icon="el-icon-d-caret" size="small" plain  @click="ft_tableDialogVisibleClick()"> 
-                                    {{ft_name}}
-                                </el-button>
-                                
-                      
-                              </div>
-    
-                              <div >
-                                <el-radio v-model="yiyoufei" label="3"  @change="goodsissueyfmethod">仅自提/同城配送</el-radio>
-                              </div>
-
-                            </div>
-                          </div>
-                        
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item" v-if="iskuaidishowtwo">
-                          <label for="item_title" class="el-form-item__label" style="width: 150px;">快递运费：</label>
-                          <div class="el-form-item__content" style="margin-left: 150px">
-                              <el-radio v-model="radio" label="1">手动发货</el-radio>
-                              <el-radio v-model="radio" label="2">自动发货</el-radio>
-                              <el-radio v-model="radio" label="2">自动发货并交易完成</el-radio>
-                          </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">上架时间：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small">
-                            <div class="mh-goods-time_radius">
-                              <el-radio v-model="shangjiatime" @change="uptimemethod" label="1">立即上架售卖</el-radio>
-                            </div>
-                            <div class="gf_time mh-goods-time_radius">
-                              <el-radio v-model="shangjiatime"  @change="uptimemethod" label="2">自定义购买时间</el-radio>
-                              <div class="block" v-show="isshowuptime">
-                                <el-date-picker
-                                  v-model="upsahngjiatime"
-                                  value-format="timestamp"
-                                  type="datetimerange"
-                                  range-separator="至"
-                                  start-placeholder="开始日期"
-                                  end-placeholder="结束日期"
-                                  @change="hauhau"
-                                ></el-date-picker>
-                              </div>
-                            </div>
-                            <div class="mh-goods-time_radius">
-                              <el-radio v-model="shangjiatime"  @change="uptimemethod" label="3">暂不售卖, 放入仓库</el-radio>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="df-basic_row_new el-form-item">
-                        <label for="item_title" class="el-form-item__label" style="width: 150px;">预购：</label>
-                        <div class="el-form-item__content" style="margin-left: 150px">
-                          <div class="el-input el-input--small" style="width: 25%;">
-                            <div>
-                              <el-switch v-model="yugou" active-color="#409EFF" inactive-color="#f8f8f8" @change="yugoudata"></el-switch>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <el-collapse-transition>
-                      <div  v-show="show12">
-                              <div class="df-basic_row_new el-form-item">
-                                <label for="item_title" class="el-form-item__label" style="width: 150px;">定金：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                    <el-input placeholder="请输入内容" v-model="yugouvalue1" type="number">
-                                      <template slot="prepend">￥</template>
-                                    </el-input>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="df-basic_row_new el-form-item">
-                                <label for="item_title" class="el-form-item__label" style="width: 150px;">定金抵扣金额：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                    <el-input placeholder="请输入内容" v-model="yugouvalue2" type="number">
-                                      <template slot="prepend">￥</template>
-                                    </el-input>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="df-basic_row_new el-form-item">
-                                <label
-                                  for="item_title"
-                                  class="el-form-item__label"
-                                  style="width: 150px;"
-                                >预售定金结束时间：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                    <div class="block">
-                                      <el-date-picker v-model="yugouvalue3" type="datetime" placeholder="选择日期时间"></el-date-picker>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="df-basic_row_new el-form-item">
-                                <label
-                                  for="item_title"
-                                  class="el-form-item__label"
-                                  style="width: 150px;"
-                                >支付尾款结束时间：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                    <div class="block">
-                                      <el-date-picker v-model="yugouvalue4" type="datetime" placeholder="选择日期时间"></el-date-picker>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="df-basic_row_new el-form-item">
-                                <label for="item_title" class="el-form-item__label" style="width: 150px;">预计发货时间：</label>
-                                <div class="el-form-item__content" style="margin-left: 150px">
-                                  <div class="el-input el-input--small" style="width: 25%;display: flex">
-                                    <div class="block">
-                                      <el-date-picker v-model="yugouvalue5" type="datetime" placeholder="选择日期时间"></el-date-picker>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              </div>
-                        </el-collapse-transition>
-                        <!-- <div class="mh-goodsgf-more"  @click="show5 = !show5">  
-                              <span>更多设置</span>
-                              <i :class="{'el-collapse-item__arrow':true,'el-icon-arrow-right':true,'is-active':show5}"></i>
-                        </div> -->
-
-                        <div class="gf-qita-more">
-                          <el-collapse-transition>
-                          <div v-show="show5">
-
-                        </div>
-                        </el-collapse-transition>
-                      </div>
-                    </div>
-                  </el-tab-pane>
-
+                  
 
               </el-tabs>      
 
@@ -655,9 +287,9 @@
                 <button @click="baocunreqgoods" type="button" class="el-button el-button--primary el-button--small">
                   <span>保存</span>
                 </button>
-                <button  @click="baocunreq" type="button" class="el-button el-button--default el-button--small" >
+                <!-- <button  @click="baocunreq" type="button" class="el-button el-button--default el-button--small" >
                   <span>下一步</span>
-                </button>
+                </button> -->
               </div>
               <!-- 发布商品中心 -->
             </div>
@@ -692,34 +324,6 @@
                       <el-button type="primary" @click="qudaoarrmethod">确 定</el-button>
                   </span>
           </el-dialog>
-           <!-- sku会员价格 -->
-          <!-- <el-dialog title="会员价格" :visible.sync="vippricedialogFormVisible" width="25%">
-                  <div class="mh-resoure-grounp mh-goodsfabutan"   v-for="(vipitem,vipitemindex) of skusvipdengjiid" :key="vipitemindex">
-                      <span class="mh-resoure-grounp_onespan mh-goodsfabutan_span" >{{vipitem.name}}:</span>
-                      <div class="block" style="margin:0 15px">
-                          <el-input v-model="vipitem.skupriceindex" placeholder="" type="number"></el-input>                     
-                      </div>
-                      <span class="mh-resoure-grounp_onespan">元</span>
-                 </div>
-                  <span slot="footer" class="dialog-footer">
-                      <el-button @click="vippricedialogFormVisible = false">取 消</el-button>
-                      <el-button type="primary" @click="okskuprice">确 定</el-button>
-                  </span>
-          </el-dialog> -->
-
-          <!-- <el-dialog title="渠道商价格" :visible.sync="shpricedialogFormVisible" width="25%">
-                   <div class="mh-resoure-grounp mh-goodsfabutan"  v-for="(item,index) in skuqudaoprice" :key="index" data-id="item.grade">      
-                        <span class="mh-resoure-grounp_onespan mh-goodsfabutan_span"  >{{item.nickName}}</span>
-                        <div class="block" style="margin:0 15px">
-                            <el-input v-model="item.thisqdaoskuid" placeholder=""></el-input>                     
-                        </div>
-                        <span class="mh-resoure-grounp_onespan">元</span>
-                  </div>      
-                   <span slot="footer" class="dialog-footer">
-                        <el-button @click="shpricedialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="okskuqudaoMethod">确 定</el-button>
-                    </span>
-           </el-dialog> -->
 
            <!-- 弹框： 模板列表-->
                     <el-dialog title="模板列表" :visible.sync="ft_tableDialogVisible" width="700px">
@@ -734,9 +338,6 @@
                         </div>
                     </el-dialog>
 
-
-
-  
           <!-- 商品中心over-->
         </div>
       </div>
@@ -1457,7 +1058,7 @@ export default {
       goodsguilist(){
           this.isshowgglist = true;
           this.addgoodsisshow = false;
-          this.xuanzeshuxi=true;
+          // this.xuanzeshuxi=true;
           this.jinebiliefanyong = false;
           this.isgoodsdengji = false;
       },
@@ -1558,11 +1159,13 @@ export default {
           data.append("recommendRemark", that.maidian);
       }
       data.append("remark", '备注'); // 商家可见备注
+      data.append("description", that.description); 
 
-        //分享描述（description） 详情
-        if(that.goodsfenimg != ''){
-            data.append("description", that.goodsfenimg); 
-        }
+
+        // //分享描述（description） 详情
+        // if(that.goodsfenimg != ''){
+        //     data.append("description", that.goodsfenimg); 
+        // }
 
         //封面图（商品主图 最多5张）
         if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
@@ -2047,15 +1650,15 @@ export default {
             that.$message.success("发布成功"); 
             // let sonDatail = res.data.itemId; //res.data.item.id;
 
-            // if(parameter != 1){
-            //     that.$router.push({
-            //       path: '/goodsedit/'+sonDatail
-            //   })
-            // }else{
-            //     that.$router.push({
-            //       path: '/goodslist'
-            //   })
-            // }
+            if(parameter != 1){
+                that.$router.push({
+                  path: '/goodsedit/'+sonDatail
+              })
+            }else{
+                that.$router.push({
+                  path: '/goodslist'
+              })
+            }
           }else{
             that.$message("发布失败," + res.data.message);
           }

@@ -78,50 +78,17 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <!-- <el-table-column prop="inventoryTotal" width="80" label="库存" align="center">
-                                <template slot-scope="scope">
-                                    <div class="goods-table">
-                                        <span>{{scope.row.inventoryTotal}}</span>
-                                         <i class="el-icon-edit" style="cursor: pointer;" @click="editkucun(scope.row.id,scope.$index)"></i> 
-                                    </div>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column prop="saleNum" width="120" label="总销量" show-overflow-tooltip>
-                                 <template slot-scope="scope">
-                                    <div class="">
-                                        <div> 供应商销量: {{scope.row.saleSupplierNum}} </div>
-                                        <div> 平台销量: {{scope.row.salePlatformNum}}  </div>
-                                    </div>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column prop="supplierName" label="供应商" width="120" align="center" show-overflow-tooltip>
-                            </el-table-column> -->
+
                             
                             <el-table-column prop="createTime" min-width="135" label="创建时间" align="center"
                                     :formatter="dateFormat" show-overflow-tooltip>
                             </el-table-column>
-                            <!-- <el-table-column prop="createSuserName" label="创建人/审核人" width="100" show-overflow-tooltip>
-                                <template slot-scope="scope">
-                                    <div class="goods-table">
-                                        <span>{{scope.row.createSuserName}} </span>
-                                        <span v-if="scope.row.checkSuserName != null"> / </span>
-                                        <span> {{scope.row.checkSuserName}}</span>
-                                    </div>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column  prop="sort" label="排序" align="center">
-                                <template slot-scope="scope">
-                                    <div class="goods-table">
-                                        <span>{{scope.row.sort}}</span>
-                                        <i class="el-icon-edit" style="cursor: pointer;" @click="sortgoodspricetan(scope.row.id,scope.row.sort)"></i>
-                                    </div>
-                                </template>
-                            </el-table-column> -->
+   
                             <el-table-column prop="handle" label="操作" min-width="150" align="center">
                                 <template slot-scope="scope">
                                     <div style="display: flex;">
                                         <div align="center" style="width: 60px;">
-                                            <el-button style="margin-left: 5px;" type="text" size="small" @click="editgoodspage(scope.row.id)">编辑商品</el-button>
+                                            <el-button style="margin-left: 5px;" type="text" size="small" @click="editgoodspage(scope.row.id)">商品详情</el-button>
                                             <el-button v-if="activeName=='five'" type="text" size="small" @click="auditgoods(scope.row.id)">审核发布</el-button>
                                         </div>
                                         <div align="center">  
@@ -139,8 +106,8 @@
                             <!-- <button type="button" class="el-button el-button--default el-button--small"><span>全选</span></button> -->
                             <!-- <button type="button" class="el-button el-button--default el-button--small"><span>取消全选</span></button> -->
                             <!-- <button type="button" @click="editgoodsGrounp" class="el-button el-button--default el-button--small"><span>改分组</span></button> -->
-                            <button type="button" @click="editcategoryevent"  class="el-button el-button--default el-button--small"><span>改分类</span></button>
-                            <button type="button"  @click="editUpissue" class="el-button el-button--default el-button--small"><span>下架</span></button>
+                            <!-- <button type="button" @click="editcategoryevent"  class="el-button el-button--default el-button--small"><span>改分类</span></button>
+                            <button type="button"  @click="editUpissue" class="el-button el-button--default el-button--small"><span>下架</span></button> -->
                             <!-- <button type="button" class="el-button el-button--default el-button--small"><span>删除</span></button> -->
                             <!-- <button type="button" class="el-button el-button--default el-button--small"><span>更多</span></button> -->
                         </div>

@@ -50,18 +50,16 @@
                                 </div>
                             </div>
     
-                            <!--两行-->
+                            <!--3行-->
                             <div class="m-search-box el-row el-row-my-div">
                                 <div class="vip-item-list_time mh-order mihuanorder-time mh-shoporderlist-xx" style="width: 500px !important">
-                                    
-                                    <el-select v-model="value10" placeholder="下单时间">
-                                        <el-option v-for="item in placeordertime" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                    <div>
-                                        <el-date-picker v-model="value11" value-format="timestamp" @change="huahua" type="datetimerange" 
-                                            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 380px !important" >
-                                        </el-date-picker>
+                                
+                                     <div style="display: flex;">
+                                        <label class="el-form-item__label" style="width: 130px;">订单状态：</label>
+                                        <el-select v-model="orderStatus" placeholder="全部">
+                                            <el-option v-for="item in ordertypeList" :key="item.value" :label="item.label" :value="item.value">
+                                            </el-option>
+                                        </el-select>
                                     </div>
 
                                     <div style="display: flex;">
@@ -76,20 +74,27 @@
 
                                 </div>
                             </div>
+
+                            <!--两行-->
+                            <div class="m-search-box el-row el-row-my-div">
+                                <div class="vip-item-list_time mh-order mihuanorder-time mh-shoporderlist-xx" style="width: 500px !important">
+                                    
+                                    <el-select v-model="value10" placeholder="下单时间">
+                                        <el-option v-for="item in placeordertime" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                    <div>
+                                        <el-date-picker v-model="value11" value-format="timestamp" @change="huahua" type="datetimerange" 
+                                            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 380px !important" >
+                                        </el-date-picker>
+                                    </div>
+
+                                </div>
+                            </div>
             
                             <!---->
                         </div>
                         <!-- 导出 -->
-                        <div class="mh-shop-daochucontent-div">
-                            <div>
-                                <span class="mh-shop-daochucontent">导出内容:</span>
-                                <button @click="showxia3 = !showxia3" type="button" class="el-button el-button--success el-button--small">
-                                    <span>选择导出内容<i data-v-29e4f52e="" class="el-icon-caret-bottom el-icon--right"></i>
-                                    </span>
-                                </button>
-                                <button type="button" class="el-button el-button--warning el-button--small" @click="orderexportMeth"><span>导出</span> </button> 
-                            </div>
-                        </div> 
                         <el-collapse-transition>
                         <div class="mh-shop-daochucontent-divcheckbox" v-show="showxia3">
                             <el-checkbox-group v-model="checkedCities"  @change="handleCheckedCitiesChange">
@@ -100,8 +105,6 @@
                                 <el-button type="success" size="mini" v-model="checkAll" @click="newQuanXuan">全选</el-button>
                                 <el-button type="success" size="mini" v-model="checkAll" @click="newQuanNoXuan">全不选</el-button>
                             </div>
-
-                      
                         </div>
                         </el-collapse-transition>
 
@@ -110,8 +113,13 @@
                                     <span>筛选</span>
                                 </el-button>
 
-                            <button @click="okhexiao" type="button" class="el-button el-button--text"><!---->
-                                <!----><span>清空筛选条件</span></button>
+                            <button @click="okhexiao" type="button" class="el-button el-button--text">
+                            <span>清空筛选条件</span></button>
+
+                            <button type="button" class="el-button el-button--warning el-button--small" @click="orderexportMeth">
+                                <span>导出</span> 
+                            </button> 
+
                         </div>
                         <!-- 导出over -->
     
@@ -122,13 +130,11 @@
                                 <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
-                                    <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
 
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -142,23 +148,6 @@
                                                     <dt>订单号 :&nbsp; </dt>
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
-    
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -177,9 +166,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.supplierId, item.no, item.receiverName)">查看详情</dt>
-                                                <!-- </router-link > -->
-                                                <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.supplierId, item.no, item.receiverName)">查看详情</dt> -->                                                <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
                                         <div class="playmnewliu" v-if=" item.tradeNo != undefined && item.tradeNo != null && item.tradeNo!= '' ? item.tradeNo : '' "> 支付流水号 : {{item.tradeNo}} </div>
@@ -205,8 +192,10 @@
                                                         </dl>
                                                     </div>
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
+
+                                                        
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -224,6 +213,8 @@
                                                         <span v-if="item.status == 6">取消审核</span>
                                                         <span v-if="item.status == 7">已完成</span>
                                                         <span v-if="item.status == 8">发起售后</span>
+
+
                                                         <p v-if="item.status == 1 && itemgoods.status ==1" style=" display: flex;flex-direction: column;">            
                                                             <span>已发货</span>
                                                             <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
@@ -279,16 +270,16 @@
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
                                             <div class="newshoporder-tuiprice">
-                                                <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
+                                                <!-- <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}} -->
                                             </div>
                                     
 
                                             
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
 
                                             <!-- 操作状态开始 -->
@@ -300,7 +291,6 @@
 
                                             <div class="shoporder-edit" v-if="item.status == 10 && item.type == 10">   
                                                 <span class="mh-order-status">抢购中...</span>   
-                                                 <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>               
                                             </div>   
 
                                             <div class="shoporder-edit" v-if="item.status == 1" >
@@ -311,15 +301,10 @@
 
                                             <div class="shoporder-edit" v-if="item.status == 2">
                                                 <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" class="orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
 
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" class="orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -328,30 +313,11 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
         
-    
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-        
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
                                             <!-- 操作状态结束 -->
 
                                         </div>
@@ -371,13 +337,13 @@
                                 <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -391,22 +357,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -425,10 +375,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- @click="See('http://test.mihuanshop.com/MicroDistribution/PushGuest/ProductOrderDetail.html?get_userId='+item.userId+'&get_orderNo='+item.no+'&get_userNickName='+item.user.nickName)" -->
-                                                <!-- <router-link tag="a" to="/order/orderdetail">    -->
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
-                                                <!-- </router-link > -->
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -452,8 +399,8 @@
 
                                     
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -526,16 +473,16 @@
                                             <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> -->
                                         
                                             
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -553,15 +500,10 @@
 
                                             <div class="shoporder-edit" v-if="item.status == 2">
                                                 <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
 
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -570,28 +512,10 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
         
-                                           
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-        
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                            <!-- 操作状态结束 -->
 
                                         </div>
                                  
@@ -612,13 +536,13 @@
                                  <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -632,22 +556,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -666,10 +574,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- @click="See('http://test.mihuanshop.com/MicroDistribution/PushGuest/ProductOrderDetail.html?get_userId='+item.userId+'&get_orderNo='+item.no+'&get_userNickName='+item.user.nickName)" -->
-                                                <!-- <router-link tag="a" to="/order/orderdetail">    -->
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
-                                                <!-- </router-link > -->
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -695,8 +600,8 @@
                                                     </div>
 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -766,18 +671,12 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <!-- 运费 -->
-                                            <div class="newshoporder-tuiprice">
-                                                <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
-                                            
-
                                     
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -796,43 +695,24 @@
 
                                             <div class="shoporder-edit" v-if="item.status == 2">
                                                 <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
 
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
                                             </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-        
+
                                             <div class="shoporder-edit" v-if="item.status == -1">
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="cancelOrder(item.no,item.userId,-2)">取消订单</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-        
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
+    
         
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
                                                 <!-- <el-button type="primary" size="mini">评价</el-button> -->
-                                            </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
                                 
                                             <!-- 操作状态结束 -->
@@ -857,13 +737,13 @@
                                  <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -877,22 +757,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -910,7 +774,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -936,8 +800,8 @@
                                     
 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -1011,15 +875,15 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> -->
                                           
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -1035,17 +899,8 @@
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="okgetSgoods(item.no,item.userId,3)">确认收货</el-button>
                                             </div> 
 
-                                            <div class="shoporder-edit" v-if="item.status == 2">
-                                                <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -1053,31 +908,12 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
         
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
-                                            <!-- 操作状态结束 -->
-
                                         </div>
                                  
 
@@ -1098,13 +934,13 @@
                                  <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -1118,22 +954,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                    <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -1152,10 +972,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- @click="See('http://test.mihuanshop.com/MicroDistribution/PushGuest/ProductOrderDetail.html?get_userId='+item.userId+'&get_orderNo='+item.no+'&get_userNickName='+item.user.nickName)" -->
-                                                <!-- <router-link tag="a" to="/order/orderdetail">    -->
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
-                                                <!-- </router-link > -->
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -1179,8 +996,8 @@
                                     
 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -1253,16 +1070,16 @@
                                             <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> -->
                                             
                                            
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -1276,19 +1093,10 @@
                                                 <span class="mh-order-status">商家已发货</span>
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="orderFahuo(index,item.receiverAddress,item.receiverPhone,item.userId,item.no,item.detailList[0].skuId,2)">修改发货</el-button>
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="okgetSgoods(item.no,item.userId,3)">确认收货</el-button>
-                                            </div> 
-
-                                            <div class="shoporder-edit" v-if="item.status == 2">
-                                                <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
 
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -1296,31 +1104,12 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
         
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
-                                            <!-- 操作状态结束 -->
-
                                         </div>
                                  
 
@@ -1341,13 +1130,13 @@
                                  <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -1361,22 +1150,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                    <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -1391,14 +1164,10 @@
                                                 </dl>
     
                                                 <i v-if="item.source == 3" class="iconfont icon-xiaochengxu" style="color:rgb(121,217,59);margin-left:15px"></i>
-    
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- @click="See('http://test.mihuanshop.com/MicroDistribution/PushGuest/ProductOrderDetail.html?get_userId='+item.userId+'&get_orderNo='+item.no+'&get_userNickName='+item.user.nickName)" -->
-                                                <!-- <router-link tag="a" to="/order/orderdetail">    -->
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
-                                                <!-- </router-link > -->
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -1423,8 +1192,8 @@
                                     
 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -1442,6 +1211,7 @@
                                                         <span v-if="item.status == 6">取消审核</span>
                                                         <span v-if="item.status == 7">已完成</span>
                                                         <span v-if="item.status == 8">发起售后</span>
+
                                                         <p v-if="item.status == 1 && itemgoods.status ==1" style=" display: flex;flex-direction: column;">            
                                                             <span>已发货</span>
                                                             <el-popover placement="left" width="300" trigger="click" popper-class="mh-triclass">
@@ -1498,16 +1268,16 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> --> 
                                             
                                             
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -1522,17 +1292,8 @@
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="okgetSgoods(item.no,item.userId,3)">确认收货</el-button>
                                             </div> 
 
-                                            <div class="shoporder-edit" v-if="item.status == 2">
-                                                <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -1540,31 +1301,11 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-        
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
-                                            <!-- 操作状态结束 -->
-
                                         </div>
                                  
 
@@ -1581,12 +1322,12 @@
                                 <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -1600,22 +1341,6 @@
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
     
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                    <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -1634,10 +1359,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- @click="See('http://test.mihuanshop.com/MicroDistribution/PushGuest/ProductOrderDetail.html?get_userId='+item.userId+'&get_orderNo='+item.no+'&get_userNickName='+item.user.nickName)" -->
-                                                <!-- <router-link tag="a" to="/order/orderdetail">    -->
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
-                                                <!-- </router-link > -->
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -1662,8 +1384,8 @@
                                     
 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!-- <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span> -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -1736,16 +1458,16 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> -->
                                             
                                             
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -1759,19 +1481,10 @@
                                                 <span class="mh-order-status">商家已发货</span>
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="orderFahuo(index,item.receiverAddress,item.receiverPhone,item.userId,item.no,item.detailList[0].skuId,2)">修改发货</el-button>
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="okgetSgoods(item.no,item.userId,3)">确认收货</el-button>
-                                            </div> 
-
-                                            <div class="shoporder-edit" v-if="item.status == 2">
-                                                <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
 
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -1779,32 +1492,12 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-                                           
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
         
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
-                                            <!-- 操作状态结束 -->
-
                                         </div>
                                  
 
@@ -1823,13 +1516,13 @@
                                   <!--全部-->
                                 <ul class="mh-order_ul">
                                     <li class="mh-order_ul-one">商品</li>
-                                    <li class="mh-order_ul-two">单价/数量</li>
+                                    <li class="mh-order_ul-two">数量/店铺</li>
                                     <li class="mh-order_ul-eight">售后</li>
                                     <li class="mh-order_ul-there">收货人</li>
                                     <!-- <li class="mh-order_ul-four">买家信息</li> -->
                                     <li class="mh-order_ul-five">买家留言</li>
-                                    <li class="mh-order_ul-sex">运费</li>
-                                    <li class="mh-order_ul-seven">店铺</li>
+                                    <!-- <li class="mh-order_ul-sex">运费</li> -->
+                                     <!-- <li class="mh-order_ul-seven">店铺</li> -->
                                  
                                     <li class="mh-order_ul-night">操作</li>
                                 </ul>
@@ -1842,23 +1535,7 @@
                                                     <dt>订单号 :&nbsp; </dt>
                                                     <dd>{{item.no}}</dd>
                                                 </dl>
-    
-                                                <span class="shoporder-buy" v-if="item.payFrom == 1">支付宝</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 2">微信</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 3">余额</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 4">线下</span>
-                                                <span class="shoporder-buy" v-if="item.payFrom == 5">货到付款</span>
-    
-                                                <span class="shoporder-buypu" v-if="item.type == 1">直购订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 2">秒杀订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 3">限时折扣订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 4">拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 5">砍价订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 6">积分兑换订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 7">预售订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 8">超级拼团订单</span>
-                                                <span class="shoporder-buypu" v-if="item.type == 9">手动订单</span>
-                                                    <span class="shoporder-buypu" v-if="item.type == 10">抢购订单</span>
+
                                                 <dl v-if="item.payTime != null">
                                                     <dt>支付时间 :&nbsp; </dt>
                                                     <dd>{{item.payTime.time| formatDate}}</dd>
@@ -1877,7 +1554,7 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt>
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</dt> -->
                                                 <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
@@ -1902,8 +1579,8 @@
 
                                 
                                                     <div class="newshoporder-tabone-goodsdivtwo">
-                                                        <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>
-                                                        <span>{{ itemgoods.quantity}}</span>
+                                                        <!--  <span v-if="JSON.stringify(itemgoods.item) != '{}'"> ¥ {{parseFloat(itemgoods.item.price/100)}}</span>  -->
+                                                        <span>{{ itemgoods.quantity}}/ {{ itemgoods.shop.name}}</span>
                                                     </div>
 
                                                     <div class="newshoporder-tab_shopOne-t">
@@ -1977,16 +1654,16 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
-                                            </div>
+                                            </div> -->
                                            
                                             
                                             <!-- 店铺 -->
-                                            <div class="newshoporder-tuiprice">
+                                            <!-- <div class="newshoporder-tuiprice">
                                                 <span class="mh_order_info" v-if="item.vshopName">{{item.vshopName}}</span> 
                                                 <span class="mh_order_info" v-else></span>
-                                            </div>
+                                            </div> -->
 
                                             <!-- 操作状态开始 -->
                                             <div class="shoporder-edit" v-if="item.status == 0">   
@@ -2001,17 +1678,8 @@
                                                 <el-button type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="okgetSgoods(item.no,item.userId,3)">确认收货</el-button>
                                             </div> 
 
-                                            <div class="shoporder-edit" v-if="item.status == 2">
-                                                <span class="mh-order-status">退款完成</span>
-                                                <el-button type="primary" size="mini" class="orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
                                             <div class="shoporder-edit" v-if="item.status == -4">
                                                 <span style="color:#f56c6c">系统关闭</span>
-                                            </div>
-        
-                                            <div class="shoporder-edit" v-if="item.status == -2">
-                                                <el-button type="primary" size="mini" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
                                             </div>
         
                                             <div class="shoporder-edit" v-if="item.status == -1">
@@ -2019,29 +1687,12 @@
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="okPay(item.no,item.userId,0)">确认付款</el-button>
                                                 <el-button  type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="updatePrice(item.no,item.userId,item.moneyTotalReal,item.totalCount)">修改价格</el-button>
                                             </div>
-                                            <!-- 已收货 -->
-                                            <div class="shoporder-edit" v-if="item.status == 3"> 
-                                                <el-button type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-
-                                            <!-- 正在付款 -->
-                                            <div class="shoporder-edit" v-if="item.status == 4">
-                                                <!-- <el-button type="primary" size="mini" class="shoporder-edit-btn">发货</el-button>   -->
-                                                <el-button  type="primary" size="mini" class="shoporder-edit-btn orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
         
                                             <!-- 已完成 -->
                                             <div class="shoporder-edit" v-if="item.status == 7">
                                                 <span>订单已完成</span>
                                                 <!-- <el-button v-if="indexgoods == 0" type="danger" size="mini" disabled>删除</el-button> -->
-                                                <!-- <el-button type="primary" size="mini">评价</el-button> -->
                                             </div>
-                                            <!-- 发起维权 -->
-                                            <div class="shoporder-edit" v-if="item.status == 8">
-                                                <span class="mh-order-status">发起维权</span>
-                                                <el-button type="primary" size="mini"  class="orderBtn" @click="seeDetail(item.userId,item.no,item.user.nickName)">查看详情</el-button>
-                                            </div>
-                                
                                             <!-- 操作状态结束 -->
 
                                         </div>
@@ -2329,6 +1980,12 @@ import {
         zm_jsonToString,
         zm_formDataToString
 } from "../../filters/zm_tools.js"
+import {
+        zm_getOrderCourse,
+        zm_getOrderTypeList,
+        zm_getOrderType,
+} from "../../filters/zm_data.js"
+
 
 export default {
     data() {
@@ -2409,7 +2066,9 @@ export default {
             list: [],
 
             ordernovalue: '', //订单号
+            orderStatus: '',
             ordertype: '', //订单类型
+            ordertypeList: '',
             wuliutype: '', //物流方式
             kdnumber: '', //快递单号
             pybuy: '', //付款方式
@@ -2559,6 +2218,8 @@ export default {
         this.expressmethod();
         this.reqOrderNum(); // 查询订单各状态数量 
         // this.exportHui();
+
+        this.ordertypeList = zm_getOrderTypeList();
       
     },
     filters: {
@@ -2574,6 +2235,12 @@ export default {
         }
     },
     methods: {
+        zm_getOrderType(status){
+            return  zm_getOrderType(status);
+        },
+        zm_getOrderCourse(course){
+            return  zm_getOrderCourse(course);
+        },
         danShaiXuan(id,check){
             // if()
             // newArr.push(id);
@@ -2928,6 +2595,11 @@ export default {
             //状态
             data.append('sstatus', this.shuaixuanid);
             data.append('sno', this.inordernumber);
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("ssupplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("ssupplierId", '2');
+            }
 
             //checkbox 导出功能
             if(this.danShaiXuanarr.length != 0){
@@ -3246,11 +2918,10 @@ export default {
         // 刷新方法
         request_shuaixuanmethod(status, page, shaixuanstatus) {
 
-
             let params = new FormData();
             let that = this;
-            if (that.shuaixuanid != '') {
-                params.append('sstatus', that.shuaixuanid);
+            if (that.orderStatus != '') {
+                params.append('sstatus', that.orderStatus);
             } else {
                 params.append('sstatus', status);
             }
@@ -3836,7 +3507,7 @@ export default {
     text-align: center;
 }
 .newshoporder-tabone-f{
-    width:45%
+    width:65%
 }     
 .newshoporder-tabone-goods {
     width:100%;display:flex;justify-content: space-between; height:100px; 
