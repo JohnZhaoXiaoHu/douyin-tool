@@ -166,7 +166,8 @@
                                             </div>
     
                                             <dl class="lastdl">
-                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.supplierId, item.no, item.receiverName)">查看详情</dt> -->                                                <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
+                                                <!-- <dt class="lastdl-dt-detail" @click="seeDetail(item.supplierId, item.no, item.receiverName)">查看详情</dt> -->                                                
+                                                <dd class="lastdl-dt-detail" @click="beizhuorder(item.no,item.userId)">备注</dd>
                                             </dl>
                                         </div>
                                         <div class="playmnewliu" v-if=" item.tradeNo != undefined && item.tradeNo != null && item.tradeNo!= '' ? item.tradeNo : '' "> 支付流水号 : {{item.tradeNo}} </div>
@@ -269,9 +270,9 @@
                                              <div class="newshoporder-tuiprice">
                                                 {{item.remark == '' ||item.remark == null || item.remark ==undefined ? '暂无留言' : item.remark }}
                                             </div>
-                                            <div class="newshoporder-tuiprice">
-                                                <!-- <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}} -->
-                                            </div>
+                                            <!-- <div class="newshoporder-tuiprice">
+                                                <span style="font-weight: 600;">¥ </span> {{item.moneyDeliver}}
+                                            </div> -->
                                     
 
                                             

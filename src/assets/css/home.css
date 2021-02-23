@@ -2548,19 +2548,23 @@ display: flex;
     font-weight: 600;
 }
 .mh-order_ul-one{
-    width: 19%;
+    width: 40%;
 }
 .mh-order_ul-two{
-    width: 30%;
+    width: 10%;
+}
+.mh-order_ul-eight{
+    width: 15%;
 }
 .mh-order_ul-there{
-    width: 15%;
+    width: 12%;
+    text-align: center;
 }
 .mh-order_ul-four{
     width: 10%;
 }
 .mh-order_ul-five{
-    width: 6%;
+    width: 10%;
 }
 .mh-order_ul-sex{
     width: 10%;
@@ -2568,9 +2572,7 @@ display: flex;
 .mh-order_ul-seven{
     width: 10%;
 }
-.mh-order_ul-eight{
-    width: 4%;
-}
+
 .mh-order_ul-night{
     width: 10%;
 }
