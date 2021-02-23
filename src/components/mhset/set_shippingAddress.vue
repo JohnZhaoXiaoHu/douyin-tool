@@ -13,8 +13,9 @@
                     <!--选项卡组件-->
                     <div class="goods-card_body marketing mh-mhset_logs_header-body">
                     <!-- 面包屑 -->
-                    <div class="mh-mhset_logs_header">
-                       <h5>操作日志</h5>    
+                    <div class="mh-mhset_logs_header" style="">
+                       <h5  style="display: inline-flex; ">收货地址</h5>    
+                       <el-button type="danger" style="float: right; margin-top: -5px;" size="mini" round @click="changeAddressConfirm">添加收货地址</el-button>
                     </div>
                     <!-- 面包屑over -->
 
@@ -63,9 +64,7 @@
                             </el-table>
 
                             <div class="mh-mhsegt-logs_pages">
-                                <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
+                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                                         :current-page="currentPage4"
                                         :page-sizes="[100, 200, 300, 400]"
                                         :page-size="20"
@@ -149,7 +148,6 @@ import {
         zm_jsonToString,
         zm_formDataToString
 } from "../../filters/zm_tools.js"
-// import aa  from "../../../static/ad";
 
 
 export default {
@@ -214,6 +212,43 @@ export default {
         setNormalClick(index){
             
         },
+        setNoramlClick(index){
+            let self = this;
+            this.$confirm('确定设为默认收货地址吗, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    self.request_setNoraml(index);            
+                }); 
+        },
+        request_setNoraml(index){
+            this.addressItem = this.tableData[index];
+            let params = new FormData();
+            let that = this;
+            params.append('id', this.addressItem.id)
+            params.append('isDefault', 1);
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                params.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                params.append("supplierId", '1');
+            }
+            this.$http({
+                    method: "post",
+                    url: network.addressUpdate,
+                    data: params,
+                    headers: { "Content-Type": "multipart/form-data", suserId: that.$cookie.get('userId'), userId: this.editadressuserid }
+            }).then(function(res) {
+                    if (res.data.status == 200) {
+                        that.$message.success('设为默认地址成功！');
+                        that.request_shippingAddress(1);
+                        that.addressvalue = [];
+                        that.addressdialogFormVisible = false;
+                    } else {
+                        that.$message.error(res.data.message);
+                    }
+            });
+        },
         editClick(index){
             // this.startaddressdialogFormVisible = true;
             this.addressItem = this.tableData[index];
@@ -224,15 +259,21 @@ export default {
             this.startAddressPhone  = this.addressItem.phone;
             this.xingaxiadress      = this.addressItem.address;
             this.shophuoSmallId     = this.addressItem.regionId;
-            this.addressvalue = this.addressItem.regionIds;
+            this.addressvalue       = this.addressItem.regionIds;
             this.isDefault = this.addressItem.isDefault == 1 ?  true : false;
             this.addressdialogFormVisible = true;
         },
         changeAddressConfirm(){
-            // this.startaddressdialogFormVisible = false;
             this.editTitle = '添加收货地址';
             this.addCahange= 1;
-            this.addressdialogFormVisible = false;
+            this.startAddressName   = '';
+            this.startAddressPhone  = '';
+            this.xingaxiadress      = '';
+            this.shophuoSmallId     = '';
+             this.addressvalue      = '';
+            this.isDefault = true;
+            this.addressdialogFormVisible = true;
+
         },
         editAddressConfirm() {
             if (this.addCahange==1) {
@@ -257,6 +298,8 @@ export default {
             }else{
                 params.append("supplierId", '1');
             }
+            console.log('---收货地址 item= ' + zm_formDataToString(params));
+
             this.$http({
                     method: "post",
                     url: network.addressAdd,

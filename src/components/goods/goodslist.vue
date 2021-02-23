@@ -12,7 +12,7 @@
                 <!-- 商品中心内容 -->
                 <div class="goods-card_body"  v-loading="loading">
             <!--选项卡组件-->
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane :label="'出售中(' + chuSz + ')'" name="first">
                 </el-tab-pane>
                 <el-tab-pane :label="'已售罄(' + yiGq + ')'" name="second">
@@ -23,7 +23,7 @@
                 </el-tab-pane>
                 <el-tab-pane :label="'待审核(' + daiSH + ')'" name="five">
                 </el-tab-pane>
-            </el-tabs>
+            </el-tabs> -->
 
             <!--全部列表-->
                    <div class="goods_btn">
@@ -81,15 +81,33 @@
 
                             
                             <el-table-column prop="createTime" min-width="135" label="创建时间" align="center"
-                                    :formatter="dateFormat" show-overflow-tooltip>
+                                :formatter="dateFormat" show-overflow-tooltip>
+                            </el-table-column>
+                            <el-table-column min-width="115" label="状态" align="center">
+                                <template slot-scope="scope">
+                                    <div v-if="scope.row.isIssue==-1">下架</div>
+                                    <div v-else-if="scope.row.isIssue==0">仓库</div>
+                                    <div v-else-if="scope.row.isIssue==1">上架</div>
+                                </template>
                             </el-table-column>
    
                             <el-table-column prop="handle" label="操作" min-width="150" align="center">
                                 <template slot-scope="scope">
                                     <div style="display: flex;">
                                         <div align="center" style="width: 60px;">
-                                            <el-button style="margin-left: 5px;" type="text" size="small" @click="editgoodspage(scope.row.id)">商品详情</el-button>
-                                            <el-button v-if="activeName=='five'" type="text" size="small" @click="auditgoods(scope.row.id)">审核发布</el-button>
+                                            <el-button style="margin-left: 5px;" type="text" size="small" @click="editgoodspage(scope.row.id)">商品编辑</el-button>
+
+                                            <el-button v-if="scope.row.isIssue==-1"     type="text" size="small" @click="upDown(scope.row.id, -1)">立即上架</el-button>
+                                            <el-button v-else-if="scope.row.isIssue==0" type="text" size="small" @click="upDown(scope.row.id, 0)">去上架</el-button>
+                                            <el-button v-else-if="scope.row.isIssue==1" type="text" size="small" @click="upDown(scope.row.id, 1)">立即下架</el-button>
+
+
+                                            <!-- <el-button v-if="activeName=='five'" type="text" size="small" @click="auditgoods(scope.row.id)">审核发布</el-button> -->
+
+                                            <!-- <div v-if="isIssue==-1">下架</div>
+                                            <div v-else-if="isIssue==0">仓库</div>
+                                            <div v-else-if="isIssue==1">上架</div> -->
+
                                         </div>
                                         <div align="center">  
                                             <!-- <el-button @click="delectgoods(scope.row.id)" type="text" size="small">删除商品</el-button> -->
@@ -113,13 +131,10 @@
                         </div>
                         <div class="goods_list_dibu-twodiv cssbilie1">
                             <!-- small sizes-->
-                            <el-pagination
-                                    @size-change="handleSizeChange"
-                                    @current-change="handleCurrentChange"
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                                     :current-page="currentPage4"
                                     :page-sizes="[100, 200, 300, 400]"
-                                    :page-size="20"
-                                    layout="total, prev, pager, next, jumper"
+                                    :page-size="20" layout="total, prev, pager, next, jumper"
                                     :total="totalCountone">
                             </el-pagination>
                         </div>
@@ -363,20 +378,35 @@ export default {
         this.request_goodShop(1,1);
         // this.shopStatusNumber(); //商品状态数量
      },
-     methods: {
-            //审核商品
-            auditgoods(id){
-                this.$confirm('审核通过后,该商品将直接上架, 是否继续?', '提示', {
+     methods: { 
+            //审核商品（auditgoods、upDown）
+            upDown(id, isIssue){
+                let alertTitle = '';
+                let successTitle = '';
+                let data = new FormData();
+                    data.append('itemId',id);
+
+                if (isIssue==-1 || isIssue==0) {
+                    alertTitle = '是否立即上架？';
+                    successTitle = '上架成功！';
+                    data.append('isIssue',1);
+                } else {
+                    alertTitle = '是否立即下架';
+                    successTitle = '下架成功！';
+                    data.append('isIssue',-1);
+                }
+
+                this.$confirm(alertTitle, '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
                 }).then(() => {
-                    let data = new FormData();
-                    data.append('ids',id);
-                    this.http.post(baseapi.goodsanditApi,data).then(res=>{
-                        this.$message.success('审核成功');
+                    
+                    this.http.post(baseapi.supplierProductUpdateIsIssue,  data).then(res=>{
+                        console.log('---上下架 data= ' + zm_jsonToString(res.data));
+                        this.$message.success(successTitle);
                         this.shopshuaixuan(4,1); 
-                        this.shopStatusNumber();
+                        // this.shopStatusNumber();
                     }) 
                 })
             },
@@ -436,7 +466,7 @@ export default {
                         this.http.post( baseapi.issueGoodsApi,data).then(res=>{
                             that.$message.success('修改上下架成功');
                             that.shopshuaixuan(1,1);
-                            that.shopStatusNumber();
+                            // that.shopStatusNumber();
 
                         })       
                     }); 
@@ -458,7 +488,7 @@ export default {
                         this.http.post( baseapi.issueGoodsApi,data).then(res=>{
                             that.$message.success('修改上架成功');
                             that.shopshuaixuan(1,1);
-                            that.shopStatusNumber();
+                            // that.shopStatusNumber();
                         })       
                     }); 
             },
@@ -481,7 +511,7 @@ export default {
                         if(res.data.status == 200){
                             that.$message.success('删除成功');
                             that.shopshuaixuan(1,1);
-                            that.shopStatusNumber();   
+                            // that.shopStatusNumber();   
 
                         }
                     })  
@@ -526,7 +556,7 @@ export default {
                             if(res.data.status == 200){
                                 that.$message.success('复制成功');
                                 that.request_goodShop(1,1);
-                                that.shopStatusNumber();
+                                // that.shopStatusNumber();
                             }
                          
                         })                         
@@ -537,7 +567,6 @@ export default {
             let that = this;
             let params = new FormData();   
             params.append('sinventoryType',this.sinventoryTypevalue);
-
 
 
             // if(param != undefined && param != null ){
@@ -666,13 +695,6 @@ export default {
                 that.inggoodsone   = res.data.list.length;
                 // that.totalCountone = res.data.totalCount;
                 let goodsallprice  = res.data.list;
-                // goodsallprice.forEach(function(item,index){
-                //     item.skuList.forEach(function(item,index){
-                //         item.price         = item.price / 100;
-                //         item.priceSupply   = item.priceSupply/100;
-                //         item.pricePlatform = item.pricePlatform/100;
-                //     }) 
-                // })
 
                 that.goodsallpricearr = goodsallprice;
                 let matime =  setInterval(function(){
@@ -682,7 +704,6 @@ export default {
                 },200); 
 
                  console.log('---查询列表 请求完毕');
-
             })  
 
         },

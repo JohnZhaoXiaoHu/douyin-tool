@@ -130,6 +130,23 @@ export default {
 	methods: {
 		getCode(){
 
+			let that = this;
+			let params = new FormData();       
+			params.append('phone', that.register_phone); 
+			params.append('type', 'register'); 
+			params.append('userType', 'supplier');
+			let urlStr = network.baseSmsSend;
+
+			this.$http.post(urlStr, params)
+			.then(function(res){
+				console.log('---获取验证码 data= '+ zm_jsonToString(res.data));
+					 if(res.data.status!= 200){
+						that.$message.error(res.data.message);              
+                    }else{
+						that.$message.success('获取成功！');
+                    }				
+				})
+
 		},
 		registerClick(){
 			let that = this;
@@ -143,11 +160,13 @@ export default {
 			this.$http.post(urlStr, params)
 			.then(function(res){
 				console.log('---注册res= '+ zm_jsonToString(res.data));
-					 if(res.data.status!= 200){
-						 that.$message.error(res.data.message);              
-                    }else{
-						that.$message.error('注册成功！');
-						that.registerDialog = false;
+					if(res.data.status== 200){
+						that.$message.success('注册成功！');
+						that.registerDialog = false;    
+                    } else if(res.data.status== 500){
+						that.$message.error("注册失败！"); 
+                    } else{
+						that.$message.error(res.data.message); 
                     }				
 				})
 

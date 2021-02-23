@@ -40,8 +40,10 @@ const integralApiIP =  isOnline() ?  (window.g.noRouter): (window.g.testApiURL);
 // https://api.mihuanshop.com/live/region/list
 
 // 抖店端
-const dydRegister       = PIP + '/dyd/register';        // 1.抖店注册
-const dydLogin          = PIP + '/dyd/login';           // 2.抖店登录
+const dydRegister       = PTIP + '/dyd/register';        // 1.抖店注册
+const dydLogin          = PTIP + '/dyd/login';           // 2.抖店登录
+const baseSmsSend       = PTIP + '/base/sms/send';          // 2.1短信验证码
+const basAuthorization  = PIP + '/base/authorization/check';// 2.2token校准
 const baseAuthorize     = PIP + '/base/authorize';      // 3.抖店授权
 const dydShopPut        = PIP + '/dyd/shop/put';        // 4.抖店添加店铺
 const dydShopCancel     = PIP + '/dyd/shop/auth/cancel';// 5.取消授权
@@ -55,6 +57,8 @@ const supplierBasegGet  = PTIP + '/supplier/base/get'; // 3.查询供应商认�
 const supplierBasegPost = PTIP + '/supplier/base/post';// 4.提交供应商认证
 // （滕飞）
 const supplierProductAdd    = TFIP + '/supplier/t/product/add';    // 供应商添加商品
+const supplierProductUpdate = TFIP + '/supplier/t/product/update'; // 供应商编辑商品
+const supplierProductUpdateIsIssue   = TFIP + '/supplier/t/product/updateIsIssue';   // 供应商商品上下架
 const supplierProductCopy   = TFIP + '/supplier/t/product/copy';   // 把供应商的商品复制到抖店
 const supplierProductDetail = TFIP + '/supplier/t/product/detail'; // 商品详情
 const supplierProductList   = TFIP + '/supplier/t/admin/list';     // 商品列表
@@ -66,6 +70,9 @@ const supplierCooperationPartnerShop= TFIP + '/supplier/t/cooperation/partnerSho
 const supplierCooperationApplyShop  = TFIP + '/supplier/t/cooperation/applyShop';   //申请合作店铺
 const supplierCooperationAgree      = TFIP + '/supplier/t/cooperation/agree';       //同意合作
 const supplierCooperationCancel     = TFIP + '/supplier/t/cooperation/cancel';      //终止合作
+const setCooperationGoods           = TFIP + '/supplier/t/cooperation/chooseItem';  //设置合作商品
+
+
 // 订单
 const orderList       = MSIP + '/order/admin/list';                 //查询订单列表
 const orderDetail     = MSIP + '/order/admin/detail';               //查询订单明细（订单详情）
@@ -115,6 +122,7 @@ const mhgoodsgrounpadd = MIP + "/shop/shop/group/admin/add";    //新增
 const mhgoodsgrounplist = MIP + "/shop/shop/group/admin/list";     //列表
 const mhgoodsgrounpedit = MIP + "/shop/shop/group/admin/update";  
 const myresedit = MIP + "/shop/shop/resource/admin/update";  
+
 const selectGrounpList = MIP + "/shop/shop/resource/group/admin/list";
 const addImgRes = MIP + "/shop/shop/resource/admin/add"; /**添加图片资源* */
 const editResName = MIP + "/shop/shop/resource/group/admin/update"; //资源修改
@@ -137,7 +145,7 @@ const addgoodsGunp = MIP +'/shop/shop/resource/group/admin/add';
 const shachuResGrounp = MIP +  '/shop/shop/resource/group/admin/delete'; //删除资源图片
 const addgoodsResSon = MIP + '/shop/shop/resource/group/admin/add';
 const imgresRught = MIP +'/shop/shop/resource/admin/list';  //资源图片列表
-const editWangDescription = MIP + '/shop/shop/item/admin/description';
+const editWangDescription = MIP + '/shop/shop/item/admin/description'; //商品详情
 const addGoodsCategory = MIP + '/shop/shop/category/admin/add';;
 const chaGoodsCategoryDetail = MIP + '/shop/shop/category/admin/detail'
 const goodsNumber = MIP + '/shop/shop/item/admin/totalnum';
@@ -330,6 +338,7 @@ export default {
   // 抖店端
   dydRegister: dydRegister,
   dydLogin: dydLogin,
+  baseSmsSend:baseSmsSend,
   dydShopPut: dydShopPut,
   baseAuthorize: baseAuthorize,
   dydShopCancel: dydShopCancel,
@@ -337,6 +346,8 @@ export default {
   dydSuppliersList: dydSuppliersList,
   dydSuppliersDetail: dydSuppliersDetail,
   supplierProductAdd: supplierProductAdd,
+  supplierProductUpdate: supplierProductUpdate,
+  supplierProductUpdateIsIssue: supplierProductUpdateIsIssue,
   supplierProductCopy: supplierProductCopy,
   supplierProductDetail: supplierProductDetail,
   supplierProductList: supplierProductList,
@@ -347,6 +358,7 @@ export default {
   supplierCooperationApplyShop: supplierCooperationApplyShop,
   supplierCooperationAgree: supplierCooperationAgree,
   supplierCooperationCancel: supplierCooperationCancel,
+  setCooperationGoods: setCooperationGoods,
   //订单
   orderList: orderList,
   orderDetail: orderDetail,

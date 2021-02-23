@@ -44,7 +44,7 @@ let routes=[
   {path:'/mhset',component: resolve => require(['@/components/mhset/set_cooperativeManagement'],resolve)},
   {path:'/mhset/set_shippingAddress',component:resolve => require(['@/components/mhset/set_shippingAddress'],resolve)},
   {path:'/mhset/set_shopManage',component:resolve => require(['@/components/mhset/set_shopManage'],resolve)},
-  {path:'/mhset/set_goodslist',component:resolve => require(['@/components/mhset/set_goodslist'],resolve)},
+  {path:'/mhset/set_goodsList',component:resolve => require(['@/components/mhset/set_goodsList'],resolve)},
   //数据
   {path:'/crsdata',component:resolve => require(['@/components/crsdata/goodsData'],resolve)},
   {path:'/resimg',component:resolve => require(['@/components/resource/imgsrc'],resolve)},

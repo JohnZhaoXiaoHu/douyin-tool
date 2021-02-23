@@ -12,9 +12,8 @@ window.g = {
     // zhangUrl:'https://test.chainfos.com',    //张猛跳转测试网页域名
 
     testApiURL:'https://api.chainfos.com',   //测试环境域名 
-    tfURL:'http://172.16.1.181:8080',        //滕飞：测试环境域名
+    tfURL:'http://172.16.1.84:8080',        //滕飞：测试环境域名 181、84
     msURL:'http://172.16.1.218:8080',        //毛诗：测试环境域名
-
 
      fsassUrl:'https://api.mihuanshop.com',  // 未加入sass的url 线上修改  - > https://api.mihuanshop.com  /https://api.chainfos.com
      domain:'douyin.mihuanshop.com/sp' //全局domain 设置

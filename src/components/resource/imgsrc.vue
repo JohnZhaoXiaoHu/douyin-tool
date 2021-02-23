@@ -145,6 +145,11 @@ import {
         zm_jsonToString,
         zm_formDataToString
 } from "../../filters/zm_tools.js"
+import {
+        zm_beArrayContains1
+} from "../../filters/zm_array.js"
+
+
 let id = 1000;
 
 export default {
@@ -197,6 +202,7 @@ export default {
             pidnewChild: [],
             goodsisuserOneUrl: [],
             pid: 1,
+            selectImgType: 1,
             goodsisuserTwoUrl: '',
             suinde: '',
             tupiangrounp: [],
@@ -228,7 +234,12 @@ export default {
     watch: {
         accuseVisible(newValue, oldValue) {
             this.imgdialogFormVisible = newValue
+        },
+        goodsisuserOneUrl(newValue, oldValue) {
+            console.log('---goodsisuserOneUrl= '+this.goodsisuserOneUrl.length);
         }
+
+        
     },
     beforeRouteEnter (to, from, next) {
 		next(vm => {
@@ -262,8 +273,31 @@ export default {
                 this.$parent.hT.bgcss =`background: url(${this.mine01}) center top / contain no-repeat rgb(247, 247, 247);`;
             }
             if (this.pid == 1) {
+                // 商品描述图
                 this.imgdialogFormVisible = false;
-                this.$parent.sonurl = this.goodsisuserOneUrl;
+               
+                
+
+                    if (this.selectImgType == 1) {
+                        // console.log('---111');
+                         this.$parent.sonurl = [];
+                    } else if(this.selectImgType == 2) {
+                        // console.log('---222');
+                        this.$parent.sonurl2 = [];
+                    }
+
+                for (let index = 0; index < this.goodsisuserOneUrl.length; index++) {
+                    const element = this.goodsisuserOneUrl[index];
+                    if (this.selectImgType == 1) {
+                        // console.log('---111');
+                        this.$parent.sonurl.push(element);
+
+                    } else if(this.selectImgType == 2) {
+                        // console.log('---222');
+                        this.$parent.sonurl2.push(element);
+                    }
+                }
+                // this.$parent.sonurl = this.goodsisuserOneUrl;
             }
             if (this.pid == 9) {
                 this.imgdialogFormVisible = false;
@@ -275,13 +309,14 @@ export default {
                 this.goodsdetail = [];
             }
 
-             if (this.pid == 99) {
+            if (this.pid == 99) {
                 this.imgdialogFormVisible = false;
                 this.$parent.imgarrT = this.activeImg;
                 this.activeImg = [];
             }
 
             if (this.pid == 88) {
+                // 封面图：商品主图
                 this.imgdialogFormVisible = false;
                 this.$parent.goodsfenimg = this.goodsfenimg;
             }
@@ -322,6 +357,7 @@ export default {
         },
         imgkuan(ev,index, url) {
             let that = this;
+            console.log('---imgkuan');
 
             let evtObj = ev.target || ev.srcElement;
             let wantshuxing = evtObj.parentNode.firstChild;
@@ -330,6 +366,7 @@ export default {
             wantshuxing.style.display = jinze;
 
             if(jinze == 'none'){
+                console.log('---imgkuan none'); 
                 if (this.pid == 1) {
                     let imgindex = this.indexOfimg(this.goodsisuserOneUrl,`'${thissrc}'`);
                     this.removevalueimg(this.goodsisuserOneUrl,imgindex);
@@ -369,7 +406,12 @@ export default {
                 }
 
                 if (this.pid == 1) {
-                    this.goodsisuserOneUrl.push(url);
+                    if (zm_beArrayContains1(url, this.goodsisuserOneUrl) ) {
+                        console.log('---imgkuan 已经存在'); 
+                    }else{
+                        console.log('---imgkuan 不存在'); 
+                        this.goodsisuserOneUrl.push(url);
+                    }
                     this.isShow = -1;
                     // this.$message.success('选取图片成功');
                     this.$message.success({
@@ -483,19 +525,19 @@ export default {
                 console.log(this.imgvalue)
             }
           
-            if (this.imgvalue.length == 1) {
-                data.append('groupId', this.imgvalue[0]);
-                uploadimgid = this.imgvalue[0];
-            }
-            if (this.imgvalue.length > 1) {
-                data.append('groupId', this.imgvalue[this.imgvalue.length - 1]);
-                uploadimgid = this.imgvalue[this.imgvalue.length - 1];
-            }
+            // if (this.imgvalue.length == 1) {
+            //     data.append('groupId', this.imgvalue[0]);
+            //     uploadimgid = this.imgvalue[0];
+            // }
+            // if (this.imgvalue.length > 1) {
+            //     data.append('groupId', this.imgvalue[this.imgvalue.length - 1]);
+            //     uploadimgid = this.imgvalue[this.imgvalue.length - 1];
+            // }
 
+            data.append('groupId', 0);
             data.append('type', 1);
             data.append('name', this.newimgname);
             
-
             if (this.netimgUrl != '') {
                 data.append('neturl', this.netimgUrl);
             }
@@ -503,8 +545,13 @@ export default {
             for (let a = 0; a < this.upfile.length; a++) {
                 data.append('files', this.upfile[a]);
             }
+            if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                data.append("supplierId", this.$cookie.get('supplierId'));
+            }else{
+                data.append("supplierId", '2');
+            }
  
-            this.http.post( baseapi.addImgRes,data).then(res=>{
+            this.http.post( baseapi.resourceAdd, data).then(res=>{
                 console.log(res)
             if(res.data.status != 200){
                     this.$message.error(res.data.message);
@@ -563,7 +610,7 @@ export default {
                 data.append("supplierId", '2');
             }
 
-            this.http.post( baseapi.resourceList,data).then(res=>{
+            this.http.post( baseapi.resourceList, data).then(res=>{
                 // console.log('---资源图片 data= ' + zm_jsonToString(res.data));
                 if (res.data.list.length != 0) {
                     this.startid = res.data.list[0].id;

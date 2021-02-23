@@ -69,10 +69,10 @@
                         <el-table-column label="意向商品" min-width="170">
                             <template slot-scope="scope">
                                 <div style="display: flex;">
-                                    <img :src="scope.row.itemPicture" class="set_cmImgView" alt="" srcset="">
+                                    <img :src="scope.row.supplierItemPicture" class="set_cmImgView" alt="" srcset="">
                                     <div>
-                                        <div style="display: flex;"><div class="set_cmGoods">商品名称：</div> {{scope.row.itemName}}</div>
-                                        <div style="display: flex;"><div class="set_cmGoods">商品ID： </div> {{scope.row.itemId}}</div>
+                                        <div style="display: flex;"><div class="set_cmGoods">商品名称：</div> {{scope.row.supplierItemName}}</div>
+                                        <div style="display: flex;"><div class="set_cmGoods">商品ID： </div> {{scope.row.supplierItemId}}</div>
                                     </div>
                                 </div>
                             </template>
@@ -174,6 +174,16 @@ export default {
 
         },
         endOperate(index){
+            let self = this;
+            this.$confirm('确定终止合作吗？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    self.request_endOperate(index);            
+                }); 
+        },
+        request_endOperate(index){
             let item = this.tableData[index];
             let that = this;
             let urlStr = api.supplierCooperationCancel;
@@ -202,7 +212,7 @@ export default {
             console.log('---设置商品 index= '+index);
             let itemData = this.tableData[index];
             this.$router.push({
-                path: "../mhset/set_goodslist",
+                path: "../mhset/set_goodsList",
                 query: {
                     itemData: JSON.stringify(itemData), 
                     isEdit:true
@@ -213,6 +223,17 @@ export default {
             console.log('---查看合作订单 index= '+index);
         },
         agreeOperate(index){
+             let self = this;
+            this.$confirm('确定同意合作吗？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    self.request_agreeOperate(index);            
+                }); 
+
+        },
+        request_agreeOperate(index){
             let item = this.tableData[index];
             let that = this;
             let urlStr = api.supplierCooperationAgree;
@@ -332,7 +353,7 @@ export default {
 }
 .sm_imgView{
     width: 20px;
-    height: 20px;
+    height: 20px; 
 }
 .mh-mhset-logs_select .el-input__icon{
     line-height: 28px;

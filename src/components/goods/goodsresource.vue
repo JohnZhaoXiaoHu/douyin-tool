@@ -181,11 +181,8 @@
                                 >
                                 <i class="el-icon-zoom-in"></i>
                                 </span>
-                                <!-- <span
-                                v-if="!disabled"
-                                class="el-upload-list__item-delete"
-                                @click="handleDownload(file)"
-                                >
+                                <!-- <span v-if="!disabled" class="el-upload-list__item-delete"
+                                @click="handleDownload(file)" >
                                 <i class="el-icon-download"></i>
                                 </span>
                                 -->
@@ -208,113 +205,6 @@
                    <span slot="footer" class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">取 消</el-button>
                         <el-button type="primary" @click="uploadimg(file)" :loading="imgvideotrue">{{imgvideovalue}}</el-button>
-                    </span>
-                </el-dialog>
-
-                <!--上传音频  -->
-                <el-dialog title="上传音频" :visible.sync="yindialogFormVisible">
-                  <div class="mh-resoure-grounp">
-                        <span class="mh-resoure-grounp_onespan" style="text-align: center;">音频分组:</span>
-                        <div class="block" style="flex:1">
-                           <el-cascader
-                             :change-on-select="true"
-                              v-model="yinvalue"
-                              :options="tupiangrounp"
-                              :props="{ expandTrigger: 'hover',children:'childlist',value:'id',label:'name' }"
-                              @change="handleChange">
-                            </el-cascader>
-                        </div>
-                  </div>
-                   <div class="mh-resoure-grounp">
-                        <span class="mh-resoure-grounp_onespan" style="text-align: center;">音频名称:</span>
-                        <div class="block" style="flex:1">
-                          <el-input v-model="yinpingname" placeholder="添加音频名称"></el-input>                     
-                        </div>                       
-                  </div>
-
-                  <div class="mh-resoure-grounp">
-                      <span class="mh-resoure-grounp_onespan" style="text-align: center;">本地音频:</span>
-                      <div style="flex:1">
-                               <el-upload
-                              class="upload-demo"
-                              action="#"
-                              :on-change="addvdeio"
-                              :auto-upload="false"
-                              ref='Yinupload'  
-                              :on-preview="handlePreview"
-                              :on-remove="handleRemove"
-                              :before-remove="beforeRemove"
-                              multiple
-                              :limit="1"
-                              :on-exceed="handleExceed"
-                              :file-list="fileList">
-                              <el-button size="mini" type="primary" >点击上传</el-button>
-                              <div slot="tip" class="el-upload__tip">仅支持 amr、 mp3、 mpeg 3种格式, 大小不超过10.0 MB</div>
-                            </el-upload>
-                      </div>
-                  </div>
-                   <span slot="footer" class="dialog-footer">
-                        <el-button @click="yindialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="setYinMethod(file)" :loading="videotrue">{{videovalue}}</el-button>
-                    </span>
-                </el-dialog>
-
-
-
-                <!--  -->
-
-                <!-- 上传视频 -->
-                <el-dialog title="上传视频" :visible.sync="vdeiodialogFormVisible">
-                  <div class="mh-resoure-grounp">
-                        <span class="mh-resoure-grounp_onespan" style="text-align: center;">视频分组:</span>
-                        <div class="block" style="flex:1">
-                           <el-cascader
-                             :change-on-select="true"
-                              v-model="vdeiovalue"
-                              :options="tupiangrounp"
-                              :props="{ expandTrigger: 'hover',children:'childlist',value:'id',label:'name' }"
-                              @change="handleChange">
-                            </el-cascader>
-                        </div>
-                  </div>
-                   <!-- <div class="mh-resoure-grounp">
-                        <span class="mh-resoure-grounp_onespan">视频封面:</span>
-                        <div class="block">
-
-                          <span style="color: #409eff;">上传视频</span>
-                        </div>                       
-                  </div> -->
-
-                   <div class="mh-resoure-grounp">
-                        <span class="mh-resoure-grounp_onespan" style="text-align: center;">视频名称:</span>
-                        <div class="block" style="flex:1">
-                          <el-input v-model="vedionamexx" placeholder="添加视频名称"></el-input>                     
-                        </div>                       
-                  </div>
-
-                  <div class="mh-resoure-grounp">
-                      <span class="mh-resoure-grounp_onespan" style="text-align: center;">本地视频:</span>
-                      <div style="flex:1">
-                            <el-upload
-                              class="upload-demo"
-                              action="#"
-                              :on-change="addvdeio"
-                              :auto-upload="false"
-                              ref='vdeioupload'  
-                              :on-preview="handlePreview"
-                              :on-remove="handleRemove"
-                              :before-remove="beforeRemove"
-                              :limit="1"
-                              :on-exceed="handleExceed"
-                              :file-list="fileList">
-                              <el-button size="mini" type="primary" >点击上传</el-button>
-                              <div slot="tip" class="el-upload__tip">视频大小不超过50M，支持mp4，mov，m4v，flv,x-flv，mkv，wmv，avi，rmvb，3gp格式</div>
-                            </el-upload>
-                      </div>
-                  </div>
-                   <span slot="footer" class="dialog-footer">
-                          <el-button @click="setvideoMethodquxiao">取 消</el-button>
-                        <el-button type="primary" @click="setvideoMethod(file)" :loading="videotrue">{{videovalue}}</el-button>
                     </span>
                 </el-dialog>
 
@@ -568,37 +458,7 @@ export default {
       // this.findvideocover();    
     },
     methods: {
-        //截取视频第一帧
-        findvideocover() {
-          let that = this;
-           
-            this.$nextTick(() => {
-                let video = document.getElementById("video11");
-                var c = document.getElementById("myCanvas");
-                let output = document.getElementById("output");
-                let source = document.createElement("source");
 
-                //创建视频
-                 video.currentTime=1;
-       
-            setTimeout(function(){
-                var img = new Image();
-                //  var canvas = document.createElement("canvas");
-                c.getContext('2d').drawImage(video, 0, 0, 200,200);
-                var type = 'png';   
-                var _fixType = function (type) {
-                    type = type.toLowerCase().replace(/jpg/i, 'jpeg');
-                    var r = type.match(/png|jpeg|bmp|gif/)[0];
-                    return 'image/' + r;
-                };
-                var imgData = c.toDataURL(_fixType,1);
-                imgData = imgData.replace(_fixType(type), 'image/octet-stream');
-                console.log(imgData);
-                img.src = imgData;    
-                that.uploadImg.push(imgData);             
-            },1000)
-          });
-        },
         tanimgBing(url){
             this.TandialogImageUrl = url;
             this.TandialogVisible = true;
@@ -782,30 +642,6 @@ export default {
              
             }
         },
-        //左边视频资源分组数据
-        vedioResGrounp(param){
-            let that = this;
-            let data = new FormData();
-            data.append('type',param)
-            this.http.post( baseapi.resourceList,data).then(res=>{
-                if (res.data.list.length != 0) {
-                    that.startid = res.data.list[0].id;
-                    that.selectResList(res.data.list[0].id);
-                } else {
-                   that.selectResList();
-                }
-
-                if(param == 2){
-                    that.selectvideoList(that.startid,2);                 
-                }
-
-                if(param == 3){
-                  that.selectvideoList(that.startid,3);
-                }
-                that.tupiangrounp = res.data.list;
-                that.data = res.data.list; 
-             })     
-          },
           //图片右边
           selectResList(parpm,page=1){
               let that = this;
@@ -826,129 +662,7 @@ export default {
                     that.totalCount = res.data.totalCount;
               })  
           },
-          //添加视频资源
-          setvideoMethod(){
-            let that = this;
-            let data = new FormData();
-            this.videotrue = true;
-            this.videovalue = '上传中';
-            let uploadimgid = 0;
-            if(this.vdeiovalue.length == 1){
-                data.append('groupId',this.vdeiovalue[0]);
-                uploadimgid = this.vdeiovalue[0];
-            }
-            if(this.vdeiovalue.length >1){
-              data.append('groupId',this.vdeiovalue[this.vdeiovalue.length-1]);
-                uploadimgid = this.this.vdeiovalue[this.vdeiovalue.length-1];
-            }
-            data.append('type',2);
-            if(this.vdieo.raw == undefined){
-                that.$message.error("选择视频文件");
-                that.videotrue = false;
-                that.videovalue = '提交';
-                return false;
-            }
-            data.append('files',this.vdieo.raw);
-            data.append('name',this.vedionamexx);
-            let CancelToken = axios.CancelToken
 
-            // baseapi.addImgRes
-            this.$http({
-                method: "post",
-                url:baseapi.addImgRes,
-                data: data,
-                cancelToken:new CancelToken(function executor(c) {
-              // executor 函数接收一个 cancel 函数作为参数
-                    that.cancel = c;
-                    console.log(c)
-                 })
-             })
-            .then(function(res){
-                if(res.data.status == 200){
-
-                  that.$message.success("添加视频成功");
-                  that.videotrue = false;
-                  that.videovalue = '确认';
-                  that.$refs.vdeioupload.clearFiles(); 
-                  that.selectvideoList(uploadimgid,2);
-                  that.vdeiodialogFormVisible = false;
-                  that.netimgUrl = '';
-                  that.vdeiovalue = [];
-                  that.vedionamexx = '';
-                  that.vdieo = {};
-  
-                }else{
-                    that.$message(res.data.message);
-                    that.vdeiodialogFormVisible = false;
-                    that.videotrue = false;
-                    that.videovalue = '提交';
-                } 
-           
-                 
-            }).catch(function(res){
-              console.log(res);
-            }) ;
- 
-          },
-          setvideoMethodquxiao(){
-              this.cancel = null;
-              //this.cancel();
-              console.log('取消视频');
-              this.$refs.vdeioupload.clearFiles(); 
-              // this.$refs.vdeioupload.abort(this.vdieo.raw); //取消上传
-              this.videotrue = false;
-              this.videovalue = '确认';
-            
-              this.vdeiodialogFormVisible = false;
-              this.netimgUrl = '';
-              this.vdeiovalue = [];
-              this.vedionamexx = '';
-              this.vdieo = {};
-          },
-          //添加音频
-          setYinMethod(){
-            let that = this;
-            let data = new FormData();
-            this.videotrue = true;
-            this.videovalue = '上传中';
-            let uploadimgid = 0;
-            if(this.yinvalue.length == 1){
-                data.append('groupId',this.yinvalue[0]);
-                uploadimgid = this.yinvalue[0];
-            }
-            if(this.yinvalue.length >1){
-              data.append('groupId',this.yinvalue[this.yinvalue.length-1]);
-                uploadimgid = this.this.yinvalue[this.yinvalue.length-1];
-            }
-            data.append('type',3);
-            if(this.vdieo.raw == undefined){
-                that.$message.error("请选择音频");
-                that.videotrue = false;
-                that.videovalue = '提交';
-                return false;
-            }
-            data.append('files',this.vdieo.raw);
-            data.append('name',this.yinpingname);
-
-            this.http.post( baseapi.addImgRes,data).then(res=>{
-                 if(res.data.status == 200){
-                  that.$message.success("添加音频成功");
-                  that.videotrue = false;
-                  that.videovalue = '确认';
-                  that.selectvideoList(uploadimgid,3);
-                  that.yindialogFormVisible = false;
-                  that.yinpingname = '';
-                  that.$refs.Yinupload.clearFiles();    
-                  that.yinvalue = [];    //成功置空
-               
-              }else{
-                  that.$message(res.data.message);
-                  that.yindialogFormVisible = false;
-                  that.videotrue = false;
-                  that.videovalue = '提交';
-              }   
-            })  
-          },
       myvdeioedit(id,name,cateid,resid){
           this.resid = resid;
           this.vdieoeditimgnamedata = true;
@@ -965,33 +679,24 @@ export default {
           data.append('id', this.editimgnamedataid);
           data.append('name',this.editimgnamedataname);
 
-          this.http.post( baseapi.myresedit,data).then(res=>{
+          if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    data.append("supplierId", this.$cookie.get('supplierId'));
+                }else{
+                    data.append("supplierId", '2');
+                }
+          console.log('---修改图片名字');
+          this.http.post( baseapi.resourceUpdate, data).then(res=>{
               if(res.status ==500){
                 that.$message.success('资源名称不能为空');
                 return false;
               }
               if(res.status == 200){
                 that.$message.success('修改资源名称成功');
-                that.selectvideoList(that.editvdeioid,that.resid);
-                that.vdieoeditimgnamedata = false;
+                // that.selectvideoList(that.editvdeioid,that.resid);
+                // that.vdieoeditimgnamedata = false;
               }
           })   
      },
-    vdeiodelResA(param,groupId,type){
-      this.$confirm('确定删除该资源吗, 是否继续?', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-      }).then(() => {
-        let that = this;
-        let data = new FormData();
-            data.append('ids',param);     
-            that.http.post( baseapi.delectresdata,data).then(res=>{
-                that.$message.success('删除成功');
-                that.selectvideoList(groupId,type);     
-            })
-      });
-    },
      imgdelResA(param,groupId){
     
        let that = this;
@@ -1002,22 +707,44 @@ export default {
           }).then(() => {
              let data = new FormData();
               data.append('ids',param);   
-              that.http.post( baseapi.delectresdata,data).then(res=>{
+              if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    data.append("supplierId", this.$cookie.get('supplierId'));
+                }else{
+                    data.append("supplierId", '2');
+                }
+
+              that.http.post( baseapi.resourceDelete, data).then(res=>{
                   that.$message.success('删除图片成功');
                   that.selectResList(groupId,that.imgval);
+                  // that.selectResGrounp(1);//查询资源组列表
               })                
         });  
     },
-
-    //视频连接
-    vdeioeditlianjie(param){
-      this.lianjievalue = param;
-      this.vdieolianjie = true;
+     /**删除资源 */
+      delectResGrounp(id){
+          let that = this; 
+          this.$confirm('你确定要删除该资源组吗, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+          }).then(() => {
+              let data = new FormData();
+              data.append('id',id);
+              
+              this.http.post( baseapi.delectresdata, data).then(res=>{
+                if(res.data.status  == 200){  
+                    that.$message.success('删除成功');
+                    that.selectResGrounp();
+                }else{
+                    that.$message(res.data.message);
+                }
+              }) 
+            });
     },
-   //over
+    //over
        handleChangevalue(val) {
         this.imgvalue = val;
-      },
+    },
     //修改图片弹窗
     myresedit(id,name,cateid){
         this.editimgnamedata = true;
@@ -1035,10 +762,18 @@ export default {
        let data = new FormData();
         data.append('id', this.editimgnamedataid);
         data.append('name',this.editimgnamedataname);
+         if (this.$cookie.get('supplierId')!=null && this.$cookie.get('supplierId')!='undefined') {
+                    data.append("supplierId", this.$cookie.get('supplierId'));
+                }else{
+                    data.append("supplierId", '2');
+                }
+          console.log('---修改图片名字');
+          // this.http.post( baseapi.resourceUpdate,  myresedit
 
-        this.http.post( baseapi.myresedit,data).then(res=>{
+        this.http.post( baseapi.resourceUpdate, data).then(res=>{
               that.$message.success('修改图片名称成功');
-              that.selectResList(that.editnamecateid,that.imgval);
+              that.selectResGrounp(1);//查询资源组列表
+              // that.selectResList(that.editnamecateid,that.imgval);
               that.editimgnamedata = false;
           })  
      },  
@@ -1047,7 +782,6 @@ export default {
         this.$message.success("链接已复制到剪切板！");
         this.lianjie = false;
     },
-
     //链接
     editlianjie(param){
       this.lianjievalue = param;
@@ -1084,7 +818,6 @@ export default {
 
       data.append('groupId', 0);
       data.append('type',1);
-
       data.append('name',this.newimgname);
 
       if(this.netimgUrl != ''){
@@ -1102,7 +835,6 @@ export default {
 
       // baseapi.addImgRes
       this.http.post( baseapi.resourceAdd, data).then(res=>{
-
 
           if(res.data.status != 200){
                 this.$message.error(res.data.message);
@@ -1164,26 +896,7 @@ export default {
          this.editnamevalue = name;
          this.editname = true;
       },
-           /**删除资源 */
-      delectResGrounp(id){
-          let that = this; 
-          this.$confirm('你确定要删除该资源组吗, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-          }).then(() => {
-              let data = new FormData();
-              data.append('id',id);
-              this.http.post( baseapi.delectresdata,data).then(res=>{
-                if(res.data.status  == 200){  
-                    that.$message.success('删除成功');
-                    that.selectResGrounp();
-                }else{
-                    that.$message(res.data.message);
-                }
-              }) 
-            });
-        },
+      
 
             /**查询单一资源列表 */
             selectResoneGrounp(param,param2){

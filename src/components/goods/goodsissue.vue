@@ -56,63 +56,9 @@
                             <li class="g-type-huo">（物流发货）</li>
                           </ul>
                           <i class="el-icon-success g-type-img"></i>
-                        </div>                     
-
-                        <!-- <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogtwo}]">
-                          <ul @click="shiwugoods(2)">
-                            <li class="g-type-name">虚拟商品</li>
-                            <li class="g-type-huo">（无需物流）</li>
-                          </ul>
-                          <i class="el-icon-success g-type-img"></i>
-                        </div>
-
-                        <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogthree}]" >
-                          <ul @click="shiwugoods(3)">
-                            <li class="g-type-name">超级拼团</li>
-                            <li class="g-type-huo">（物流发货）</li>
-                          </ul>  
-                            <i class="el-icon-success g-type-img"></i>
-                        </div>
-
-                        <div :class="[{'g-type-ul':obj.flog,'gf-type-active':obj.flogfour}]" >
-                          <ul @click="shiwugoods(4)">
-                            <li class="g-type-name">抢购活动</li>
-                            <li class="g-type-huo">（物流发货）</li>
-                          </ul>  
-                            <i class="el-icon-success g-type-img"></i>
-                        </div> -->
-
-
+                        </div>   
                       </div>
-                      <div>
-                        <!-- <div class="gf-more">
-                          <div class="mh-goodsgf-more"  @click="show3 = !show3">  
-                              <span>更多设置</span>
-                              <i :class="{'el-collapse-item__arrow':true,'el-icon-arrow-right':true,'is-active':show3}"></i>
-                          </div>
-                        </div> -->
-
-                        <!-- <el-collapse-transition>
-                        <div v-show="show3">
-                          <el-checkbox v-model="checked">跳转到其他网站购买</el-checkbox>
-                          <dl class="gf-wailink">
-                            <dt>外部购买地址：</dt>
-                            <dd>
-                              <input
-                                type="text"
-                                autocomplete="off"
-                                class="el-input__inner"
-                                placeholder="http://"
-                                v-model="redirection"
-                              />
-                            </dd>
-                          </dl>
-                          <div class="gf-tips">因特殊流程（如电影选座等）需要，可以从商品详情跳转到外部购买</div>
-                        </div>
-                        </el-collapse-transition> -->
-
-
-                      </div>
+                    
                     </div>
 
                     <div>
@@ -128,23 +74,28 @@
                           </div>
 
 
-                          <!-- 商品图必填 -->
+                          <!-- 商品主图必填 -->
                           <div class="df-basic_row el-form-item xxxx is-required" >
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
+                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品主图：</label>
                             <div style="width: 80%" class="oooo" >
-                                <img :src="goodsfenimg" alt="" v-if="goodsfenimg!=''" class="oooo_img" >
+                                <!-- <img :src="goodsfenimg" alt="" v-if="goodsfenimg!=''" class="oooo_img" > -->
+                                <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of goodsMainImgList" :key="indeximg"> 
+                                  <i  @click="delectimg(indeximg, 1)" class="el-icon-close " style="position: absolute;right: 6px;top: -5px;cursor: pointer;color:red"></i>
+                                  <img :src="itemimg" alt=""  >
+                                </div>
+
                                 <div class="mh-goods-resimg"  @click="fenhgmiantu"> 
                                   <i class="el-icon-plus mh-goods-resimg-i"></i>
                                 </div>
                               </div>   
                           </div>
                        
-
+                          <!-- 商品描述图必填 sonurl -->
                           <!-- <div class="df-basic_row el-form-item xxxx is-required" >
-                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品图：</label>
+                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品描述图：</label>
                             <div style="width: 80%" class="oooo" >
-                                <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of sonurl" :key="indeximg"> 
-                                  <i  @click="delectimg(indeximg)" class="el-icon-close " style="position: absolute;right: 6px;top: -5px;cursor: pointer;color:red"></i>
+                                <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of goodsDetailImgList" :key="indeximg"> 
+                                  <i  @click="delectimg(indeximg, 2)" class="el-icon-close " style="position: absolute;right: 6px;top: -5px;cursor: pointer;color:red"></i>
                                   <img :src="itemimg" alt=""  >
                                 </div>
                                 
@@ -278,7 +229,41 @@
 
                   </el-tab-pane>
 
-                  
+
+                   <el-tab-pane label="商品图片详情" name="third">
+                     <div class="gf-qita">
+                       -
+                     </div>
+                      <div>
+                        <!-- 商品描述图必填 sonurl-->
+                          <div class="df-basic_row el-form-item xxxx is-required" >
+                            <label for="item_title" class="el-form-item__label" style="width: 150px;">商品描述图：</label>
+                            <div style="width: 80%" class="oooo" >
+                                <div class="mh-goodsissue-goodsimg" style="position: relative;"  v-for="(itemimg,indeximg) of goodsDetailImgList" :key="indeximg"> 
+                                  <i  @click="delectimg(indeximg, 2)" class="el-icon-close " style="position: absolute;right: 6px;top: -5px;cursor: pointer;color:red"></i>
+                                  <img :src="itemimg" alt=""  >
+                                </div>
+                                
+                                <div class="mh-goods-resimg"  @click="getsonimg"> 
+                                  <i  class="el-icon-plus mh-goods-resimg-i"></i>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="goodsDetailView">
+                        <el-table class="sonurlImgListView" :data="sonurlImgList" border>
+                          <el-table-column prop="date" label="商品详情预览" align="center" >
+                            <template slot-scope="scope">
+                              <div > 
+                                <img class="sonurlImgView" :src="scope.row.imgUrl" alt="" srcset="">
+                              </div>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </div>
+                  </el-tab-pane>
+
 
               </el-tabs>      
 
@@ -344,6 +329,8 @@
 
         <videoson ref="videoson"> </videoson>
         <imgsrc ref="imgsrc"> </imgsrc>
+
+        <imgsrc2 ref="imgsrc2"> </imgsrc2>
                     
     </div>
     <!--主体 over-->
@@ -353,6 +340,8 @@
 import navbar from "../navbar"; 
 import sidebar from "../sidebar";
 import imgsrc from "../resource/imgsrc";
+import imgsrc2 from "../resource/imgsrc";
+
 import videoson from "../resource/video";
 import secnavbar from "./secnavbar";
 import baseapi from '../../utils/api';
@@ -390,8 +379,14 @@ export default {
           ft_name: '请选择运费模板',
           ft_tableDialogVisible: false,
           ft_tableData: [],
-        //
+        // 1.商品主图、2.商品详情预览图
+        selectImgType: 1,
         goodsfenimg:'',
+        sonurl:[],
+        goodsMainImgList: [],
+        sonurl2:[],
+        goodsDetailImgList: [],
+        sonurlImgList:[],
         mhqdaoflagsTATUS:true,
         obj:{
           flog:true,
@@ -452,7 +447,7 @@ export default {
       spv8:10,
       spv9:'', 
       spv10:'',
-      isMemberDiscountvale:0,
+      // isMemberDiscountvale:0,
       vipitemid:'',
       //规格值数组
       ggzarr:[{
@@ -507,7 +502,7 @@ export default {
       name: "", //spu名称  1.为实物商品   2.为虚拟商品
       imageShowType:'1', //轮播方式  1.左右 2.纵向
       userLimitNum: 1, //卖家限购
-      redirection: '', //跳转地址
+      // redirection: '', //跳转地址
       chRebateType: "2", //渠道商返佣类型 1.金额  2.比例
       // videonum:'1',
 
@@ -722,7 +717,7 @@ export default {
         catevalue: 0,
 
         shopgrounpnote:[],
-        sonurl:[],
+        
         type: 1, //商品类型 1.实物  2.虚拟
         upsahngjiatime:'', // 上下架时间
         isshowuptime:false,
@@ -767,7 +762,7 @@ export default {
       // this.shopgrounplist(); //商品分组
       // this.selectqudo(); //请求：查询渠道商 
       // this.reqvipdengjilist();           //请求: 会员列表
-      this.request_freightTemplateList();//请求: 运费模板列表
+      // this.request_freightTemplateList();//请求: 运费模板列表
       this.goodsguilist();
       console.log('------发布商品');
 
@@ -786,6 +781,51 @@ export default {
         
         }
       },
+      sonurl(sonurl) {
+        // console.log('--this.selectImgType: '+ this.selectImgType);
+        if (this.selectImgType==1) {
+          // console.log('--商品主图 sonurl 111: '+ sonurl);
+          this.goodsMainImgList = [];
+          for (let index = 0; index < sonurl.length; index++) {
+            const element = sonurl[index];
+            this.goodsMainImgList.push(element);
+          }
+
+        } else if (this.selectImgType==2 ){
+          // console.log('--商品详情预览图 sonurl 222: '+ sonurl);
+          // this.goodsDetailImgList = [];
+          // this.sonurlImgList = [];
+
+          // for (let index = 0; index < sonurl.length; index++) {
+          //   const element = sonurl[index];
+          //   this.goodsDetailImgList.push(element);
+          //   let imgDic = {
+          //     id: index,
+          //     imgUrl: element,
+          //   }
+          //   this.sonurlImgList.push(imgDic);
+          // }
+          // console.log('--sonurlImgList: '+ zm_jsonToString(this.sonurlImgList));
+        }
+        // console.log('--goodsMainImgList.length: '+ this.goodsMainImgList.length);
+        // console.log('--goodsDetailImgList.length: '+ this.goodsDetailImgList.length);
+      },
+
+      sonurl2(sonurl2) {
+          console.log('--this.selectImgType: '+ this.selectImgType);
+          this.goodsDetailImgList = [];
+          this.sonurlImgList = [];          
+          for (let index = 0; index < sonurl2.length; index++) {
+            const element = sonurl2[index];
+            this.goodsDetailImgList.push(element);
+            let imgDic = {
+              id: index,
+              imgUrl: element,
+            }
+            this.sonurlImgList.push(imgDic);
+          }
+      },
+
        deep:true //true 深度监听
   },
   methods: {
@@ -959,28 +999,42 @@ export default {
         }
        
       },
-    
-    getsonimg(){
-      this.$refs.imgsrc.imgdialogFormVisible = true;
-      this.$refs.imgsrc.pid = 1;
-    },
-    //封面图
+    //封面图：商品主图
     fenhgmiantu(){
+      console.log('---封面图：商品主图');
       this.$refs.imgsrc.imgdialogFormVisible = true;
-      this.$refs.imgsrc.pid = 88;
+      this.$refs.imgsrc.pid = 1;  //= 88;
+      this.$refs.imgsrc.selectImgType = 1;
+      this.selectImgType = 1;
+    },
+    // 商品描述图
+    getsonimg(){
+      console.log('---商品描述图');
+      this.$refs.imgsrc2.imgdialogFormVisible = true;
+      this.$refs.imgsrc2.pid = 1;
+      this.$refs.imgsrc2.selectImgType = 2;
+      this.selectImgType = 2;
     },
     //属性规格获取图片
     getsonshuimg(index){
+      console.log('---属性规格获取图片');
         this.suinde = index;
         this.$refs.imgsrc.imgdialogFormVisible = true;
         this.$refs.imgsrc.pid = 2;
+        
     },
     //删除图片
-    delectimg(index){
-       this.sonurl.splice(index,1);
+    delectimg(index, selectImgType){
+      //  this.sonurl.splice(index,1);
+       if (selectImgType==1) {
+         this.goodsMainImgList.splice(index,1);
+
+       }else if (selectImgType==2) {
+         this.goodsDetailImgList.splice(index,1);
+         this.sonurlImgList.splice(index,1);
+       }
     },
     delectguigeimg(index){
-
       this.ggzarr[index].specPic = '';
     },
 
@@ -1005,7 +1059,7 @@ export default {
       }else{
         this.guigeimg = url;
       }
-      console.log( this.sonurl);
+      console.log("---Close_dialog 商品描述图= ", this.sonurl);
 
     },
     showDilog(index) {
@@ -1138,10 +1192,6 @@ export default {
       let data = new FormData();
    
       data.append("type", that.type);
-      if(that.redirection != ''){
-             data.append("redirection", that.redirection); // 外部购买地址
-      }
-   
       //商品名称
       if( that.name != '' &&  that.name !=undefined &&  that.name !=null){
            data.append("name", that.name);   
@@ -1149,7 +1199,6 @@ export default {
            this.$message.error('商品名称不能为空');
            return false;
       }
-
       data.append("status", '0');                   //商品显示状态：默认不显示
       data.append("productFormat", '0');            // 商品格式
       data.append("recommendRemark", '商品物美价廉'); // 商家推荐
@@ -1159,7 +1208,7 @@ export default {
           data.append("recommendRemark", that.maidian);
       }
       data.append("remark", '备注'); // 商家可见备注
-      data.append("description", that.description); 
+      // data.append("description", that.description); 
 
 
         // //分享描述（description） 详情
@@ -1167,49 +1216,55 @@ export default {
         //     data.append("description", that.goodsfenimg); 
         // }
 
-        //封面图（商品主图 最多5张）
-        if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
-            data.append("pic", that.goodsfenimg);
-        }else{
-            this.$message.error('商品封面图必传');
-            return false;
-        }
-
-        // let goodsfenImg = [];
-        // let picImg = [];
-        // this.fileList1.forEach(element => {
-        //     goodsfenImg.push(element.response.data);
-        // });
-        // this.fileList2.forEach(element => {
-        //     picImg.push(element.response.data);
-        // });
-
-        // //封面图  分享描述（description） 详情
-        // if(goodsfenImg.length> 0){
-        //     data.append("description", goodsfenImg);
+        //封面图（商品主图 最多5张）  goodsfenimg
+        // if(that.goodsfenimg != '' && that.goodsfenimg != null  && that.goodsfenimg != undefined){
+        //     data.append("pic", that.goodsfenimg);
         // }else{
         //     this.$message.error('商品封面图必传');
         //     return false;
         // }
-        // //商品图（商品主图 最多5张）
-        // if(picImg.length> 0){
-        //     data.append("pic", picImg);
-        // }else{
-        //     this.$message.error('商品图必传');
-        //     return false;
-        // }
 
-      // //商品规格图片
-      // if(that.sonurl != '' && that.sonurl != null  && that.sonurl != undefined){
-      //     data.append("specPic", JSON.stringify(that.sonurl));
-      // }else{
-      //     this.$message.error('商品图片不能为空');
-      //     return false;
-      // }
+        let picImg = '';
+        if(that.goodsMainImgList.length>0){
+          for (let index = 0; index < that.goodsMainImgList.length; index++) {
+            const element = that.goodsMainImgList[index];
+            if (index==0) {
+              picImg = element;
+            } else {
+              picImg = picImg+ '|' + element;
+            }
+          }
+          data.append("pic", picImg);
+
+        }else{
+            this.$message.error('商品主面图必传');
+            return false;
+        }
+        let descriptionImg = '';
+        if(that.goodsDetailImgList.length>0){
+          
+          for (let index = 0; index < that.goodsDetailImgList.length; index++) {
+            const element = that.goodsDetailImgList[index];
+            if (index==0) {
+              descriptionImg = element;
+            } else {
+              descriptionImg = descriptionImg+ '|' + element;
+            }
+          }
+          data.append("description", descriptionImg);
+        }else{
+            this.$message.error('商品详情图必传');
+            return false;
+        }
+        console.log('---picImg= '+ picImg);
+        console.log('---descriptionImg= '+ descriptionImg);
+        // return;
+
+
       data.append("weightUnit", 1);  // 商品重量单位：0-kg , 1-g
       data.append("productType", this.catevalue); // 分类ID  this.catevalue
-      //图片展示方式           
-      data.append("imageShowType",that.imageShowType);  
+      // //图片展示方式           
+      // data.append("imageShowType",that.imageShowType);  
 
 
       if( that.shopgrounpvalue.length != 0){
@@ -1304,7 +1359,7 @@ export default {
           // weight: Number(that.weight*1000),               //重量
           // weightUnit: 1,
           isShowInventory: 1 ,                                //是否显示库存 页面不存在不显示
-          isMemberDiscount: Number(that.isMemberDiscountvale),//是否会员折扣
+          // isMemberDiscount: Number(that.isMemberDiscountvale),//是否会员折扣
           // isVirtual: Number(that.vipxuniku),                  //会员是够购买虚拟库存  1是  0 否
           // inventoryVirtualMin: Number(that.xunigou),          //虚拟库存起购数
           // //更多设置
@@ -1372,7 +1427,6 @@ export default {
         console.log('--Cgoos= '+Cgoos);
         data.append("specName", '颜色-尺码'); 
          
-        
 
         if(isDeep){
              Cgoos.forEach(function (item, index) {
@@ -1425,7 +1479,7 @@ export default {
       let addskuDengPrice = JSON.parse(JSON.stringify(Cgoos));
       addskuDengPrice.forEach(function(item, indexnum){
           item.price = parseInt(item.price*1000/10);               //价格
-          item.stockNum = Number(item.stock); //库存
+          item.inventoryTotal = Number(item.stock); //库存
           // item.code = Number(item.code);                      //编码
           // item.marketPrice  = parseInt(item.gprice*1000/10);  //供货价
           // item.marketPrice    = parseInt(item.qprice*1000/10);  //成本价 
@@ -1434,9 +1488,9 @@ export default {
           item.inventoryUnit = that.kucundan;  
           item.weight = Number(that.weight*1000);//按g算
           item.isShowInventory =  1 ;
-          item.isMemberDiscount = Number(that.isMemberDiscountvale);
-          item.isVirtual = Number(that.vipxuniku);
-          item.inventoryVirtualMin = Number(that.xunigou);
+          // item.isMemberDiscount = Number(that.isMemberDiscountvale); //是否会员折扣
+          // item.isVirtual = Number(that.vipxuniku);
+          // item.inventoryVirtualMin = Number(that.xunigou);
           item.pv = item.pv;
           item.photo    = item.img;
           // item.Cshu = [];
@@ -1456,6 +1510,7 @@ export default {
       data.append("attech", JSON.stringify(addskuDengPrice));
     }
 
+      //推客数据
       let packData = new Map();
       let vuparr1 = {};
       if(that.rcmCommissionData){
@@ -1632,10 +1687,10 @@ export default {
             that.$message.error("商品库存必填");
             return false;
           }
-          if(res.data.status == 500 && res.data.message == "会员价不合法"){
-            that.$message.error("会员价必填");
-            return false;
-          }
+          // if(res.data.status == 500 && res.data.message == "会员价不合法"){
+          //   that.$message.error("会员价必填");
+          //   return false;
+          // }
           if(res.data.status == 500 && res.data.message == "重量不合法"){
             that.$message.error("商品重量不合规范");
             return false;
@@ -1649,34 +1704,28 @@ export default {
           if(res.data.status == 200){
             that.$message.success("发布成功"); 
             // let sonDatail = res.data.itemId; //res.data.item.id;
+            
 
             if(parameter != 1){
                 that.$router.push({
                   path: '/goodsedit/'+sonDatail
               })
             }else{
-                that.$router.push({
+              console.log('----发布成功');
+              that.$router.push({
                   path: '/goodslist'
               })
+
+                // this.$router.go(-1);
+                // that.$router.push({
+                //   path: '/src/components/goods/goodslist.vue'
+                // })
             }
           }else{
             that.$message("发布失败," + res.data.message);
           }
       })  
-    },
-    // //请求：查询渠道商 
-    // selectqudo(){
-    //   let data = new FormData();
-    //   this.http.post( baseapi.qudaogoods,data).then(res=>{
-    //       this.qudaoshang = res.data.list;
-    //       this.skuqudaoprice = res.data.list;
-    //       this.qudaoshang1 = res.data.list;
-    //       this.qudaoshang2 = res.data.list;   
-    //       this.qudaoshang3 = res.data.list.filter(function(ele,idx,arr){
-    //         return idx !== 0;
-    //       });
-    //   })    
-    // } ,  
+    }, 
     handleAvatarSuccess(res, file) {
       this.pic = URL.createObjectURL(file.raw);
     },
@@ -1701,6 +1750,7 @@ export default {
     sidebar,
     secnavbar,
     imgsrc,
+    imgsrc2,
     videoson,
     test,
     freightTemplate_list
@@ -1708,8 +1758,35 @@ export default {
 };
 </script>
 
-<style>
-  
+<style >
+
+.goodsDetailView{
+  display: flex;
+  /* background: yellowgreen; */
+  padding: 20px;
+}
+.sonurlImgListView{
+  /* background: yellow; */
+  width: 100%;
+  margin: 50px;
+  padding: 20px;
+}
+/* 去除中间分割线*/ 
+.sonurlImgListView >>> .el-table__row>td{
+    border: none;
+}
+/* 取消悬停背景色 */
+.sonurlImgListView >>> tr:hover>td{
+	background-color: #ffffff !important;
+}
+.sonurlImgView{
+  display: flex;
+  margin: 20px;
+  /* background: lavenderblush; */
+}
+
+
+
 .xxxx .el-upload-list--picture-card .el-upload-list__item{
   width:80px;
   height:80px;
